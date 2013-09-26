@@ -18,22 +18,26 @@ public class MainMenu extends Group {
 	private ShapeRenderer debugRenderer;
 	
 	public MainMenu() {
-		selection = 0;
-		debugRenderer = new ShapeRenderer();
+		this.selection = MENU_START;
+		this.debugRenderer = new ShapeRenderer();
 	}
 
+	public int getSelection() {
+		return this.selection;
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
 		//Debug functions
 		batch.end();
-		debugRenderer.begin(ShapeType.FilledRectangle);
-        debugRenderer.setColor(Color.RED);
-        debugRenderer.filledRect(450, GUIHelper.getNewCoordinates(60, 80), 300, 80);
-        debugRenderer.filledRect(340, GUIHelper.getNewCoordinates(215, 80), 300, 80);
-        debugRenderer.filledRect(40, GUIHelper.getNewCoordinates(345, 80), 300, 80);
-        debugRenderer.end();
+		this.debugRenderer.begin(ShapeType.FilledRectangle);
+		this.debugRenderer.setColor(Color.RED);
+		this.debugRenderer.filledRect(450, GUIHelper.getNewCoordinates(60, 80), 300, 80);
+		this.debugRenderer.filledRect(340, GUIHelper.getNewCoordinates(215, 80), 300, 80);
+		this.debugRenderer.filledRect(40, GUIHelper.getNewCoordinates(345, 80), 300, 80);
+		this.debugRenderer.end();
 		batch.begin();
 	}
 }
