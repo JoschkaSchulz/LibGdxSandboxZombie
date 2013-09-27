@@ -75,7 +75,7 @@ public class InputHelper extends InputListener{
 		if(keycode == Input.Keys.A || keycode == Input.Keys.LEFT) InputHelper.LEFT = false;
 		if(keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) InputHelper.RIGHT = false;
 		
-		if(keycode == Input.Keys.E) InputHelper.ACTION = false;
+		if(keycode == Input.Keys.E || keycode == Input.Keys.ENTER) InputHelper.ACTION = false;
 		return true;
 	}
 	
@@ -85,7 +85,7 @@ public class InputHelper extends InputListener{
     	if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {InputHelper.LEFT = true;}
     	if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {InputHelper.RIGHT = true;}
     	
-    	if(Gdx.input.isKeyPressed(Input.Keys.E)) {InputHelper.ACTION = true;}
+    	if(Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {InputHelper.ACTION = true;}
 		return true;
 	}
 }
