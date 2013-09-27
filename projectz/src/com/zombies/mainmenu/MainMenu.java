@@ -14,18 +14,27 @@ import com.zombies.helper.InputHelper;
 import com.zombies.projectz.ProjectZ;
 
 public class MainMenu extends Group {
-	public final static int MENU_START = 0;
-	public final static int MENU_OPTIONS = 1;
-	public final static int MENU_EXIT = 2;
+	/********************************************************
+	 * 				Variables
+	 ********************************************************/
+	public final static int MENU_START 		= 0;	//static final variable for the start button
+	public final static int MENU_OPTIONS 	= 1;	//static final variable for the options button
+	public final static int MENU_EXIT 		= 2;	//static final variable for the exit button
 	
-	private ProjectZ projectZRef;
+	private ProjectZ projectZRef;			//A reference of the Main Class of the project
 	
-	private int selection;
-	private Image imgButtonStart;
-	private Image imgButtonOptions;
-	private Image imgButtonExit;
+	private int selection;					//The actual selected  menu
+	private Image imgButtonStart;			//The image of the start button
+	private Image imgButtonOptions;			//The image of the options button
+	private Image imgButtonExit;			//The image of the  exit button
+	
+	private float time = 0;					//This variable is used for check the time between two inputs
 	
 	private ShapeRenderer debugRenderer;
+	
+	/********************************************************
+	 * 				Construcktors
+	 ********************************************************/
 	
 	public MainMenu(ProjectZ projectZRef) {
 		this.selection = MENU_START;
@@ -52,11 +61,17 @@ public class MainMenu extends Group {
 		this.debugRenderer = new ShapeRenderer();
 	}
 
+	/********************************************************
+	 * 				getter and setter
+	 ********************************************************/
 	public int getSelection() {
 		return this.selection;
 	}
 	
-	private float time = 0;
+	/********************************************************
+	 * 				Methods
+	 ********************************************************/
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -98,6 +113,11 @@ public class MainMenu extends Group {
 		
 	}
 
+	/**
+	 * fireSelection is used to select the action that should be used
+	 * after the mouse is pressed, touch is pressed or the action key
+	 * on the Keyboard is pressed.
+	 */
 	private void fireSelection() {
 		switch(selection) {
 			default: 
