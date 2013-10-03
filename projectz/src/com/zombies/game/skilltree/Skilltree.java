@@ -39,10 +39,20 @@ public class Skilltree {
 		 }
 	}
 	
+	/**
+	 * Let the player learn the Skill if it is in the list of the avaible skills
+	 * 
+	 * @param skill the Skill that should be learnd
+	 */
 	public void learnSkill(Skill skill) {
 		learnSkill(skill.getId());
 	}
 	
+	/**
+	 * Let the player learn the Skill from the SkillID if it is in the list of the avaible skills
+	 * 
+	 * @param skill the SkillID that should be learnd
+	 */
 	public void learnSkill(int skillID) {
 		for(Skill s : skilltreeSkills) {
 			if(s.getId() == skillID) avaibleSkills.add(s);
