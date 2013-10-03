@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<charakter id="1">
+    <name>William Pokerwinski</name>
+    <age>35</age>
+    <height>185</height>
+    <meal id="1">
+    <image>william_pokerwinski.xml</image>
+    <story>
+        Hallo Welt hier kommt die Sotry von William Pokerwinski rein.
+    </story>
+    <inventory>
+        <item id="1" />
+    </inventory>
+    <skills>
+        <skill id="1" known="true" />
+        <skill id="3" known="true" />
+        <skill id="7" known="false" />
+    </skills>
+</charakter>
