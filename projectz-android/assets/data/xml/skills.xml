@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skills>
     <skill id="1">
-        <name></name>
-        <description></description>
+        <name>Langsame Verdauung I</name>
+        <description>Nahrungsverbrauch sinkt insgesamt um 10%</description>
     </skill>
     <skill id="2">
-        <name></name>
-        <description></description>
+        <name>Langsame Verdauung II</name>
+        <description>Nahrungsverbrauch sinkt insgesamt um 20%</description>
     </skill>
 </skills>

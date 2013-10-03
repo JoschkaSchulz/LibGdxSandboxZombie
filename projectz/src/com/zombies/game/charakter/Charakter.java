@@ -13,7 +13,7 @@ public class Charakter {
 	private String height;
 	private String image;
 	private String story;
-//	private Item meal;
+	private int meal;
 //	private Skilltree skilltree;
 	
 	public Charakter(FileHandle xmlFile) {
@@ -65,6 +65,15 @@ public class Charakter {
 	public void setStory(String story) {
 		this.story = story;
 	}
+	
+	public int getMeal() {
+		return meal;
+	}
+
+	public void setMeal(int meal) {
+		this.meal = meal;
+	}
+
 	/******************************************
 	 * 			methods
 	 ******************************************/
@@ -80,6 +89,8 @@ public class Charakter {
 			this.image = xml_element.getChildByName("image").getText();
 			this.story = xml_element.getChildByName("story").getText();
 		
+			this.meal = xml_element.getChildByName("meal").getIntAttribute("id");
+			
 		}catch(Exception e) {
 //			e.printStackTrace();
 			System.err.println("Fehler beim Laden des Charakters!");
