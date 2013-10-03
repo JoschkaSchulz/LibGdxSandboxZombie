@@ -8,22 +8,81 @@ import com.badlogic.gdx.utils.XmlReader;
 public class Charakter {
 	private FileHandle xmlFile;
 	
+	private String name;
+	private String age;
+	private String height;
+	private String image;
+	private String story;
+//	private Item meal;
+//	private Skilltree skilltree;
+	
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
-		System.out.println(this.xmlFile.toString());
 		
 		this.loadCharakter();
 	}
+
+	/******************************************
+	 * 			getter & setter
+	 ******************************************/
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public String getStory() {
+		return story;
+	}
+
+	public void setStory(String story) {
+		this.story = story;
+	}
+	/******************************************
+	 * 			methods
+	 ******************************************/
 	
 	private void loadCharakter() {
 		try {
-		XmlReader xml = new XmlReader();
-		XmlReader.Element xml_element = xml.parse(this.xmlFile);
+			XmlReader xml = new XmlReader();
+			XmlReader.Element xml_element = xml.parse(this.xmlFile);
 		
-		System.out.println(xml_element.getChildByName("name").getText());
+			this.name = xml_element.getChildByName("name").getText();
+			this.age = xml_element.getChildByName("age").getText();
+			this.height = xml_element.getChildByName("height").getText();
+			this.image = xml_element.getChildByName("image").getText();
+			this.story = xml_element.getChildByName("story").getText();
 		
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.err.println("Fehler beim Laden des Charakters!");
 		}
 	}
 }

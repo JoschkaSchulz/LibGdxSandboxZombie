@@ -7,5 +7,6 @@ import com.zombies.game.charakter.Charakter;
 public class GameHandler extends Group {
 	public GameHandler() {
 		Charakter c = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
+		System.out.println(c.getName() + "\n\nStory:\n" + c.getStory());
 	}
 }
