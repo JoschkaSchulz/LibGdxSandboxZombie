@@ -17,11 +17,6 @@ public class InputHelper extends InputListener{
 	public static boolean DOWN = false;
 	public static boolean LEFT = false;
 	public static boolean RIGHT = false;
-
-	public static boolean TOUCH_UP = false;
-	public static boolean TOUCH_DOWN = false;
-	public static boolean TOUCH_LEFT = false;
-	public static boolean TOUCH_RIGHT = false;
 	
 	public InputHelper(Touchpad touchpad, boolean mobile) {
 		//this.playerRef = playerRef;
@@ -36,17 +31,17 @@ public class InputHelper extends InputListener{
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
 		if(mobile) {
-			if(touchpad.getKnobPercentY() > 0.5) InputHelper.TOUCH_UP = true;
-			else InputHelper.TOUCH_UP = false;
+			if(touchpad.getKnobPercentY() > 0.5) InputHelper.UP = true;
+			else InputHelper.UP = false;
 				
-			if(touchpad.getKnobPercentY() < -0.5) InputHelper.TOUCH_DOWN = true;
-			else InputHelper.TOUCH_DOWN = false;
+			if(touchpad.getKnobPercentY() < -0.5) InputHelper.DOWN = true;
+			else InputHelper.DOWN = false;
 			
-			if(touchpad.getKnobPercentX() > 0.5) InputHelper.TOUCH_RIGHT = true;
-			else InputHelper.TOUCH_RIGHT = false;
+			if(touchpad.getKnobPercentX() > 0.5) InputHelper.RIGHT = true;
+			else InputHelper.RIGHT = false;
 			
-			if(touchpad.getKnobPercentX() < -0.5) InputHelper.TOUCH_LEFT = true;
-			else InputHelper.TOUCH_LEFT = false;
+			if(touchpad.getKnobPercentX() < -0.5) InputHelper.LEFT = true;
+			else InputHelper.LEFT = false;
 		}
 	}
 
@@ -58,10 +53,10 @@ public class InputHelper extends InputListener{
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if(mobile) {
-			InputHelper.TOUCH_UP = false;
-			InputHelper.TOUCH_DOWN = false;
-			InputHelper.TOUCH_RIGHT = false;
-			InputHelper.TOUCH_LEFT = false;
+			InputHelper.UP = false;
+			InputHelper.DOWN = false;
+			InputHelper.RIGHT = false;
+			InputHelper.LEFT = false;
 		}
 	}
 
