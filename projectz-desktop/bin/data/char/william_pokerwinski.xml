@@ -13,7 +13,6 @@
     </inventory>
     <skills>
         <skill id="1" known="true" />
-        <skill id="3" known="true" />
-        <skill id="7" known="false" />
+        <skill id="2" known="false" />
     </skills>
 </charakter>

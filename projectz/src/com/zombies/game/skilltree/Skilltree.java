@@ -12,9 +12,22 @@ public class Skilltree {
 	private LinkedList<Skill> skilltreeSkills;
 	
 	public Skilltree(XmlReader.Element skills) {
+		avaibleSkills = new LinkedList<Skill>();
+		skilltreeSkills = new LinkedList<Skill>();
+		
 		this.fillSkilltree(skills);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public LinkedList<Skill> getAvaibleSkills() {
+		return (LinkedList<Skill>) avaibleSkills.clone();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public LinkedList<Skill> getSkilltreeSkills() {
+		return (LinkedList<Skill>) skilltreeSkills.clone();
+	}
+
 	/**
 	 * Creates a Skilltree out of an XML Element
 	 * 

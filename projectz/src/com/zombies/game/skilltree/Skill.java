@@ -70,7 +70,7 @@ public class Skill {
 			return skilllist;
 		}catch(Exception e) {
 //			e.printStackTrace();
-			System.err.println("Fehler beim Laden des Charakters!");
+			System.err.println("Fehler beim Laden der Skills!");
 			return new LinkedList<Skill>();
 		}
 	}

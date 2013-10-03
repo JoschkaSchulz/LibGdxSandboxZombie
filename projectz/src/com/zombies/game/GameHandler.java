@@ -9,6 +9,7 @@ import com.zombies.game.skilltree.Skill;
 
 public class GameHandler extends Group {
 	public GameHandler() {
-		System.out.println(Skill.loadSkills(Gdx.files.internal("data/xml/skills.xml")).toString());
+		Charakter c = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
+		System.out.println(c.toString());
 	}
 }

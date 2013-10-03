@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
+import com.zombies.game.skilltree.Skill;
+import com.zombies.game.skilltree.Skilltree;
 
 public class Charakter {
 	private FileHandle xmlFile;
@@ -14,7 +16,7 @@ public class Charakter {
 	private String image;
 	private String story;
 	private int meal;
-//	private Skilltree skilltree;
+	private Skilltree skilltree;
 	
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
@@ -91,9 +93,27 @@ public class Charakter {
 		
 			this.meal = xml_element.getChildByName("meal").getIntAttribute("id");
 			
+			XmlReader.Element skills = xml_element.getChildByName("skills");
+			this.skilltree = new Skilltree(skills);
+			
 		}catch(Exception e) {
-//			e.printStackTrace();
-			System.err.println("Fehler beim Laden des Charakters!");
+			e.printStackTrace();
+//			System.err.println("Fehler beim Laden des Charakters!");
 		}
+	}
+	
+	public String toString() {
+		String avaibleSkills = "";
+		String skilltreeSkills = "";
+		
+		for(Skill s : this.skilltree.getAvaibleSkills()) {
+			avaibleSkills = avaibleSkills + "\n("+s.getId()+")"+s.getName();
+		}
+		
+		for(Skill s : this.skilltree.getSkilltreeSkills()) {
+			skilltreeSkills = skilltreeSkills + "\n("+s.getId()+")"+s.getName();
+		}
+		
+		return "~~~Charakter~~~\nName:"+getName()+"\nAge: "+getAge()+"\nHeight: "+getHeight()+"\nAvaible Skills:"+avaibleSkills+"\nComplete Skilltree:"+skilltreeSkills;
 	}
 }
