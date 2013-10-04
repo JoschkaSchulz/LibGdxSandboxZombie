@@ -74,13 +74,14 @@ public class InputHelper extends InputListener{
 		return true;
 	}
 	
-	public boolean keyDown(InputEvent event, int keycode) {   
+	public boolean keyDown(InputEvent event, int keycode) { 
     	if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {InputHelper.UP = true;}
     	if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {InputHelper.DOWN = true;}
     	if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {InputHelper.LEFT = true;}
     	if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {InputHelper.RIGHT = true;}
     	
     	if(Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {InputHelper.ACTION = true;}
+    			
 		return true;
 	}
 }

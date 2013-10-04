@@ -4,12 +4,45 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.game.charakter.Charakter;
+import com.zombies.game.charakterpicker.CharakterPicker;
 import com.zombies.game.skilltree.Skill;
 
 public class GameHandler extends Group {
+	//static final
+	public static final int STATE_CHARAKTERPICKER = 1;
+	public static final int STATE_MAP = 2;
+	
+	//groups
+	private CharakterPicker charPicker;
+	
+	private Charakter charakter;
+	
+	private int state;
+	
 	public GameHandler() {
-		Charakter c = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
-		System.out.println(c.toString());
+		charPicker = new CharakterPicker();
+		
+		charakter = null;
+		state = 0;
 	}
+
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		if(charakter == null && state != STATE_CHARAKTERPICKER) {
+			state = STATE_CHARAKTERPICKER;
+			this.clear();
+			this.addActor(this.charPicker);
+		}
+	}
+	
+	public void setCharakterAndStart(Charakter charakter) {
+		this.charakter = charakter;
+		state = STATE_MAP;
+		this.clear();
+	}
+	
 }
