@@ -30,19 +30,19 @@ public class InputHelper extends InputListener{
 	
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
-		if(mobile) {
-			if(touchpad.getKnobPercentY() > 0.5) InputHelper.UP = true;
-			else InputHelper.UP = false;
-				
-			if(touchpad.getKnobPercentY() < -0.5) InputHelper.DOWN = true;
-			else InputHelper.DOWN = false;
-			
-			if(touchpad.getKnobPercentX() > 0.5) InputHelper.RIGHT = true;
-			else InputHelper.RIGHT = false;
-			
-			if(touchpad.getKnobPercentX() < -0.5) InputHelper.LEFT = true;
-			else InputHelper.LEFT = false;
-		}
+//		if(mobile) {
+//			if(touchpad.getKnobPercentY() > 0.5) InputHelper.UP = true;
+//			else InputHelper.UP = false;
+//				
+//			if(touchpad.getKnobPercentY() < -0.5) InputHelper.DOWN = true;
+//			else InputHelper.DOWN = false;
+//			
+//			if(touchpad.getKnobPercentX() > 0.5) InputHelper.RIGHT = true;
+//			else InputHelper.RIGHT = false;
+//			
+//			if(touchpad.getKnobPercentX() < -0.5) InputHelper.LEFT = true;
+//			else InputHelper.LEFT = false;
+//		}
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class InputHelper extends InputListener{
 
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		if(mobile) {
-			InputHelper.UP = false;
-			InputHelper.DOWN = false;
-			InputHelper.RIGHT = false;
-			InputHelper.LEFT = false;
-		}
+//		if(mobile) {
+//			InputHelper.UP = false;
+//			InputHelper.DOWN = false;
+//			InputHelper.RIGHT = false;
+//			InputHelper.LEFT = false;
+//		}
 	}
 
 	/*****************************************************************************

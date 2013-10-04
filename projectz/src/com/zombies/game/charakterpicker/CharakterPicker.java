@@ -64,7 +64,7 @@ public class CharakterPicker extends Group {
 		
 		Texture texBackground4 = new Texture(Gdx.files.internal("data/gfx/charakterpicker/bg4.png"));
 		imgBackground4 = new Image(texBackground4);
-		imgBackground4.setPosition(128 + 1280, GUIHelper.getNewCoordinates(128 +786, 512));
+		imgBackground4.setPosition(128 + 1280, GUIHelper.getNewCoordinates(128 + 786, 512));
 		imgBackground4.setName("button_start");
 		this.addActor(imgBackground4);
 		
@@ -74,7 +74,7 @@ public class CharakterPicker extends Group {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		System.out.println(targetX + "/" + targetY);
+		
 		//Move to right side
 		if(currentX > targetX) {
 			this.translate((500 * delta), 0);
