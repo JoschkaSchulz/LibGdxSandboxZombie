@@ -131,7 +131,7 @@ public class CharakterPicker extends Group {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
-		FontHelper.KiteOne.draw(batch, "Hello World", 10, 10);
+		FontHelper.KiteOne.setColor(0f, 1f, 0f, 1f);
+		FontHelper.KiteOne.draw(batch, "Hello World", 10, 20);
 	}
 }
