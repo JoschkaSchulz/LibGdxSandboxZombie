@@ -2,79 +2,93 @@
 <skills>
     <skill id="1">
         <name>Langsame Verdauung I</name>
-        <description>Nahrungsverbrauch sinkt insgesamt um 10%</description>
+        <effect>Nahrungsverbrauch sinkt insgesamt um 10%</effect>
+		<description></description>
     </skill>
     <skill id="2">
         <name>Langsame Verdauung II</name>
-        <description>Nahrungsverbrauch sinkt insgesamt um 20%</description>
+        <effect>Nahrungsverbrauch sinkt insgesamt um 20%</effect>
+		<description></description>
     </skill>
 	<skill id="3">
         <name>Guter Verwerter (Nahrung) I</name>
-        <description>Nahrung stillt insgesamt 10% mehr Hunger</description>
+        <effect>Nahrung stillt insgesamt 10% mehr Hunger</effect>
+		<description></description>
     </skill>
 	<skill id="4">
         <name>Guter Verwerter (Nahrung) II</name>
-        <description>Nahrung stillt insgesamt 20% mehr Hunger</description>
+        <effect>Nahrung stillt insgesamt 20% mehr Hunger</effect>
+		<description></description>
     </skill>
 	<skill id="5">
         <name>Kaum Durstig I</name>
-        <description>Durst steigt insgesamt 10% langsamer</description>
+        <effect>Durst steigt insgesamt 10% langsamer</effect>
+		<description></description>
     </skill>
 	<skill id="6">
         <name>Kaum Durstig II</name>
-        <description>Durst steigt insgesamt 20% langsamer</description>
+        <effect>Durst steigt insgesamt 20% langsamer</effect>
+		<description></description>
     </skill>
 	<skill id="7">
         <name>Guter Verwerter (Trinken) I</name>
-        <description>Getränke stillen insgesamt 10% mehr Durst</description>
+        <effect>Getränke stillen insgesamt 10% mehr Durst</effect>
+		<description></description>
     </skill>
 	<skill id="8">
         <name>Guter Verwerter (Trinken) II</name>
-        <description>Getränke stillen insgesamt 20% mehr Durst</description>
+        <effect>Getränke stillen insgesamt 20% mehr Durst</effect>
+		<description></description>
     </skill>
 	<skill id="9">
         <name>Eisenmagen</name>
-        <description>Verdorbenes Essen kann ohne Nachteile gegessen werden</description>
+        <effect>Verdorbenes Essen kann ohne Nachteile gegessen werden</effect>
+		<description></description>
     </skill>
 	<skill id="10">
         <name>Stärke I</name>
-        <description>Nahkampfschaden ist insgesamt um 10% erhöht</description>
+        <effect>Nahkampfschaden ist insgesamt um 10% erhöht</effect>
+		<description></description>
     </skill>
 	<skill id="11">
         <name>Stärke II</name>
-        <description>Nahkampfschaden ist insgesamt um 20% erhöht</description>
+        <effect>Nahkampfschaden ist insgesamt um 20% erhöht</effect>
+		<description></description>
     </skill>
 	<skill id="12">
         <name>Stärke III</name>
-        <description>Nahkampfschaden ist insgesamt um 30% erhöht</description>
+        <effect>Nahkampfschaden ist insgesamt um 30% erhöht</effect>
+		<description></description>
     </skill>
 	<skill id="13">
         <name>"Finish em"</name>
-        <description>Nahmkampfangriffe haben eine 10%ige Chence Gegner sofort zu töten</description>
+        <effect>Nahmkampfangriffe haben eine 10%ige Chence Gegner sofort zu töten</effect>
+		<description></description>
     </skill>
 	<skill id="14">
         <name>Medizinisches Wissen I</name>
-        <description>Medizinische Ausrüstung der Stufe 3 kann verwendet werden</description>
+        <effect>Medizinische Ausrüstung der Stufe 3 kann verwendet werden</effect>
     </skill>
 	<skill id="15">
         <name>Medizinisches Wissen II</name>
-        <description>Medizinische Ausrüstung der Stufe 4 kann verwendet werden</description>
+        <effect>Medizinische Ausrüstung der Stufe 4 kann verwendet werden</effect>
+		
     </skill>
 	<skill id="16">
         <name>Medizinisches Wissen III</name>
-        <description>Medizinische Ausrüstung der Stufe 5 kann verwendet werden</description>
+        <effect>Medizinische Ausrüstung der Stufe 5 kann verwendet werden</effect>
     </skill>
 	<skill id="17">
         <name>Pfadfinder</name>
-        <description>Reisen verbrauchen 20% weniger Zeit</description>
+        <effect>Reisen verbrauchen 20% weniger Zeit</effect>
     </skill>
 	<skill id="18">
         <name>Tierfreund</name>
-        <description>Normale Tiere attakieren nicht mehr</description>
+        <effect>Normale Tiere attakieren nicht mehr</effect>
     </skill>
 	<skill id="19">
         <name>Ruhige Hand I</name>
-        <description>Schussbereich ist um 10% vergrößert</description>
+        <effect>Schussbereich ist um 10% vergrößert</effect>
     </skill>
 	
 	
