@@ -34,7 +34,7 @@ public class Skilltree {
 	 * @param skills the XML element from the charakter XML file
 	 */
 	public void fillSkilltree(XmlReader.Element skills) {
-		LinkedList<Skill> allSkills = Skill.loadSkills(Gdx.files.internal("data/xml/skills.xml"));
+		LinkedList<Skill> allSkills = Skill.loadSkills(Gdx.files.internal("data/xml/skills_deu.xml"));
 		
 		Iterator iterator_skills = skills.getChildrenByName("skill").iterator();
 		while(iterator_skills.hasNext()){
