@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.game.charakter.Charakter;
+import com.zombies.helper.FontHelper;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
 
@@ -130,5 +131,7 @@ public class CharakterPicker extends Group {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		
+		FontHelper.KiteOne.draw(batch, "Hello World", 10, 10);
 	}
 }

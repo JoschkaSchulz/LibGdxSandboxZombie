@@ -72,25 +72,98 @@
 	<skill id="15">
         <name>Medizinisches Wissen II</name>
         <effect>Medizinische Ausrüstung der Stufe 4 kann verwendet werden</effect>
-		
+		<description></description>
     </skill>
 	<skill id="16">
         <name>Medizinisches Wissen III</name>
         <effect>Medizinische Ausrüstung der Stufe 5 kann verwendet werden</effect>
-    </skill>
+		<description></description>
+	</skill>
 	<skill id="17">
         <name>Pfadfinder</name>
         <effect>Reisen verbrauchen 20% weniger Zeit</effect>
+		<description></description>
     </skill>
 	<skill id="18">
         <name>Tierfreund</name>
         <effect>Normale Tiere attakieren nicht mehr</effect>
+		<description></description>
     </skill>
 	<skill id="19">
         <name>Ruhige Hand I</name>
         <effect>Schussbereich ist um 10% vergrößert</effect>
+		<description></description>
     </skill>
-	
+	<skill id="20">
+        <name>Ruhige Hand II</name>
+        <effect>Schussbereich ist um 20% vergrößert</effect>
+		<description></description>
+    </skill>
+	<skill id="21">
+        <name>Ruhige Hand III</name>
+        <effect>Schussbereich ist um 30% vergrößert</effect>
+		<description></description>
+    </skill>
+	<skill id="22">
+        <name>Geübter Schütze I</name>
+        <effect>Rückstoß Schock verkürzt sich um 40%</effect>
+		<description></description>
+    </skill>
+	<skill id="22">
+        <name>Geübter Schütze II</name>
+        <effect>Rückstoß Schock verkürzt sich um 80%</effect>
+		<description></description>
+    </skill>
+	<skill id="23">
+        <name>Ausdauer I</name>
+        <effect>+10 Lebenspunkte</effect>
+		<description></description>
+    </skill>
+	<skill id="24">
+        <name>Ausdauer II</name>
+        <effect>+20 Lebenspunkte</effect>
+		<description></description>
+    </skill>
+	<skill id="25">
+        <name>Ausdauer III</name>
+        <effect>+30 Lebenspunkte</effect>
+		<description></description>
+    </skill>
+	<skill id="26">
+        <name>Rucksack Packer</name>
+        <effect>+1 Platz für kleine Rucksäcke, +2 Platz für mittlere Rucksäcke, +3 Plätze für große Rücksäcke , +4 plätze für militärische Rucksäcke</effect>
+		<description></description>
+    </skill>
+	<skill id="27">
+        <name>Späher</name>
+        <effect>grobe Beschreibung für die Events auf der Karte</effect>
+		<description></description>
+    </skill>
+	<skill id="28">
+        <name>Schleichen</name>
+        <effect>Zombies entdecken den Spieler nicht von bewegungen</effect>
+		<description></description>
+    </skill>
+	<skill id="29">
+        <name>Lederhaut I</name>
+        <effect>Spieler nimmt 10% weniger Schaden zuzüglich Rüstung</effect>
+		<description></description>
+    </skill>
+	<skill id="30">
+        <name>Lederhaut II</name>
+        <effect>Spieler nimmt 20% weniger Schaden zuzüglich Rüstung</effect>
+		<description></description>
+    </skill>
+	<skill id="31">
+        <name>Trinkfest</name>
+        <effect>Charaktere haben keine Negativen Effekte von Alkohol</effect>
+		<description></description>
+    </skill>
+	<skill id="32">
+        <name>Finder</name>
+        <effect>Spieler findet mehr Gegenstände</effect>
+		<description></description>
+    </skill>
 	
 	
 </skills>

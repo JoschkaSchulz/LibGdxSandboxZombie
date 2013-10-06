@@ -68,29 +68,31 @@
 	<skill id="14">
         <name>Medizinisches Wissen I</name>
         <effect>Medizinische Ausrüstung der Stufe 3 kann verwendet werden</effect>
+        <description></description>
     </skill>
 	<skill id="15">
         <name>Medizinisches Wissen II</name>
         <effect>Medizinische Ausrüstung der Stufe 4 kann verwendet werden</effect>
-		
+		<description></description>
     </skill>
 	<skill id="16">
         <name>Medizinisches Wissen III</name>
         <effect>Medizinische Ausrüstung der Stufe 5 kann verwendet werden</effect>
+        <description></description>
     </skill>
 	<skill id="17">
         <name>Pfadfinder</name>
         <effect>Reisen verbrauchen 20% weniger Zeit</effect>
+        <description></description>
     </skill>
 	<skill id="18">
         <name>Tierfreund</name>
         <effect>Normale Tiere attakieren nicht mehr</effect>
+        <description></description>
     </skill>
 	<skill id="19">
         <name>Ruhige Hand I</name>
         <effect>Schussbereich ist um 10% vergrößert</effect>
+        <description></description>
     </skill>
-	
-	
-	
 </skills>

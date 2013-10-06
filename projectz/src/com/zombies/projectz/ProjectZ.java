@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zombies.game.GameHandler;
+import com.zombies.helper.FontHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.mainmenu.MainMenu;
 
@@ -32,6 +33,7 @@ public class ProjectZ implements ApplicationListener {
 	
 	public void create() {
 		stage = new Stage();
+		FontHelper.loadFontHelper();
 		
 		//Start with the main Menu (memo: stage.clear removes all actors)
 		mainMenu = new MainMenu(this);
