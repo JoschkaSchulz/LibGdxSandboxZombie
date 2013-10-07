@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class FontHelper {
-	public static BitmapFont KiteOne;
+	public static BitmapFont KITEONE;
+	
 	public static void loadFontHelper() {
-		KiteOne = new BitmapFont(Gdx.files.internal("data/fonts/KiteOne.fnt"),Gdx.files.internal("data/fonts/KiteOne_0.png"), false);
+		KITEONE = new BitmapFont(Gdx.files.internal("data/fonts/KiteOne.fnt"),Gdx.files.internal("data/fonts/KiteOne_0.png"), false);
 	}
 }

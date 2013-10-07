@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.FontHelper;
 import com.zombies.helper.GUIHelper;
@@ -32,8 +33,15 @@ public class CharakterPicker extends Group {
 	private Image imgBackground4;
 	private float time;
 	
+	private Charakter selection;
+	private Charakter[][] chars;
+	
 	public CharakterPicker() {
-		Charakter c = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
+		chars = new Charakter[2][2];
+		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
+		chars[1][0] = null;
+		chars[0][1] = null;
+		chars[1][1] = null;
 		time = 0;
 		
 		this.currentX = 0;
@@ -83,6 +91,7 @@ public class CharakterPicker extends Group {
 				currentX = targetX;
 				this.setX(targetX * Gdx.graphics.getWidth());
 				this.inAnimation = false;
+				selectCharakter(currentX, currentY);
 			}
 		}else if(currentX < targetX) {
 			this.translate(-(500 * delta), 0);
@@ -90,6 +99,7 @@ public class CharakterPicker extends Group {
 				currentX = targetX;
 				this.setX(-(targetX * Gdx.graphics.getWidth()));
 				this.inAnimation = false;
+				selectCharakter(currentX, currentY);
 			}
 		}else if(currentY > targetY) {
 			this.translate(0, -(500 * delta));
@@ -97,6 +107,7 @@ public class CharakterPicker extends Group {
 				currentY = targetY;
 				this.setY((targetY * Gdx.graphics.getHeight()));
 				this.inAnimation = false;
+				selectCharakter(currentX, currentY);
 			}
 		}else if(currentY < targetY) {
 			this.translate(0, (500 * delta));
@@ -104,6 +115,7 @@ public class CharakterPicker extends Group {
 				currentY = targetY;
 				this.setY(targetY * Gdx.graphics.getHeight());
 				this.inAnimation = false;
+				selectCharakter(currentX, currentY);
 			}
 		}
 		
@@ -128,10 +140,32 @@ public class CharakterPicker extends Group {
 		}
 	}
 
+	public void selectCharakter(int x, int y) {
+		selection = chars[x][y];
+		if(selection != null) System.out.println(selection.toString());
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		FontHelper.KiteOne.setColor(0f, 1f, 0f, 1f);
-		FontHelper.KiteOne.draw(batch, "Hello World", 10, 20);
+		
+		int x = (int)(128 + getX());
+		int y = (int)(GUIHelper.getNewCoordinates(128, 512) + getY());
+		
+		//Texts for Charslot [0] [0] (William Pokerwinski)
+		FontHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
+		FontHelper.KITEONE.draw(batch, "Name:", x, GUIHelper.getNewCoordinates(y, 16));
+		FontHelper.KITEONE.draw(batch, chars[0][0].getName(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 1)));
+		FontHelper.KITEONE.draw(batch, "Alter:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
+		FontHelper.KITEONE.draw(batch, chars[0][0].getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
+		FontHelper.KITEONE.draw(batch, "Größe:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
+		FontHelper.KITEONE.draw(batch, chars[0][0].getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
+		FontHelper.KITEONE.draw(batch, "Hintergrund:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 6)));
+		for(int i = 0; i < chars[0][0].getStory().length()/40; i++) {
+			FontHelper.KITEONE.draw(batch, chars[0][0].getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
+			if(chars[0][0].getStory().length() > 40 && i == (chars[0][0].getStory().length()/40)-1) {
+				FontHelper.KITEONE.draw(batch, chars[0][0].getStory().subSequence(i+1*40, chars[0][0].getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
+			}
+		}
 	}
 }
