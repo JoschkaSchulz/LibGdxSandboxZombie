@@ -38,7 +38,7 @@ public class CharakterPicker extends Group {
 	
 	public CharakterPicker() {
 		chars = new Charakter[2][2];
-		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski.xml"));
+		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski_ger.xml"));
 		chars[1][0] = null;
 		chars[0][1] = null;
 		chars[1][1] = null;
