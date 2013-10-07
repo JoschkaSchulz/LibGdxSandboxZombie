@@ -68,6 +68,7 @@
 	<skill id="14">
         <name>Medizinisches Wissen I</name>
         <effect>Medizinische Ausrüstung der Stufe 3 kann verwendet werden</effect>
+		<description></description>
     </skill>
 	<skill id="15">
         <name>Medizinisches Wissen II</name>
@@ -161,7 +162,17 @@
     </skill>
 	<skill id="32">
         <name>Finder</name>
-        <effect>Spieler findet mehr Gegenstände</effect>
+        <effect>Spieler findet mehr Gegenstände in loot Events</effect>
+		<description></description>
+    </skill>
+	<skill id="33">
+        <name>Werfer</name>
+        <effect>Kann Nahkampfwaffe als Fernkampfwaffe verwenden und einmal werfen</effect>
+		<description></description>
+    </skill>
+	<skill id="34">
+        <name>Klare Sicht</name>
+        <effect>Eventkarten werden voll aufgedeckt</effect>
 		<description></description>
     </skill>
 	
