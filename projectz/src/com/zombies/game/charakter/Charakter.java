@@ -76,6 +76,10 @@ public class Charakter {
 		this.meal = meal;
 	}
 
+	public Skilltree getSkilltree() {
+		return skilltree;
+	}
+
 	/******************************************
 	 * 			methods
 	 ******************************************/

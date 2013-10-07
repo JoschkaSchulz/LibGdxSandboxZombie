@@ -150,21 +150,41 @@ public class CharakterPicker extends Group {
 		super.draw(batch, parentAlpha);
 		
 		int x = (int)(128 + getX());
-		int y = (int)(GUIHelper.getNewCoordinates(128, 512) + getY());
-		
+		int y = (int)(GUIHelper.getNewCoordinates(128, 512) + -getY());
+		Charakter c = chars[0][0];
+				
 		//Texts for Charslot [0] [0] (William Pokerwinski)
 		FontHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
 		FontHelper.KITEONE.draw(batch, "Name:", x, GUIHelper.getNewCoordinates(y, 16));
-		FontHelper.KITEONE.draw(batch, chars[0][0].getName(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 1)));
+		FontHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 1)));
 		FontHelper.KITEONE.draw(batch, "Alter:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
-		FontHelper.KITEONE.draw(batch, chars[0][0].getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
+		FontHelper.KITEONE.draw(batch, c.getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
 		FontHelper.KITEONE.draw(batch, "Größe:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
-		FontHelper.KITEONE.draw(batch, chars[0][0].getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
+		FontHelper.KITEONE.draw(batch, c.getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
 		FontHelper.KITEONE.draw(batch, "Hintergrund:", x, GUIHelper.getNewCoordinates(y, 16 + (32 * 6)));
-		for(int i = 0; i < chars[0][0].getStory().length()/40; i++) {
-			FontHelper.KITEONE.draw(batch, chars[0][0].getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
-			if(chars[0][0].getStory().length() > 40 && i == (chars[0][0].getStory().length()/40)-1) {
-				FontHelper.KITEONE.draw(batch, chars[0][0].getStory().subSequence(i+1*40, chars[0][0].getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
+		for(int i = 0; i < c.getStory().length()/40; i++) {
+			FontHelper.KITEONE.draw(batch, c.getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
+			if(c.getStory().length() > 40 && i == (c.getStory().length()/40)-1) {
+				FontHelper.KITEONE.draw(batch, c.getStory().subSequence(i+1*40, c.getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
+			}
+		}
+		int counter = 0;
+		FontHelper.KITEONE.draw(batch, "Hobbies:", x+512, GUIHelper.getNewCoordinates(y, 16));
+		for(int i = 0; i < c.getSkilltree().getAvaibleSkills().size(); i++) {
+			FontHelper.KITEONE.draw(batch, c.getSkilltree().getAvaibleSkills().get(i).getName(), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 1 + i)));
+			counter++;
+		}
+		String become = "";
+		FontHelper.KITEONE.draw(batch, "Was möchte ich werden:", x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 2 + counter)));
+		for(int i = 0; i < c.getSkilltree().getSkilltreeSkills().size(); i++) {
+			if(!c.getSkilltree().getAvaibleSkills().contains(c.getSkilltree().getSkilltreeSkills().get(i))){
+				become =  become + (i != 0 ? ", " : "" ) + c.getSkilltree().getSkilltreeSkills().get(i).getName();
+			}
+		}
+		for(int i = 0; i < become.length()/40; i++) {
+			FontHelper.KITEONE.draw(batch, become.subSequence(i*40, (i+1)*40), x +512, GUIHelper.getNewCoordinates(y, 16 + (32 * 3 + counter)));
+			if(become.length() > 40 && i == (become.length()/40)-1) {
+				FontHelper.KITEONE.draw(batch, become.subSequence(i+1*40, become.length()), x + 512, GUIHelper.getNewCoordinates(y, 16 + (32 * 4 + counter)));
 			}
 		}
 	}
