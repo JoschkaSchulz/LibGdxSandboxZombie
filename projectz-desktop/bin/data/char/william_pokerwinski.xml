@@ -5,7 +5,8 @@
     <height>185</height>
     <meal id="1" />
     <image>william_pokerwinski.xml</image>
-    <story>
+    <Attributes maxLP = "100" maxStomach = "100" maxThirst = "100"/>
+	<story>
         Hallo Welt hier kommt die Sotry von William Pokerwinski rein.
     </story>
     <inventory>

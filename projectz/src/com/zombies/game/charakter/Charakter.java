@@ -15,6 +15,12 @@ public class Charakter {
 	private String height;
 	private String image;
 	private String story;
+	private int maxLP;
+	private int currentLP;
+	private int maxStomach;
+	private int currentStomach;
+	private int maxThirst;
+	private int currentThirst;
 	private int meal;
 	private Skilltree skilltree;
 	
@@ -79,6 +85,56 @@ public class Charakter {
 	public Skilltree getSkilltree() {
 		return skilltree;
 	}
+	
+	public int getMaxLP()
+	{
+		return this.maxLP;
+	}
+	
+	public void setMaxLP(int maxLP)
+	{
+		this.maxLP = maxLP;
+	}
+	
+	public int getCurrentLP() {
+		return currentLP;
+	}
+
+	public void setCurrentLP(int currentLP) {
+		this.currentLP = currentLP;
+	}
+
+	public int getMaxStomach() {
+		return maxStomach;
+	}
+
+	public void setMaxStomach(int maxStomach) {
+		this.maxStomach = maxStomach;
+	}
+
+	public int getCurrentStomach() {
+		return currentStomach;
+	}
+
+	public void setCurrentStomach(int currentStomach) {
+		this.currentStomach = currentStomach;
+	}
+
+	public int getMaxThirst() {
+		return maxThirst;
+	}
+
+	public void setMaxThirst(int maxThirst) {
+		this.maxThirst = maxThirst;
+	}
+
+	public int getCurrentThirst() {
+		return currentThirst;
+	}
+
+	public void setCurrentThirst(int currentThirst) {
+		this.currentThirst = currentThirst;
+	}
 
 	/******************************************
 	 * 			methods
@@ -96,6 +152,14 @@ public class Charakter {
 			this.story = xml_element.getChildByName("story").getText();
 		
 			this.meal = xml_element.getChildByName("meal").getIntAttribute("id");
+			this.maxLP = xml_element.getChildByName("Attributes").getIntAttribute("maxLP");
+			this.maxStomach = xml_element.getChildByName("Attributes").getIntAttribute("maxStomach");
+			this.maxThirst = xml_element.getChildByName("Attributes").getIntAttribute("maxThirst");
+			
+			this.currentLP = maxLP;
+			this.currentStomach = maxStomach;
+			this.currentThirst = maxThirst;
+			
 			
 			XmlReader.Element skills = xml_element.getChildByName("skills");
 			this.skilltree = new Skilltree(skills);
