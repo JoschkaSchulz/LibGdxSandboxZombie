@@ -8,8 +8,10 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "projectz";
 		cfg.useGL20 = false;
+
+		cfg.resizable = false;
 		cfg.width = 1280;
-		cfg.height = 786;
+		cfg.height = 759; //786 klappt nicht mehr
 		
 		new LwjglApplication(new ProjectZ(), cfg);
 	}

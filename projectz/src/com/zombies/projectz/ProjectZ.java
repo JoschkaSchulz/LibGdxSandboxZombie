@@ -55,7 +55,7 @@ public class ProjectZ implements ApplicationListener {
 	
 	public void resize(int width, int height) {
 		width = 1280;
-		height = 786;
+		height = 759;	//786
 		stage.setViewport(width, height, false);
 	}
 
