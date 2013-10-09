@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+    <item id="cp_name" value="Name:" />
+    <item id="cp_age" value="Alter:" />
+    <item id="cp_height" value="Höhe:" />
+    <item id="cp_story" value="Hintergrund:" />
+    <item id="cp_hobby" value="Hobbies:" />
+    <item id="cp_become" value="Was möchte ich werden:" />
+</list>

@@ -24,6 +24,7 @@ public class MainMenu extends Group {
 	private ProjectZ projectZRef;			//A reference of the Main Class of the project
 	
 	private int selection;					//The actual selected  menu
+	private Image imgBackground;			//The image of the background
 	private Image imgButtonStart;			//The image of the start button
 	private Image imgButtonOptions;			//The image of the options button
 	private Image imgButtonExit;			//The image of the  exit button
@@ -39,6 +40,15 @@ public class MainMenu extends Group {
 	public MainMenu(ProjectZ projectZRef) {
 		this.selection = MENU_START;
 		this.projectZRef = projectZRef;
+		
+		System.out.println(Gdx.graphics.getHeight() + "/" + Gdx.graphics.getWidth());
+		
+		Texture texBackground = new Texture(Gdx.files.internal("data/gfx/MainMenu/background_image.png"));
+		imgBackground = new Image(texBackground);
+		imgBackground.setPosition(0, GUIHelper.getNewCoordinates(0, (int)(1024 * 1.5)));
+		imgBackground.setName("background");
+		imgBackground.scale(0.35f,0.5f);
+		this.addActor(imgBackground);
 		
 		Texture texButtonStart = new Texture(Gdx.files.internal("data/gfx/MainMenu/button_start.png"));
 		imgButtonStart = new Image(texButtonStart);
