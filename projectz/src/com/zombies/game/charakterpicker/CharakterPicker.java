@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.sun.org.apache.xml.internal.utils.CharKey;
+import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.FontHelper;
 import com.zombies.helper.GUIHelper;
@@ -29,6 +30,7 @@ public class CharakterPicker extends Group {
 
 	private boolean inAnimation;
 	
+	private GameHandler gameHanderRef;
 	private ShapeRenderer debugRenderer;
 	
 	private Image imgBackground1;
@@ -144,6 +146,10 @@ public class CharakterPicker extends Group {
 			this.targetY++;
 			this.inAnimation = true;
 			time = 0;
+		}
+		
+		if(InputHelper.ACTION) {
+			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 	}
 

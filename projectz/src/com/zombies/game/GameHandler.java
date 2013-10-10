@@ -5,17 +5,22 @@ import java.util.Arrays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.sun.org.apache.xml.internal.utils.CharKey;
+import com.zombies.animation.Animation;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.game.charakterpicker.CharakterPicker;
+import com.zombies.game.map.Map;
 import com.zombies.game.skilltree.Skill;
 
 public class GameHandler extends Group {
 	//static final
 	public static final int STATE_CHARAKTERPICKER = 1;
-	public static final int STATE_MAP = 2;
+	public static final int STATE_INTRO = 2;
+	public static final int STATE_MAP = 3;
 	
 	//groups
 	private CharakterPicker charPicker;
+	private Animation intro;
+	private Map map;
 	
 	private Charakter charakter;
 	
@@ -36,13 +41,22 @@ public class GameHandler extends Group {
 			state = STATE_CHARAKTERPICKER;
 			this.clear();
 			this.addActor(this.charPicker);
+		}else if(state == STATE_INTRO && intro != null) {
+			if(intro.getFinished()) {
+				state = STATE_MAP;
+				this.clear();
+				map = new Map();
+				this.addActor(map);
+			}
 		}
 	}
 	
 	public void setCharakterAndStart(Charakter charakter) {
 		this.charakter = charakter;
-		state = STATE_MAP;
+		state = STATE_INTRO;
 		this.clear();
+		intro = new Animation();
+		this.addActor(intro);
 	}
 	
 }
