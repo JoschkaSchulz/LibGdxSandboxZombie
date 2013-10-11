@@ -47,6 +47,7 @@ public class GameHandler extends Group {
 				this.clear();
 				map = new Map();
 				this.addActor(map);
+				map.generateMap(Map.TYPE_CITY);
 			}
 		}
 	}

@@ -86,12 +86,18 @@ public class CharakterPicker extends Group {
 		imgBackground4.setName("button_start");
 		this.addActor(imgBackground4);
 		
+		selectCharakter(currentX, currentY);
+		
 		this.debugRenderer = new ShapeRenderer();
 	}
 	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		
+		if(InputHelper.ACTION) {
+			((GameHandler) this.getParent()).setCharakterAndStart(selection);
+		}
 		
 		//Move to right side
 		if(currentX > targetX) {
@@ -146,10 +152,6 @@ public class CharakterPicker extends Group {
 			this.targetY++;
 			this.inAnimation = true;
 			time = 0;
-		}
-		
-		if(InputHelper.ACTION) {
-			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 	}
 

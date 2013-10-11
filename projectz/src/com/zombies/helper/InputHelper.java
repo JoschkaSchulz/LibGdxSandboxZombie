@@ -18,6 +18,10 @@ public class InputHelper extends InputListener{
 	public static boolean LEFT = false;
 	public static boolean RIGHT = false;
 	
+	public static boolean DRAG = false;
+	public static float DRAG_X = -1;
+	public static float DRAG_Y = -1;
+	
 	public InputHelper(Touchpad touchpad, boolean mobile) {
 		//this.playerRef = playerRef;
 		this.touchpad = touchpad;
@@ -30,6 +34,8 @@ public class InputHelper extends InputListener{
 	
 	@Override
 	public void touchDragged(InputEvent event, float x, float y, int pointer) {
+		DRAG_X = x;
+		DRAG_Y = y;
 //		if(mobile) {
 //			if(touchpad.getKnobPercentY() > 0.5) InputHelper.UP = true;
 //			else InputHelper.UP = false;
@@ -47,11 +53,16 @@ public class InputHelper extends InputListener{
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		DRAG = true;
+		DRAG_X = x;
+		DRAG_Y = y;
 		return true;
 	}
 
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		DRAG = false;
+		DRAG_X = DRAG_Y = -1;
 //		if(mobile) {
 //			InputHelper.UP = false;
 //			InputHelper.DOWN = false;
