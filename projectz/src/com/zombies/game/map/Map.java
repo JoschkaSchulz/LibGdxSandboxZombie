@@ -62,9 +62,9 @@ public class Map extends Group {
 			System.out.println(getX() + "/" + getY());
 			//Correct x and y for map borders
 			if(getX() > 0) setX(0);
-			else if(getX() < -2048 + Gdx.graphics.getWidth()) setX(2048);
+			else if(getX() < -2048 + Gdx.graphics.getWidth()) setX(-2048 + Gdx.graphics.getWidth());
 			if(getY() < 0) setY(0);
-			else if(getY() > 2048 - Gdx.graphics.getHeight()) setY(2048);
+			else if(getY() > 2048 - Gdx.graphics.getHeight()) setY(2048 - Gdx.graphics.getHeight());
 		}else dragX = dragY = 0;
 	}
 }
