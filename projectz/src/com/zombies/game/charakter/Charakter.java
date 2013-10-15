@@ -172,7 +172,7 @@ public class Charakter {
 	
 	public String toString() {
 		String avaibleSkills = "";
-		String skilltreeSkills = "";
+		String skilltreeSkills = ""; 
 		
 		for(Skill s : this.skilltree.getAvaibleSkills()) {
 			avaibleSkills = avaibleSkills + "\n("+s.getId()+")"+s.getName();

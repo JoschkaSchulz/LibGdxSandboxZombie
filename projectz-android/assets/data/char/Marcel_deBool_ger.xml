@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<charakter id="1">
-    <name>William Pokerwinski</name>
-    <age>35</age>
-    <height>185</height>
+<charakter id="3">
+    <name>Kasia von Luprecht</name>
+    <age>19</age>
+    <height>168</height>
     <meal id="1" />
     <image>william_pokerwinski.xml</image>
-    <Attributes maxLP = "100" maxStomach = "100" maxThirst = "90"/>
+    <Attributes maxLP = "90" maxStomach = "90" maxThirst = "110"/>
 	<story>
-        Hallo Welt hier kommt die Story von William Pokerwinski rein.
+        Hallo Welt hier kommt die Sotry von William Pokerwinski rein.
     </story>
     <inventory>
         <item id="1" />

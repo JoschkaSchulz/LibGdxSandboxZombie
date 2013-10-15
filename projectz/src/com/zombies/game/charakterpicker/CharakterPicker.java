@@ -47,8 +47,8 @@ public class CharakterPicker extends Group {
 	public CharakterPicker() {
 		chars = new Charakter[2][2];
 		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski_ger.xml"));
-		chars[1][0] = null;
-		chars[0][1] = null;
+		chars[1][0] = new Charakter(Gdx.files.internal("data/char/Kasia_vonLuprecht_ger.xml"));
+		chars[0][1] = new Charakter(Gdx.files.internal("data/char/Marcel_deBool_ger.xml"));
 		chars[1][1] = null;
 		time = 0;
 		t = XMLHelper.loadXML(Gdx.files.internal("data/xml/charakter_picker_ger.xml"));
@@ -202,6 +202,7 @@ public class CharakterPicker extends Group {
 		super.draw(batch, parentAlpha);
 		
 		drawCharakterInfo((int)(128 + getX()), (int)(GUIHelper.getNewCoordinates(128, 512) + -getY()), chars[0][0], batch);
-		drawCharakterInfo((int)(1280 + 128 + getX()), (int)(GUIHelper.getNewCoordinates(128, 512) + -getY()), chars[0][0], batch);
+		drawCharakterInfo((int)(1280 + 128 + getX()), (int)(GUIHelper.getNewCoordinates(128, 512) + -getY()), chars[1][0], batch);
+		drawCharakterInfo((int)(128 + getX()),(int)(GUIHelper.getNewCoordinates(128 + 768, 512) + getY()),chars[1][0], batch);
 	}
 }
