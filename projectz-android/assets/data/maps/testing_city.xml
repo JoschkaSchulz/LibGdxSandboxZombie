@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map name="Testing City" image="testing_city.png" type="city">
+    <nodes>
+        <node id="0" icon="" x="50" y="50">
+        	<link id="1" time="10"/>
+        	<link id="2" time="25"/>
+        </node>
+        <node id="1" icon="" x="50" y="50">
+        	<link id="3" time="60"/>
+        </node>
+        <node id="2" icon="" x="50" y="50" extra="exit">
+        </node>
+        <node id="3" icon="" x="50" y="50">
+        	<link id="2" time="10"/>
+        </node>
+    </nodes>
+</map>
