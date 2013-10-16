@@ -155,18 +155,31 @@ public class CharakterPicker extends Group {
 		}
 	}
 
+	/**
+	 * sets the selection on another char
+	 *
+	 * @param x the x value of the char
+	 * @param y the y value of the char
+	 */
 	public void selectCharakter(int x, int y) {
 		selection = chars[x][y];
 		if(selection != null) System.out.println(selection.toString());
 	}
 	
+	/**
+	 * draws the charakter info Text
+	 * 
+	 * @param x start x value (0 for first char, 1 for second... not pixel!)
+	 * @param y start y value (0 for the first, 1 for the second... not pixel!)
+	 * @param c the charakter
+	 * @param batch the batch of wich should be drawn
+	 */
 	private void drawCharakterInfo(int x, int y, Charakter c, SpriteBatch batch) {
 		//Calculation for x and y
 		x = (int)(128 + (Gdx.graphics.getWidth() * x) + getX());
-//		y = (int)(GUIHelper.getNewCoordinates(128 + (Gdx.graphics.getHeight() * y), 512) + -getY());
 		y = (int)(128 + (786 * y) - getY());
 		
-		//Texts for Charslot [0] [0] (William Pokerwinski)
+		//Graphical output
 		FontHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
 		FontHelper.KITEONE.draw(batch, t.get("cp_name"), x, GUIHelper.getNewCoordinates(y, 16));
 		FontHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y + (32 * 1), 16));
