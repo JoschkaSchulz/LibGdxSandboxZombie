@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
     <item id="cp_name" value="Name:" />
-    <item id="cp_age" value="Alter:" />
-    <item id="cp_height" value="Höhe:" />
-    <item id="cp_story" value="Hintergrund:" />
+    <item id="cp_age" value="Age:" />
+    <item id="cp_height" value="Size:" />
+    <item id="cp_story" value="Background:" />
     <item id="cp_hobby" value="Hobbies:" />
-    <item id="cp_become" value="Was möchte ich werden:" />
+    <item id="cp_become" value="What I want to become:" />
 </list>
