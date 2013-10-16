@@ -161,10 +161,15 @@ public class CharakterPicker extends Group {
 	}
 	
 	private void drawCharakterInfo(int x, int y, Charakter c, SpriteBatch batch) {
+		//Calculation for x and y
+		x = (int)(128 + (Gdx.graphics.getWidth() * x) + getX());
+//		y = (int)(GUIHelper.getNewCoordinates(128 + (Gdx.graphics.getHeight() * y), 512) + -getY());
+		y = (int)(128 + (786 * y) - getY());
+		
 		//Texts for Charslot [0] [0] (William Pokerwinski)
 		FontHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
 		FontHelper.KITEONE.draw(batch, t.get("cp_name"), x, GUIHelper.getNewCoordinates(y, 16));
-		FontHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 1)));
+		FontHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y + (32 * 1), 16));
 		FontHelper.KITEONE.draw(batch, t.get("cp_age"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
 		FontHelper.KITEONE.draw(batch, c.getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
 		FontHelper.KITEONE.draw(batch, t.get("cp_height"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
@@ -201,8 +206,8 @@ public class CharakterPicker extends Group {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
-		drawCharakterInfo((int)(128 + getX()), (int)(GUIHelper.getNewCoordinates(128, 512) + -getY()), chars[0][0], batch);
-		drawCharakterInfo((int)(1280 + 128 + getX()), (int)(GUIHelper.getNewCoordinates(128, 512) + -getY()), chars[1][0], batch);
-		drawCharakterInfo((int)(128 + getX()),(int)(GUIHelper.getNewCoordinates(128 + 768, 512) + getY()),chars[1][0], batch);
+		drawCharakterInfo(0, 0, chars[0][0], batch);
+		drawCharakterInfo(1, 0, chars[1][0], batch);
+		drawCharakterInfo(0, 1,chars[0][1], batch);
 	}
 }
