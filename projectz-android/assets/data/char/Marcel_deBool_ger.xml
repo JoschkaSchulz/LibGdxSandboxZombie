@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <charakter id="3">
-    <name>Kasia von Luprecht</name>
-    <age>19</age>
-    <height>168</height>
+    <name>Marcel de Bool</name>
+    <age>45</age>
+    <height>185</height>
     <meal id="1" />
     <image>william_pokerwinski.xml</image>
     <Attributes maxLP = "90" maxStomach = "90" maxThirst = "110"/>

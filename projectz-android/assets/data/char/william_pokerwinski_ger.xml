@@ -7,7 +7,10 @@
     <image>william_pokerwinski.xml</image>
     <Attributes maxLP = "100" maxStomach = "100" maxThirst = "90"/>
 	<story>
-        Hallo Welt hier kommt die Story von William Pokerwinski rein.
+        Der Facharzt an einer Uniklinik William Pokerwinski hat durch Glück die erste Welle überlebt. 
+		Seine Frau und sein kleines Kind hat er während der Panik aus den Augen verloren und vermisst sie seither.
+		Er empfing vor kurzem einen Funkspruch in dem nach Medizinern und Wissenschaftlern gefragt wurde.
+		Dies die Geschichte seiner Reise zur Forschungsstation.
     </story>
     <inventory>
         <item id="1" />
