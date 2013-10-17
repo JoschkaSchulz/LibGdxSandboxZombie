@@ -45,6 +45,7 @@ public class Map extends Group {
 		
 		//Variables
 		boolean done = false;
+		boolean mapCreated = false;
 		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
 		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
@@ -88,137 +89,160 @@ public class Map extends Group {
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
 			}
 
-			//*******************************************************************************
-			//Step II ~ get values from the world
-			//*******************************************************************************
-
-			//Clear the old free Places
-			freePlaces.clear();
-			
-			//First find all Streets but not the exit!
-			for(int h = 0; h < world.length; h++){
-				for(int w = 0; w < world[0].length; w++) {
-					if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isExit()) {
-						if(w > 0) {
-							if(world[w-1][h].getType() == MapTile.TYPE_EMPTY) 
-								freePlaces.add(world[w-1][h]);
+			while(!mapCreated) {
+				//*******************************************************************************
+				//Step II ~ get values from the world
+				//*******************************************************************************
+					
+				//Clear the old free Places
+				freePlaces.clear();
+				
+				//First find all Streets but not the exit!
+				for(int h = 0; h < world.length; h++){
+					for(int w = 0; w < world[0].length; w++) {
+						if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isExit()) {
+							if(w > 0) {
+								if(world[w-1][h].getType() == MapTile.TYPE_EMPTY) 
+									freePlaces.add(world[w-1][h]);
+							}
+							if(w < world[0].length-1) {
+								if(world[w+1][h].getType() == MapTile.TYPE_EMPTY) 
+									freePlaces.add(world[w+1][h]);
+							}
+							if(h > 0) {
+								if(world[w][h-1].getType() == MapTile.TYPE_EMPTY) 
+									freePlaces.add(world[w][h-1]);
+							}
+							if(h < world.length-1) {
+								if(world[w][h+1].getType() == MapTile.TYPE_EMPTY) 
+									freePlaces.add(world[w][h+1]);
+							}
 						}
-						if(w < world[0].length-1) {
-							if(world[w+1][h].getType() == MapTile.TYPE_EMPTY) 
-								freePlaces.add(world[w+1][h]);
-						}
-						if(h > 0) {
-							if(world[w][h-1].getType() == MapTile.TYPE_EMPTY) 
-								freePlaces.add(world[w][h-1]);
-						}
-						if(h < world.length-1) {
-							if(world[w][h+1].getType() == MapTile.TYPE_EMPTY) 
-								freePlaces.add(world[w][h+1]);
-						}
-					}
-				}
-			}
-			
-			//*******************************************************************************
-			//Step III ~ place new tiles
-			//*******************************************************************************
-			
-			//Select buildings to set in the free Room (TODO: at the moment only 1x1)
-			int until = (int)(Math.random()*(freePlaces.size()-1)) + 1;
-			for(int i = 0; i < until; i++) {
-				int index = (int)(Math.random()*(freePlaces.size()-1));
-				MapTile mt = freePlaces.get(index);
-				world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY());
-				world[mt.getPosX()][mt.getPosY()].setType(MapTile.TYPE_LVL1);
-				freePlaces.remove(index);
-			}
-			
-			//*******************************************************************************
-			//Step IV ~ place new ways on the world
-			//*******************************************************************************
-
-			//Select an empty Place on a street
-			boolean possibleDirection[] = new boolean[4];
-			int choosenDirection = -1;
-			MapTile streetStart = freePlaces.get((int)(Math.random()*(freePlaces.size()-1)));
-			if(streetStart.getPosX() > 0) {
-				if(world[streetStart.getPosX()-1][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
-					possibleDirection[WEST] = true;
-				}else{
-					possibleDirection[WEST] = false;
-				}
-			}
-			if(streetStart.getPosX() < world[0].length-1) {
-				if(world[streetStart.getPosX()+1][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY){
-					possibleDirection[EAST] = true;
-				}else{
-					possibleDirection[EAST] = false;
-				}
-			}
-			if(streetStart.getPosY() > 0) {
-				if(world[streetStart.getPosX()][streetStart.getPosY()-1].getType() == MapTile.TYPE_EMPTY) {
-					possibleDirection[SOUTH] = true;
-				}else{
-					possibleDirection[SOUTH] = false;
-				}
-			}
-			if(streetStart.getPosY() < world.length-1) {
-				if(world[streetStart.getPosX()][streetStart.getPosY()+1].getType() == MapTile.TYPE_EMPTY) {
-					possibleDirection[NORTH] = true;
-				}else{
-					possibleDirection[NORTH] = false;
-				}
-			}
-			
-			//Choose direction
-			if(!possibleDirection[SOUTH]&& !possibleDirection[EAST]&& !possibleDirection[NORTH]&& !possibleDirection[WEST]) {
-				world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
-				world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
-			}else{
-				boolean foundDirection = false;
-				int rand;
-				while(!foundDirection) {
-					rand = (int)(Math.random()*4);
-					if(possibleDirection[rand]) {
-						choosenDirection = rand;
-						foundDirection = true;
 					}
 				}
 				
-				//calculate how many streets should be max placed
-				int streetCount = (int)(Math.random()*5) + 1;
-				System.out.println("TEST:" + streetCount);
-				//Build streets
-				world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
-				world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
-				for(int i = 0; i < streetCount; i++) {
-					if(choosenDirection == NORTH && (streetStart.getPosY() - (i+1)) >= 0) {
-						if(world[streetStart.getPosX()][streetStart.getPosY() - (i+1)].getType() == MapTile.TYPE_EMPTY) {
-							world[streetStart.getPosX()][streetStart.getPosY() - (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() - (i+1));
+				//*******************************************************************************
+				//Step III ~ place new tiles
+				//*******************************************************************************
+				
+				//Select buildings to set in the free Room (TODO: at the moment only 1x1)
+				if(freePlaces.size() > 0) {
+					int until = (int)(Math.random()*(freePlaces.size()-1)) + 1;
+					for(int i = 0; i < until; i++) {
+						int index = (int)(Math.random()*(freePlaces.size()-1));
+						MapTile mt = freePlaces.get(index);
+						world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY());
+						world[mt.getPosX()][mt.getPosY()].setType(MapTile.TYPE_LVL1);
+						freePlaces.remove(index);
+					}
+				}
+				
+				//*******************************************************************************
+				//Step IV ~ place new ways on the world
+				//*******************************************************************************
+	
+				//Select an empty Place on a street
+				if(freePlaces.size() > 0) {
+					boolean possibleDirection[] = new boolean[4];
+					int choosenDirection = -1;
+					MapTile streetStart = freePlaces.get((int)(Math.random()*(freePlaces.size()-1)));
+					if(streetStart.getPosX() > 0) {
+						if(world[streetStart.getPosX()-1][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
+							possibleDirection[WEST] = true;
+						}else{
+							possibleDirection[WEST] = false;
 						}
 					}
-					if(choosenDirection == SOUTH && (streetStart.getPosY() + (i+1)) < world[0].length) {
-						if(world[streetStart.getPosX()][streetStart.getPosY() + (i+1)].getType() == MapTile.TYPE_EMPTY) {
-							world[streetStart.getPosX()][streetStart.getPosY() + (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() + (i+1));
+					if(streetStart.getPosX() < world[0].length-1) {
+						if(world[streetStart.getPosX()+1][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY){
+							possibleDirection[EAST] = true;
+						}else{
+							possibleDirection[EAST] = false;
 						}
 					}
-					if(choosenDirection == EAST && (streetStart.getPosX() + (i+1)) < world.length) {
-						if(world[streetStart.getPosX() + (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
-							world[streetStart.getPosX() + (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() + (i+1), streetStart.getPosY());
+					if(streetStart.getPosY() > 0) {
+						if(world[streetStart.getPosX()][streetStart.getPosY()-1].getType() == MapTile.TYPE_EMPTY) {
+							possibleDirection[SOUTH] = true;
+						}else{
+							possibleDirection[SOUTH] = false;
 						}
 					}
-					if(choosenDirection == WEST && (streetStart.getPosX() - (i+1)) >= 0) {
-						if(world[streetStart.getPosX() - (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
-							world[streetStart.getPosX() - (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() - (i+1), streetStart.getPosY());
+					if(streetStart.getPosY() < world.length-1) {
+						if(world[streetStart.getPosX()][streetStart.getPosY()+1].getType() == MapTile.TYPE_EMPTY) {
+							possibleDirection[NORTH] = true;
+						}else{
+							possibleDirection[NORTH] = false;
+						}
+					}
+				
+				
+					//Choose direction
+					if(!possibleDirection[SOUTH]&& !possibleDirection[EAST]&& !possibleDirection[NORTH]&& !possibleDirection[WEST]) {
+						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
+						world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
+					}else{
+						boolean foundDirection = false;
+						int rand;
+						while(!foundDirection) {
+							rand = (int)(Math.random()*4);
+							if(possibleDirection[rand]) {
+								choosenDirection = rand;
+								foundDirection = true;
+							}
+						}
+						
+						//calculate how many streets should be max placed
+						int streetCount = (int)(Math.random()*5) + 1;
+						
+						//Build streets
+						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
+						world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
+						for(int i = 0; i < streetCount; i++) {
+							if(choosenDirection == NORTH && (streetStart.getPosY() - (i+1)) >= 0) {
+								if(world[streetStart.getPosX()][streetStart.getPosY() - (i+1)].getType() == MapTile.TYPE_EMPTY) {
+									world[streetStart.getPosX()][streetStart.getPosY() - (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() - (i+1));
+								}
+							}
+							if(choosenDirection == SOUTH && (streetStart.getPosY() + (i+1)) < world[0].length) {
+								if(world[streetStart.getPosX()][streetStart.getPosY() + (i+1)].getType() == MapTile.TYPE_EMPTY) {
+									world[streetStart.getPosX()][streetStart.getPosY() + (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() + (i+1));
+								}
+							}
+							if(choosenDirection == EAST && (streetStart.getPosX() + (i+1)) < world.length) {
+								if(world[streetStart.getPosX() + (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
+									world[streetStart.getPosX() + (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() + (i+1), streetStart.getPosY());
+								}
+							}
+							if(choosenDirection == WEST && (streetStart.getPosX() - (i+1)) >= 0) {
+								if(world[streetStart.getPosX() - (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
+									world[streetStart.getPosX() - (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() - (i+1), streetStart.getPosY());
+								}
+							}
 						}
 					}
 				}
+				
+				//*******************************************************************************
+				//Exit ~ check if done can be set true
+				//*******************************************************************************
+				freePlaces.clear();
+				for(int h = 0; h < world.length; h++){
+					for(int w = 0; w < world[0].length; w++) {
+						if(world[w][h].getType() == MapTile.TYPE_EMPTY) {
+							freePlaces.add(world[w][h]);
+						}
+					}
+				}
+				System.out.println("SIZE: "+freePlaces.size());
+				if(freePlaces.size() == 0) {
+					mapCreated = true;
+					done = true;
+				}else{
+					MapTile tile = freePlaces.get((int)(Math.random() * (freePlaces.size() -1 )));
+					world[tile.getPosX()][tile.getPosY()] = new MapTile(tile.getPosX(), tile.getPosY());
+					world[tile.getPosX()][tile.getPosY()].setType(MapTile.TYPE_LVL5);
+				}
 			}
-			
-			//*******************************************************************************
-			//Exit ~ check if done can be set true
-			//*******************************************************************************
-			done = true;
 		}
 		
 		//Add the world to the group
