@@ -53,6 +53,7 @@ public class Map extends Group {
 		boolean done = false;
 		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
+		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();
 		
 		while(!done) {
 			//*******************************************************************************
@@ -99,7 +100,24 @@ public class Map extends Group {
 			//First find all Streets but not the exit!
 			for(int h = 0; h < world.length; h++){
 				for(int w = 0; w < world[0].length; w++) {
-					
+					if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isExit()) {
+						if(w > 0) {
+							if(world[w-1][h].getType() == MapTile.TYPE_EMPTY) 
+								freePlaces.add(world[w-1][h]);
+						}
+						if(w < world[0].length-1) {
+							if(world[w+1][h].getType() == MapTile.TYPE_EMPTY) 
+								freePlaces.add(world[w+1][h]);
+						}
+						if(h > 0) {
+							if(world[w][h-1].getType() == MapTile.TYPE_EMPTY) 
+								freePlaces.add(world[w][h-1]);
+						}
+						if(h < world.length-1) {
+							if(world[w][h+1].getType() == MapTile.TYPE_EMPTY) 
+								freePlaces.add(world[w][h+1]);
+						}
+					}
 				}
 			}
 			
@@ -126,6 +144,7 @@ public class Map extends Group {
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
+		System.out.println("DEBUG: Found empty places: "+freePlaces);
 	}
 	
 	@Override

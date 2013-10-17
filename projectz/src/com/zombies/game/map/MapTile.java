@@ -88,6 +88,14 @@ public class MapTile extends Image {
 		this.type = type;
 	}
 	
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
 	/*****************************************************************
 	 *					Methods
 	 ****************************************************************/
@@ -140,5 +148,10 @@ public class MapTile extends Image {
 		}else{
 			super.draw(batch, parentAlpha);
 		}
+	}
+	
+	public String toString() {
+		String stringType[] = {"empty","street","lvl1","lvl2","lvl3","lvl4","lvl5"};
+		return "MapTile ("+stringType[getType()+1]+" & "+getPosX()+"/"+getPosY()+")";
 	}
 }
