@@ -45,7 +45,7 @@ public class Map extends Group {
 		
 		//Variables
 		boolean done = false;
-		boolean mapCreated = false;
+		boolean activity = true;
 		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
 		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
@@ -57,11 +57,11 @@ public class Map extends Group {
 			//*******************************************************************************
 			
 			//Reset Variables
-			mapCreated = false;
+			activity = true;
 			
 			//first clear the complete world
-			for(int h = 0; h < world.length; h++){
-				for(int w = 0; w < world[0].length; w++) {
+			for(int h = 0; h < world[0].length; h++){
+				for(int w = 0; w < world.length; w++) {
 					world[w][h] = new MapTile(w, h);
 					world[w][h].setType(MapTile.TYPE_EMPTY);
 				}
@@ -92,7 +92,9 @@ public class Map extends Group {
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
 			}
 
-			while(!mapCreated) {
+			while(activity) {
+				activity = false;
+				
 				//*******************************************************************************
 				//Step II ~ get values from the world
 				//*******************************************************************************
@@ -101,14 +103,14 @@ public class Map extends Group {
 				freePlaces.clear();
 				
 				//First find all Streets but not the exit!
-				for(int h = 0; h < world.length; h++){
-					for(int w = 0; w < world[0].length; w++) {
+				for(int h = 0; h < world[0].length; h++){
+					for(int w = 0; w < world.length; w++) {
 						if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isExit()) {
 							if(w > 0) {
 								if(world[w-1][h].getType() == MapTile.TYPE_EMPTY) 
 									freePlaces.add(world[w-1][h]);
 							}
-							if(w < world[0].length-1) {
+							if(w < world.length-1) {
 								if(world[w+1][h].getType() == MapTile.TYPE_EMPTY) 
 									freePlaces.add(world[w+1][h]);
 							}
@@ -116,7 +118,7 @@ public class Map extends Group {
 								if(world[w][h-1].getType() == MapTile.TYPE_EMPTY) 
 									freePlaces.add(world[w][h-1]);
 							}
-							if(h < world.length-1) {
+							if(h < world[0].length-1) {
 								if(world[w][h+1].getType() == MapTile.TYPE_EMPTY) 
 									freePlaces.add(world[w][h+1]);
 							}
@@ -137,6 +139,7 @@ public class Map extends Group {
 						world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY());
 						world[mt.getPosX()][mt.getPosY()].setType(MapTile.TYPE_LVL1);
 						freePlaces.remove(index);
+						activity = true;
 					}
 				}
 				
@@ -146,6 +149,7 @@ public class Map extends Group {
 	
 				//Select an empty Place on a street
 				if(freePlaces.size() > 0) {
+					activity = true;
 					boolean possibleDirection[] = new boolean[4];
 					int choosenDirection = -1;
 					MapTile streetStart = freePlaces.get((int)(Math.random()*(freePlaces.size()-1)));
@@ -156,7 +160,7 @@ public class Map extends Group {
 							possibleDirection[WEST] = false;
 						}
 					}
-					if(streetStart.getPosX() < world[0].length-1) {
+					if(streetStart.getPosX() < world.length-1) {
 						if(world[streetStart.getPosX()+1][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY){
 							possibleDirection[EAST] = true;
 						}else{
@@ -170,7 +174,7 @@ public class Map extends Group {
 							possibleDirection[SOUTH] = false;
 						}
 					}
-					if(streetStart.getPosY() < world.length-1) {
+					if(streetStart.getPosY() < world[0].length-1) {
 						if(world[streetStart.getPosX()][streetStart.getPosY()+1].getType() == MapTile.TYPE_EMPTY) {
 							possibleDirection[NORTH] = true;
 						}else{
@@ -228,28 +232,13 @@ public class Map extends Group {
 				//*******************************************************************************
 				//Exit ~ check if done can be set true
 				//*******************************************************************************
-				freePlaces.clear();
-				for(int h = 0; h < world.length; h++){
-					for(int w = 0; w < world[0].length; w++) {
-						if(world[w][h].getType() == MapTile.TYPE_EMPTY) {
-							freePlaces.add(world[w][h]);
-						}
-					}
-				}
-				System.out.println("SIZE: "+freePlaces.size());
-				if(freePlaces.size() == 0) {
-					mapCreated = true;
-				}else{
-					MapTile tile = freePlaces.get((int)(Math.random() * (freePlaces.size() -1 )));
-					world[tile.getPosX()][tile.getPosY()] = new MapTile(tile.getPosX(), tile.getPosY());
-					world[tile.getPosX()][tile.getPosY()].setType(MapTile.TYPE_LVL5);
-				}
+				if(!activity) System.out.println("Durchlauf: " + (System.currentTimeMillis() - debugTime) + "ms acitvity => "+activity);
 			}
 			
 			//Check exit
 			MapTile exit = null;
-			for(int h = 0; h < world.length; h++){
-				for(int w = 0; w < world[0].length; w++) {
+			for(int h = 0; h < world[0].length; h++){
+				for(int w = 0; w < world.length; w++) {
 					if(world[w][h].isExit()) {
 						exit = world[w][h];
 					}
@@ -260,7 +249,7 @@ public class Map extends Group {
 				if(world[exit.getPosX()-1][exit.getPosY()].getType() == MapTile.TYPE_STREET) 
 					done = true;
 			}
-			if(exit.getPosX() < world[0].length-1) {
+			if(exit.getPosX() < world.length-1) {
 				if(world[exit.getPosX()+1][exit.getPosY()].getType() == MapTile.TYPE_STREET)
 					done = true;;
 			}
@@ -268,15 +257,15 @@ public class Map extends Group {
 				if(world[exit.getPosX()][exit.getPosY()-1].getType() == MapTile.TYPE_STREET) 
 					done = true;
 			}
-			if(exit.getPosY() < world.length-1) {
+			if(exit.getPosY() < world[0].length-1) {
 				if(world[exit.getPosX()][exit.getPosY()+1].getType() == MapTile.TYPE_STREET) 
 					done = true;
 			}
 		}
 		
 		//Add the world to the group
-		for(int h = 0; h < world.length; h++){
-			for(int w = 0; w < world[0].length; w++) {
+		for(int h = 0; h < world[0].length; h++){
+			for(int w = 0; w < world.length; w++) {
 				if(world[w][h] != null) addActor(world[w][h]);
 			}
 		}
