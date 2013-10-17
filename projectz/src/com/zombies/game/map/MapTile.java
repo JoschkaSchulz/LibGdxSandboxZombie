@@ -16,6 +16,7 @@ public class MapTile extends Image {
 	private static final int TILE_WIDTH = 128;
 	private static final int TILE_HEIGHT = 128;
 	
+	public static final int TYPE_EMPTY = -1;
 	public static final int TYPE_STREET = 0;
 	public static final int TYPE_LVL1 = 1;
 	public static final int TYPE_LVL2 = 2;
@@ -27,6 +28,8 @@ public class MapTile extends Image {
 	private Color debugColor;
 	private ShapeRenderer debugRenderer;
 	
+	private int posX;
+	private int posY;
 	private boolean isStart;
 	private boolean isExit;
 	private int type;
@@ -43,8 +46,11 @@ public class MapTile extends Image {
 	public MapTile(int x, int y) {
 		debug = true;
 		debugColor = new Color(1f, 1f, 1f, 1f);
-		setPosition(x, y);
-		setBounds(x, y, TILE_WIDTH, TILE_HEIGHT);
+		
+		posX = x;
+		posY = y;
+		setPosition(x * TILE_WIDTH, y * TILE_HEIGHT);
+		setBounds(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		debugRenderer = new ShapeRenderer();
 	}
 	
@@ -95,7 +101,10 @@ public class MapTile extends Image {
 			batch.end();
 			this.debugRenderer.begin(ShapeType.FilledRectangle);
 			switch(type) {
-				default: //street
+				default:	//empty
+					this.debugRenderer.setColor(debugColor);
+					break;
+				case TYPE_STREET:
 					if(isStart) {
 						this.debugRenderer.setColor(new Color(0f, 1f, 0f, 1.0f));
 					}else if(isExit) {
@@ -120,8 +129,13 @@ public class MapTile extends Image {
 					this.debugRenderer.setColor(new Color(0.3f, 0.3f, 1f, 1.0f));
 					break;
 			}
-			this.debugRenderer.filledRect(getX(), GUIHelper.getNewCoordinates(((int)getY()), TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
-			this.debugRenderer.end();
+			debugRenderer.filledRect(getX(), GUIHelper.getNewCoordinates(((int)getY()), TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
+			debugRenderer.end();
+			
+			debugRenderer.begin(ShapeType.Rectangle);
+			debugRenderer.setColor(0.75f, 0.75f, 0.75f, 1.0f);
+			debugRenderer.rect(getX(), GUIHelper.getNewCoordinates(((int)getY()), TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
+			debugRenderer.end();
 			batch.begin();
 		}else{
 			super.draw(batch, parentAlpha);
