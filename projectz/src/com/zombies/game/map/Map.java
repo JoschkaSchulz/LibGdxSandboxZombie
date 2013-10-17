@@ -53,7 +53,8 @@ public class Map extends Group {
 		boolean done = false;
 		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
-		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();
+		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
+		LinkedList<MapTile> placeList = new LinkedList<MapTile>();	//Tiles thatshould be set
 		
 		while(!done) {
 			//*******************************************************************************
@@ -124,7 +125,17 @@ public class Map extends Group {
 			//*******************************************************************************
 			//Step III ~ place new tiles
 			//*******************************************************************************
-
+			
+			//Select buildings to set in the free Room (TODO: at the moment only 1x1)
+			int until = (int)(Math.random()*(freePlaces.size()-1)) + 1;
+			for(int i = 0; i < until; i++) {
+				int index = (int)(Math.random()*(freePlaces.size()-1));
+				MapTile mt = freePlaces.get(index);
+				world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY());
+				world[mt.getPosX()][mt.getPosY()].setType(MapTile.TYPE_LVL1);
+				freePlaces.remove(index);
+			}
+			
 			//*******************************************************************************
 			//Step IV ~ place new ways on the world
 			//*******************************************************************************
