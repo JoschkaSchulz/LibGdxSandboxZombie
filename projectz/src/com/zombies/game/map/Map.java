@@ -74,19 +74,19 @@ public class Map extends Group {
 			if(horizontal) {
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
-				world[0][startPos] = new MapTile(0, startPos*128, new Color(0f, 1f, 0f, 1f));	//TODO: hier start einfügen
+				world[0][startPos] = new MapTile(0, startPos*128);	//TODO: hier start einfügen
 				world[0][startPos].setStart(true);
 				world[0][startPos].setType(MapTile.TYPE_STREET);
-				world[world.length-1][exitPos] = new MapTile((world.length-1)*128, exitPos*128, new Color(1f, 0f, 0f, 1f));; //TODO: hier exit einfügen
+				world[world.length-1][exitPos] = new MapTile((world.length-1)*128, exitPos*128);; //TODO: hier exit einfügen
 				world[world.length-1][exitPos].setExit(true);
 				world[world.length-1][exitPos].setType(MapTile.TYPE_STREET);
 			}else{
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
-				world[startPos][0] = new MapTile(startPos*128, 0, new Color(0f, 1f, 0f, 1f));;	//TODO: hier start einfügen
+				world[startPos][0] = new MapTile(startPos*128, 0);;	//TODO: hier start einfügen
 				world[startPos][0].setStart(true);
 				world[startPos][0].setType(MapTile.TYPE_STREET);
-				world[exitPos][world[0].length-1] = new MapTile(exitPos*128, (world[0].length-1)*128, new Color(1f, 0f, 0f, 1f));; //TODO: hier exit einfügen
+				world[exitPos][world[0].length-1] = new MapTile(exitPos*128, (world[0].length-1)*128);; //TODO: hier exit einfügen
 				world[exitPos][world[0].length-1].setExit(true);
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
 			}

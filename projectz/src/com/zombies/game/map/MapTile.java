@@ -40,9 +40,9 @@ public class MapTile extends Image {
 	 * @param x
 	 * @param y
 	 */
-	public MapTile(int x, int y, Color c) {
+	public MapTile(int x, int y) {
 		debug = true;
-		debugColor = c;
+		debugColor = new Color(1f, 1f, 1f, 1f);
 		setPosition(x, y);
 		setBounds(x, y, TILE_WIDTH, TILE_HEIGHT);
 		debugRenderer = new ShapeRenderer();
@@ -94,7 +94,32 @@ public class MapTile extends Image {
 			//Debug functions
 			batch.end();
 			this.debugRenderer.begin(ShapeType.FilledRectangle);
-			this.debugRenderer.setColor(debugColor);
+			switch(type) {
+				default: //street
+					if(isStart) {
+						this.debugRenderer.setColor(new Color(0f, 1f, 0f, 1.0f));
+					}else if(isExit) {
+						this.debugRenderer.setColor(new Color(1f, 0f, 0f, 1.0f));
+					}else{
+						this.debugRenderer.setColor(new Color(0.3f, 0.3f, 0.3f, 1.0f));
+					}
+					break;
+				case TYPE_LVL1:
+					this.debugRenderer.setColor(new Color(0f, 0f, 0.25f, 1.0f));					
+					break;
+				case TYPE_LVL2:
+					this.debugRenderer.setColor(new Color(0f, 0f, 0.5f, 1.0f));
+					break;
+				case TYPE_LVL3:
+					this.debugRenderer.setColor(new Color(0f, 0f, 0.75f, 1.0f));
+					break;
+				case TYPE_LVL4:
+					this.debugRenderer.setColor(new Color(0f, 0f, 1f, 1.0f));
+					break;
+				case TYPE_LVL5:
+					this.debugRenderer.setColor(new Color(0.3f, 0.3f, 1f, 1.0f));
+					break;
+			}
 			this.debugRenderer.filledRect(getX(), GUIHelper.getNewCoordinates(((int)getY()), TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
 			this.debugRenderer.end();
 			batch.begin();
