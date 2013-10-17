@@ -56,6 +56,9 @@ public class Map extends Group {
 			//Step I ~ place the start and exit
 			//*******************************************************************************
 			
+			//Reset Variables
+			mapCreated = false;
+			
 			//first clear the complete world
 			for(int h = 0; h < world.length; h++){
 				for(int w = 0; w < world[0].length; w++) {
@@ -236,12 +239,38 @@ public class Map extends Group {
 				System.out.println("SIZE: "+freePlaces.size());
 				if(freePlaces.size() == 0) {
 					mapCreated = true;
-					done = true;
 				}else{
 					MapTile tile = freePlaces.get((int)(Math.random() * (freePlaces.size() -1 )));
 					world[tile.getPosX()][tile.getPosY()] = new MapTile(tile.getPosX(), tile.getPosY());
 					world[tile.getPosX()][tile.getPosY()].setType(MapTile.TYPE_LVL5);
 				}
+			}
+			
+			//Check exit
+			MapTile exit = null;
+			for(int h = 0; h < world.length; h++){
+				for(int w = 0; w < world[0].length; w++) {
+					if(world[w][h].isExit()) {
+						exit = world[w][h];
+					}
+				}
+			}
+			
+			if(exit.getPosX() > 0) {
+				if(world[exit.getPosX()-1][exit.getPosY()].getType() == MapTile.TYPE_STREET) 
+					done = true;
+			}
+			if(exit.getPosX() < world[0].length-1) {
+				if(world[exit.getPosX()+1][exit.getPosY()].getType() == MapTile.TYPE_STREET)
+					done = true;;
+			}
+			if(exit.getPosY() > 0) {
+				if(world[exit.getPosX()][exit.getPosY()-1].getType() == MapTile.TYPE_STREET) 
+					done = true;
+			}
+			if(exit.getPosY() < world.length-1) {
+				if(world[exit.getPosX()][exit.getPosY()+1].getType() == MapTile.TYPE_STREET) 
+					done = true;
 			}
 		}
 		

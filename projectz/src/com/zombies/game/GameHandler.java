@@ -45,7 +45,7 @@ public class GameHandler extends Group {
 			if(intro.getFinished()) {
 				state = STATE_MAP;
 				this.clear();
-				map = new Map(16,16);
+				map = new Map(10,10);
 				this.addActor(map);
 				int reserve[] = {10,2,0,0,0}; // 10x lvl1 2x lvl2
 				map.generateMap(Map.TYPE_CITY, reserve);
