@@ -33,11 +33,18 @@ public class Map extends Group {
 	}
 	
 	/**
+	 * magic in every row! Generates the map :D
+	 * Please don't refactore the method... it's easy to
+	 * read if the complete steps are in the same method!
+	 * Documentation about the algorythm laying in the
+	 * google drive folder!
 	 * 
-	 * @param type
-	 * @param lvl[5] The Levels they should used
+	 * Hours wasted: 11
+	 * 
+	 * @param type the type of the map. Avaible Types are
+	 * 			defined as static variables.
 	 */
-	public void generateMap(int type, int lvl[]) {
+	public void generateMap(int type) {
 		getParent().addActor(new MapUI(this));
 		
 		switch(type) {
@@ -50,7 +57,6 @@ public class Map extends Group {
 		//Variables
 		boolean done = false;
 		boolean activity = true;
-		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
 		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
 		
@@ -73,9 +79,6 @@ public class Map extends Group {
 					world[w][h].setType(MapTile.TYPE_EMPTY);
 				}
 			}
-			
-			//fill the reserve
-			reserve = lvl;
 			
 			//get position for start
 			boolean horizontal = (Math.random() < 0.5 ? true : false);
