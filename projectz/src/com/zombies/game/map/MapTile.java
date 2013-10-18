@@ -13,8 +13,8 @@ public class MapTile extends Image {
 	/*****************************************************************
 	 *					Variables
 	 ****************************************************************/
-	private static final int TILE_WIDTH = 128;
-	private static final int TILE_HEIGHT = 128;
+	public static final int TILE_WIDTH = 128;
+	public static final int TILE_HEIGHT = 128;
 	
 	public static final int TYPE_EMPTY = -1;
 	public static final int TYPE_STREET = 0;
@@ -102,9 +102,7 @@ public class MapTile extends Image {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if(debug) {
-			super.draw(batch, parentAlpha);
-			
+		if(debug) {			
 			//Debug functions
 			batch.end();
 			this.debugRenderer.begin(ShapeType.FilledRectangle);
@@ -150,6 +148,12 @@ public class MapTile extends Image {
 		}
 	}
 	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		setPosition(posX*TILE_WIDTH+getParent().getX(), posY*TILE_HEIGHT-getParent().getY());
+	}
+
 	public String toString() {
 		String stringType[] = {"empty","street","lvl1","lvl2","lvl3","lvl4","lvl5"};
 		return "MapTile ("+stringType[getType()+1]+" & "+getPosX()+"/"+getPosY()+")";

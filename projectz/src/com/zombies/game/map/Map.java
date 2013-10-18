@@ -18,6 +18,8 @@ public class Map extends Group {
 	
 	private float dragX;
 	private float dragY;
+	private int width;
+	private int height;
 	
 	private MapTile[][] world;
 	
@@ -25,6 +27,8 @@ public class Map extends Group {
 		dragX = 0;
 		dragY = 0;
 		
+		this.width = width;
+		this.height = height;
 		world = new MapTile[width][height];
 	}
 	
@@ -275,6 +279,15 @@ public class Map extends Group {
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
+		
+	}
+	
+	public int getMapWidth() {
+		return this.width * MapTile.TILE_WIDTH;
+	}
+	
+	public int getMapHeight() {
+		return this.height * MapTile.TILE_HEIGHT;
 	}
 	
 	@Override
@@ -293,9 +306,9 @@ public class Map extends Group {
 			System.out.println(getX() + "/" + getY());
 			//Correct x and y for map borders
 			if(getX() > 0) setX(0);
-			else if(getX() < -2048 + Gdx.graphics.getWidth()) setX(-2048 + Gdx.graphics.getWidth());
+			else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
 			if(getY() < 0) setY(0);
-			else if(getY() > 2048 - Gdx.graphics.getHeight()) setY(2048 - Gdx.graphics.getHeight());
+			else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
 		}else dragX = dragY = 0;
 	}
 }
