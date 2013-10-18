@@ -211,22 +211,22 @@ public class Map extends Group {
 							if(choosenDirection == NORTH && (streetStart.getPosY() - (i+1)) >= 0) {
 								if(world[streetStart.getPosX()][streetStart.getPosY() - (i+1)].getType() == MapTile.TYPE_EMPTY) {
 									world[streetStart.getPosX()][streetStart.getPosY() - (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() - (i+1));
-								}
+								}else break;
 							}
 							if(choosenDirection == SOUTH && (streetStart.getPosY() + (i+1)) < world[0].length) {
 								if(world[streetStart.getPosX()][streetStart.getPosY() + (i+1)].getType() == MapTile.TYPE_EMPTY) {
 									world[streetStart.getPosX()][streetStart.getPosY() + (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() + (i+1));
-								}
+								}else break;
 							}
 							if(choosenDirection == EAST && (streetStart.getPosX() + (i+1)) < world.length) {
 								if(world[streetStart.getPosX() + (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
 									world[streetStart.getPosX() + (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() + (i+1), streetStart.getPosY());
-								}
+								}else break;
 							}
 							if(choosenDirection == WEST && (streetStart.getPosX() - (i+1)) >= 0) {
 								if(world[streetStart.getPosX() - (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
 									world[streetStart.getPosX() - (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() - (i+1), streetStart.getPosY());
-								}
+								}else break;
 							}
 						}
 					}
