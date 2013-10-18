@@ -51,6 +51,10 @@ public class Map extends Group {
 		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
 		int direc[] = {-1,1,-1,1};
 		
+		int maxStreets = 15;		//Maximal streets from 1 to maxStreets
+		int decreaseTiles = 5;	//Tiles decreased for calculation
+		
+		
 		while(!done) {
 			//*******************************************************************************
 			//Step I ~ place the start and exit
@@ -132,7 +136,7 @@ public class Map extends Group {
 				
 				//Select buildings to set in the free Room (TODO: at the moment only 1x1)
 				if(freePlaces.size() > 0) {
-					int until = (int)(Math.random()*(freePlaces.size()-1)) + 1;
+					int until = (int)(Math.random()*(freePlaces.size()-decreaseTiles)) + 1;
 					for(int i = 0; i < until; i++) {
 						int index = (int)(Math.random()*(freePlaces.size()-1));
 						MapTile mt = freePlaces.get(index);
@@ -199,7 +203,7 @@ public class Map extends Group {
 						}
 						
 						//calculate how many streets should be max placed
-						int streetCount = (int)(Math.random()*5) + 1;
+						int streetCount = (int)(Math.random()*maxStreets) + 1;
 						
 						//Build streets
 						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
@@ -266,7 +270,7 @@ public class Map extends Group {
 		//Add the world to the group
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
-				if(world[w][h] != null) addActor(world[w][h]);
+				if(world[w][h] != null && world[w][h].getType() != MapTile.TYPE_EMPTY) addActor(world[w][h]);
 			}
 		}
 		

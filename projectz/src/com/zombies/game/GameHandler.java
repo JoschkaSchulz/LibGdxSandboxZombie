@@ -10,6 +10,7 @@ import com.zombies.game.charakter.Charakter;
 import com.zombies.game.charakterpicker.CharakterPicker;
 import com.zombies.game.map.Map;
 import com.zombies.game.skilltree.Skill;
+import com.zombies.helper.InputHelper;
 
 public class GameHandler extends Group {
 	//static final
@@ -45,9 +46,15 @@ public class GameHandler extends Group {
 			if(intro.getFinished()) {
 				state = STATE_MAP;
 				this.clear();
-				map = new Map(75,40);
+				map = new Map(30,30);
 				this.addActor(map);
 				int reserve[] = {10,2,0,0,0}; // 10x lvl1 2x lvl2
+				map.generateMap(Map.TYPE_CITY, reserve);
+			}
+		}else if(state == STATE_MAP) {
+			int reserve[] = {10,2,0,0,0}; // 10x lvl1 2x lvl2
+			if(InputHelper.ACTION) {
+				map.clear();
 				map.generateMap(Map.TYPE_CITY, reserve);
 			}
 		}
