@@ -49,7 +49,6 @@ public class Map extends Group {
 		int reserve[] = new int[5];
 		long debugTime = System.currentTimeMillis();
 		LinkedList<MapTile> freePlaces = new LinkedList<MapTile>();	//Empty MapTiles
-		int direc[] = {-1,1,-1,1};
 		
 		int maxStreets = 15;		//Maximal streets from 1 to maxStreets
 		int decreaseTiles = 5;	//Tiles decreased for calculation
@@ -276,7 +275,6 @@ public class Map extends Group {
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
-		System.out.println("DEBUG: Found empty places: "+freePlaces);
 	}
 	
 	@Override
