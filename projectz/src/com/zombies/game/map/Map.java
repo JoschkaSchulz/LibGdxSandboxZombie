@@ -3,7 +3,11 @@ package com.zombies.game.map;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.helper.InputHelper;
 
 public class Map extends Group {
@@ -22,6 +26,7 @@ public class Map extends Group {
 	private int height;
 	
 	private MapTile[][] world;
+	private TextureRegion tileSet[][];
 	
 	public Map(int width, int height) {
 		dragX = 0;
@@ -49,6 +54,8 @@ public class Map extends Group {
 		
 		switch(type) {
 			default:	//city
+				Texture tileSetTexture = new Texture(Gdx.files.internal("data/gfx/map_tiles/tileset_city.png"));
+				tileSet = TextureRegion.split(tileSetTexture, 128, 128);
 				break;
 			case TYPE_FOREST:
 				break;
@@ -239,11 +246,12 @@ public class Map extends Group {
 					}
 				}
 				
-				//*******************************************************************************
-				//Exit ~ check if done can be set true
-				//*******************************************************************************
-				if(!activity) System.out.println("Durchlauf: " + (System.currentTimeMillis() - debugTime) + "ms acitvity => "+activity);
+//				if(!activity) System.out.println("Durchlauf: " + (System.currentTimeMillis() - debugTime) + "ms acitvity => "+activity);
 			}
+			
+			//*******************************************************************************
+			//Exit ~ check if done can be set true
+			//*******************************************************************************
 			
 			//Check exit
 			MapTile exit = null;
@@ -273,6 +281,9 @@ public class Map extends Group {
 			}
 		}
 		
+		//Preparing all ways with the right Texture
+		prepareWays();
+		
 		//Add the world to the group
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
@@ -283,6 +294,81 @@ public class Map extends Group {
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
 		
+	}
+	
+	private void prepareWays() {
+		int worldWidth = world[0].length;
+		int worldHeight = world.length;
+		boolean neighbours[] = new boolean[4];
+		for(int h = 0; h < worldWidth; h++){
+			for(int w = 0; w < worldHeight; w++) {
+				
+				//First set the neighbours to false
+				neighbours[NORTH] = neighbours[EAST] = neighbours[SOUTH] = neighbours[WEST] = false;
+				
+				//Check the neighbours
+				if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isStart() && !world[w][h].isExit()) {
+				if(w > 0 					&& world[w-1][h].getType() == MapTile.TYPE_STREET) neighbours[WEST] = true; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_STREET) neighbours[EAST] = true; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_STREET) neighbours[NORTH] = true; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_STREET) neighbours[SOUTH] = true; 
+				}
+				
+				if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][3], w, h);
+				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][0], w, h);
+					world[w][h].rotate(90);
+					world[w][h].translate(128, -1);
+				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][2], w, h);
+				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h].rotate(180);
+					world[w][h].translate(129, 127);
+				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h].rotate(90);
+					world[w][h].translate(128, -1);
+				}else if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h].rotate(-90);
+					world[w][h].translate(1, 128);
+				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][0], w, h);
+				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][4], w, h);
+				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h].rotate(180);
+					world[w][h].translate(129, 127);
+				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h].rotate(90);
+					world[w][h].translate(128, -1);
+				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h].rotate(-90);
+					world[w][h].translate(1, 128);
+				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][1], w, h);
+				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h].rotate(180);
+					world[w][h].translate(129, 127);
+				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h].rotate(90);
+					world[w][h].translate(128, -1);
+				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
+					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h].rotate(-90);
+					world[w][h].translate(1, 128);
+				}
+				
+				if(world[w][h].getType() == MapTile.TYPE_STREET) world[w][h].setType(MapTile.TYPE_STREET);
+			}
+		}
 	}
 	
 	public int getMapWidth() {
@@ -306,7 +392,7 @@ public class Map extends Group {
 			dragX = dragY = 0;
 			translate(vectorX, vectorY);
 			
-			System.out.println(getX() + "/" + getY());
+//			System.out.println(getX() + "/" + getY());
 			//Correct x and y for map borders
 			if(getX() > 0) setX(0);
 			else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());

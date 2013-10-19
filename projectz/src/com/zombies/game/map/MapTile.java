@@ -3,9 +3,11 @@ package com.zombies.game.map;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.zombies.helper.GUIHelper;
 
 public class MapTile extends Image {
@@ -54,10 +56,11 @@ public class MapTile extends Image {
 		debugRenderer = new ShapeRenderer();
 	}
 	
-	public MapTile(Texture texture, int x, int y) {
+	public MapTile(TextureRegion texture, int x, int y) {
 		super(texture);
-		setPosition(x, y);
-		setBounds(x, y, TILE_WIDTH, TILE_HEIGHT);
+		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
+		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
+		setSize(TILE_WIDTH, TILE_HEIGHT);
 		debug = false;
 	}
 	/*****************************************************************
@@ -151,7 +154,7 @@ public class MapTile extends Image {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		setPosition(posX*TILE_WIDTH+getParent().getX(), posY*TILE_HEIGHT-getParent().getY());
+		if(debug) setPosition(posX*TILE_WIDTH+getParent().getX(), posY*TILE_HEIGHT-getParent().getY());
 	}
 
 	public String toString() {

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.helper.GUIHelper;
+import com.zombies.helper.InputHelper;
 
 public class MapUI extends Group {
 	private Map mapRef;
@@ -30,4 +31,15 @@ public class MapUI extends Group {
 		zoomOut.setName("zoom_out");
 		this.addActor(zoomOut);
 	}
+
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+//		System.out.println(hit(Gdx.input.getX(), Gdx.input.getY(), false));
+//		if(zoomOut.hit(Gdx.input.getX(), Gdx.input.getY(), false) != null) {
+//			System.out.println("yep!" + zoomOut.hit(Gdx.input.getX(), Gdx.input.getY(), false).getName() );
+//		}
+	}
+	
+	
 }
