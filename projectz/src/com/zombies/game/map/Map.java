@@ -44,7 +44,7 @@ public class Map extends Group {
 	 * Documentation about the algorythm laying in the
 	 * google drive folder!
 	 * 
-	 * Hours wasted: 11
+	 * Hours wasted: 14
 	 * 
 	 * @param type the type of the map. Avaible Types are
 	 * 			defined as static variables.
@@ -394,18 +394,28 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[WEST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+					world[w][h] = new MapTile(tileSet[1][1], w, h);
+					world[w-1][h] = new MapTile(tileSet[1][1], w-1, h);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w-1][h].setType(MapTile.TYPE_LVL2);
 				}else if(neighbours[EAST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+					world[w][h] = new MapTile(tileSet[1][1], w, h);
+					world[w+1][h] = new MapTile(tileSet[1][1], w+1, h);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w+1][h].setType(MapTile.TYPE_LVL2);
 				}else if(neighbours[NORTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+					world[w][h] = new MapTile(tileSet[1][1], w, h);
+					world[w][h-1] = new MapTile(tileSet[1][1], w, h-1);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w][h-1].setType(MapTile.TYPE_LVL2);
 				}else if(neighbours[SOUTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+					world[w][h] = new MapTile(tileSet[1][1], w, h);
+					world[w][h+1] = new MapTile(tileSet[1][1], w, h+1);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w][h+1].setType(MapTile.TYPE_LVL2);
 				}
+				
+				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[1][0], w, h);
 			}
 		}
 	}
