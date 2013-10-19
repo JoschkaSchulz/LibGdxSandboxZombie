@@ -376,6 +376,8 @@ public class Map extends Group {
 
 	private void prepareBuildings() {
 		
+		float chanceLvl2 = 0.15f;
+		
 		int worldWidth = world[0].length;
 		int worldHeight = world.length;
 		boolean neighbours[] = new boolean[4];
@@ -393,22 +395,22 @@ public class Map extends Group {
 					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL1) neighbours[SOUTH] = true; 
 				}
 				
-				if(neighbours[WEST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+				if(neighbours[WEST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
 					world[w][h] = new MapTile(tileSet[1][1], w, h);
 					world[w-1][h] = new MapTile(tileSet[1][1], w-1, h);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w-1][h].setType(MapTile.TYPE_LVL2);
-				}else if(neighbours[EAST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+				}else if(neighbours[EAST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
 					world[w][h] = new MapTile(tileSet[1][1], w, h);
 					world[w+1][h] = new MapTile(tileSet[1][1], w+1, h);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w+1][h].setType(MapTile.TYPE_LVL2);
-				}else if(neighbours[NORTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+				}else if(neighbours[NORTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
 					world[w][h] = new MapTile(tileSet[1][1], w, h);
 					world[w][h-1] = new MapTile(tileSet[1][1], w, h-1);
 					world[w][h].setType(MapTile.TYPE_LVL2);
 					world[w][h-1].setType(MapTile.TYPE_LVL2);
-				}else if(neighbours[SOUTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+				}else if(neighbours[SOUTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
 					world[w][h] = new MapTile(tileSet[1][1], w, h);
 					world[w][h+1] = new MapTile(tileSet[1][1], w, h+1);
 					world[w][h].setType(MapTile.TYPE_LVL2);
