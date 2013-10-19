@@ -126,16 +126,16 @@ public class MapTile extends Image {
 					this.debugRenderer.setColor(new Color(0f, 0f, 0.75f, 1.0f));					
 					break;
 				case TYPE_LVL2:
-					this.debugRenderer.setColor(new Color(0f, 0f, 0.80f, 1.0f));
+					this.debugRenderer.setColor(new Color(1f, 0.25f, 0.80f, 1.0f));
 					break;
 				case TYPE_LVL3:
-					this.debugRenderer.setColor(new Color(0f, 0f, 0.85f, 1.0f));
+					this.debugRenderer.setColor(new Color(0f, 0.5f, 0.85f, 1.0f));
 					break;
 				case TYPE_LVL4:
-					this.debugRenderer.setColor(new Color(0f, 0f, 0.95f, 1.0f));
+					this.debugRenderer.setColor(new Color(0f, 0.75f, 0.95f, 1.0f));
 					break;
 				case TYPE_LVL5:
-					this.debugRenderer.setColor(new Color(0f, 0f, 1f, 1.0f));
+					this.debugRenderer.setColor(new Color(0f, 1f, 1f, 1.0f));
 					break;
 			}
 			debugRenderer.filledRect(getX(), GUIHelper.getNewCoordinates(((int)getY()), TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);

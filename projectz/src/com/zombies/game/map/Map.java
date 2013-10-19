@@ -284,6 +284,9 @@ public class Map extends Group {
 		//Preparing all ways with the right Texture
 		prepareWays();
 		
+		//Prepare the buildings or trees
+		prepareBuildings();
+		
 		//Add the world to the group
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
@@ -308,7 +311,7 @@ public class Map extends Group {
 				
 				//Check the neighbours
 				if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isStart() && !world[w][h].isExit()) {
-				if(w > 0 					&& world[w-1][h].getType() == MapTile.TYPE_STREET) neighbours[WEST] = true; 
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_STREET) neighbours[WEST] = true; 
 					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_STREET) neighbours[EAST] = true; 
 					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_STREET) neighbours[NORTH] = true; 
 					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_STREET) neighbours[SOUTH] = true; 
@@ -367,6 +370,42 @@ public class Map extends Group {
 				}
 				
 				if(world[w][h].getType() == MapTile.TYPE_STREET) world[w][h].setType(MapTile.TYPE_STREET);
+			}
+		}
+	}
+
+	private void prepareBuildings() {
+		
+		int worldWidth = world[0].length;
+		int worldHeight = world.length;
+		boolean neighbours[] = new boolean[4];
+		
+		for(int h = 0; h < worldWidth; h++){
+			for(int w = 0; w < worldHeight; w++) {
+				//First set the neighbours to false
+				neighbours[NORTH] = neighbours[EAST] = neighbours[SOUTH] = neighbours[WEST] = false;
+				
+				//Check the neighbours
+				if(world[w][h].getType() == MapTile.TYPE_LVL1 && !world[w][h].isStart() && !world[w][h].isExit()) {
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_LVL1) neighbours[WEST] = true; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_LVL1) neighbours[EAST] = true; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_LVL1) neighbours[NORTH] = true; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL1) neighbours[SOUTH] = true; 
+				}
+				
+				if(neighbours[WEST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+					world[w][h].setType(MapTile.TYPE_LVL2);
+					world[w-1][h].setType(MapTile.TYPE_LVL2);
+				}else if(neighbours[EAST] && Math.random() < 0.15 && w > 0 && w < worldWidth-1) {
+					world[w][h].setType(MapTile.TYPE_LVL2);
+					world[w+1][h].setType(MapTile.TYPE_LVL2);
+				}else if(neighbours[NORTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+					world[w][h].setType(MapTile.TYPE_LVL2);
+					world[w][h-1].setType(MapTile.TYPE_LVL2);
+				}else if(neighbours[SOUTH] && Math.random() < 0.15 && h > 0 && h < worldHeight-1) {
+					world[w][h].setType(MapTile.TYPE_LVL2);
+					world[w][h+1].setType(MapTile.TYPE_LVL2);
+				}
 			}
 		}
 	}
