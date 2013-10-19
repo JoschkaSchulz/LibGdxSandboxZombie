@@ -297,6 +297,8 @@ public class Map extends Group {
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
 		
+		printMapInfo();
+		
 	}
 	
 	private void prepareWays() {
@@ -318,58 +320,58 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][3], w, h);
+					world[w][h] = new MapTile(tileSet[0][3], w, h, MapTile.TYPE_STREET);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][0], w, h);
+					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][0], w, h);
+					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}
 				
-				if(world[w][h].getType() == MapTile.TYPE_STREET) world[w][h].setType(MapTile.TYPE_STREET);
+//				if(world[w][h].getType() == MapTile.TYPE_STREET) world[w][h].setType(MapTile.TYPE_STREET);
 			}
 		}
 	}
@@ -428,9 +430,62 @@ public class Map extends Group {
 					world[w][h-1] 	= new MapTile(tileSet[1][2], w, h-1, MapTile.TYPE_LVL3);
 				}
 				
-				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[1][0], w, h);
+				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
 			}
 		}
+		
+		//Fix all the splitted level 2 Buildings
+		boolean checkSplitBug = true;
+		boolean onLvl3 = false;
+		for(int h = 0; h < worldWidth; h++){
+			for(int w = 0; w < worldHeight; w++) {
+				if(world[w][h].getType() == MapTile.TYPE_LVL2) {
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_LVL3) onLvl3 = true; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_LVL3) onLvl3 = true; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_LVL3) onLvl3 = true; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL3) onLvl3 = true; 
+					
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
+				
+					if(checkSplitBug && onLvl3) {
+						world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+						
+						checkSplitBug = true;
+						onLvl3 = false;
+					}
+				}
+			}
+		}
+	}
+	
+	private void printMapInfo() {
+		int empty = 0;
+		int level1 = 0;
+		int level2 = 0;
+		int level3 = 0;
+		int streets = 0;
+		int worldWidth = world[0].length;
+		int worldHeight = world.length;
+		for(int h = 0; h < worldWidth; h++){
+			for(int w = 0; w < worldHeight; w++) {
+				if(world[w][h].getType() == MapTile.TYPE_EMPTY) empty++;
+				if(world[w][h].getType() == MapTile.TYPE_STREET) streets++;
+				if(world[w][h].getType() == MapTile.TYPE_LVL1) level1++;
+				if(world[w][h].getType() == MapTile.TYPE_LVL2) level2++;
+				if(world[w][h].getType() == MapTile.TYPE_LVL3) level3++;
+			}
+		}
+		
+		System.out.println("Info:");
+		System.out.println("Fläche gesamt:\t\t" + worldWidth + "x" + worldHeight + " = " + (worldHeight*worldWidth));
+		System.out.println("Leere Flächen:\t\t" + empty);
+		System.out.println("Straßen:\t\t" + streets);
+		System.out.println("Level1:\t\t\t" + level1);
+		System.out.println("Level2:\t\t\t" + (level2/2));
+		System.out.println("Level3:\t\t\t" + (level3/4));
 	}
 	
 	public int getMapWidth() {
