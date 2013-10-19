@@ -377,6 +377,7 @@ public class Map extends Group {
 	private void prepareBuildings() {
 		
 		float chanceLvl2 = 0.15f;
+		float chanceLvl3 = 0.25f;
 		
 		int worldWidth = world[0].length;
 		int worldHeight = world.length;
@@ -396,25 +397,35 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[WEST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h);
-					world[w-1][h] = new MapTile(tileSet[1][1], w-1, h);
-					world[w][h].setType(MapTile.TYPE_LVL2);
-					world[w-1][h].setType(MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
+					world[w-1][h] = new MapTile(tileSet[1][1], w-1, h, MapTile.TYPE_LVL2);
 				}else if(neighbours[EAST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h);
-					world[w+1][h] = new MapTile(tileSet[1][1], w+1, h);
-					world[w][h].setType(MapTile.TYPE_LVL2);
-					world[w+1][h].setType(MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
+					world[w+1][h] = new MapTile(tileSet[1][1], w+1, h, MapTile.TYPE_LVL2);
 				}else if(neighbours[NORTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h);
-					world[w][h-1] = new MapTile(tileSet[1][1], w, h-1);
-					world[w][h].setType(MapTile.TYPE_LVL2);
-					world[w][h-1].setType(MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
+					world[w][h-1] = new MapTile(tileSet[1][1], w, h-1, MapTile.TYPE_LVL2);
 				}else if(neighbours[SOUTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h);
-					world[w][h+1] = new MapTile(tileSet[1][1], w, h+1);
-					world[w][h].setType(MapTile.TYPE_LVL2);
-					world[w][h+1].setType(MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
+					world[w][h+1] = new MapTile(tileSet[1][1], w, h+1, MapTile.TYPE_LVL2);
+				}
+				
+				//A Second run for lvl3 buildings
+				neighbours[NORTH] = neighbours[EAST] = neighbours[SOUTH] = neighbours[WEST] = false;
+				
+				//Check the neighbours
+				if(world[w][h].getType() == MapTile.TYPE_LVL2 && !world[w][h].isStart() && !world[w][h].isExit()) {
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_LVL2) neighbours[WEST] = true; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_LVL2) neighbours[EAST] = true; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_LVL2) neighbours[NORTH] = true; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL2) neighbours[SOUTH] = true; 
+				}
+				
+				if(neighbours[NORTH] && neighbours[EAST] && world[w+1][h-1].getType() == MapTile.TYPE_LVL2) {
+					world[w][h] 	= new MapTile(tileSet[1][2], w, h, MapTile.TYPE_LVL3);
+					world[w+1][h] 	= new MapTile(tileSet[1][2], w+1, h, MapTile.TYPE_LVL3);
+					world[w+1][h-1] = new MapTile(tileSet[1][2], w+1, h-1, MapTile.TYPE_LVL3);
+					world[w][h-1] 	= new MapTile(tileSet[1][2], w, h-1, MapTile.TYPE_LVL3);
 				}
 				
 				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[1][0], w, h);

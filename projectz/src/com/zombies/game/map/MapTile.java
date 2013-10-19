@@ -54,6 +54,16 @@ public class MapTile extends Image {
 		setPosition(x * TILE_WIDTH, y * TILE_HEIGHT);
 		setBounds(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		debugRenderer = new ShapeRenderer();
+//		setType(TYPE_EMPTY);
+	}
+	
+	public MapTile(TextureRegion texture, int x, int y, int type) {
+		super(texture);
+		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
+		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
+		setSize(TILE_WIDTH, TILE_HEIGHT);
+		setType(type);
+		debug = false;
 	}
 	
 	public MapTile(TextureRegion texture, int x, int y) {
@@ -61,6 +71,7 @@ public class MapTile extends Image {
 		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
 		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
 		setSize(TILE_WIDTH, TILE_HEIGHT);
+//		setType(TYPE_EMPTY);
 		debug = false;
 	}
 	/*****************************************************************
