@@ -305,6 +305,35 @@ public class Map extends Group {
 		int worldWidth = world[0].length;
 		int worldHeight = world.length;
 		boolean neighbours[] = new boolean[4];
+		
+		for(int h = 0; h < worldWidth; h++){
+			for(int w = 0; w < worldHeight; w++) {
+				
+				//First set the neighbours to false
+				neighbours[NORTH] = neighbours[EAST] = neighbours[SOUTH] = neighbours[WEST] = false;
+				
+				//Check the neighbours
+				if(world[w][h].getType() == MapTile.TYPE_STREET && !world[w][h].isStart() && !world[w][h].isExit()) {
+					if(w > 0 				&& world[w-1][h].getType() == MapTile.TYPE_STREET) neighbours[WEST] = true; 
+					if(w < (worldWidth-1) 	&& world[w+1][h].getType() == MapTile.TYPE_STREET) neighbours[EAST] = true; 
+					if(h > 0 				&& world[w][h-1].getType() == MapTile.TYPE_STREET) neighbours[NORTH] = true; 
+					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_STREET) neighbours[SOUTH] = true; 
+				}
+				
+				//Remove double streets
+				if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
+					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				}else if(neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && !neighbours[SOUTH] && world[w-1][h-1].getType() == MapTile.TYPE_STREET) {
+					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				}else if(!neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && neighbours[SOUTH] && world[w-1][h+1].getType() == MapTile.TYPE_STREET) {
+					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				}else if(!neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && neighbours[SOUTH] && world[w+1][h+1].getType() == MapTile.TYPE_STREET) {
+					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				}else if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
+					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				}
+			}
+		}
 		for(int h = 0; h < worldWidth; h++){
 			for(int w = 0; w < worldHeight; w++) {
 				
@@ -370,7 +399,6 @@ public class Map extends Group {
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}
-				
 //				if(world[w][h].getType() == MapTile.TYPE_STREET) world[w][h].setType(MapTile.TYPE_STREET);
 			}
 		}
