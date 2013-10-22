@@ -135,7 +135,7 @@
 			<description>Vollverpflegung für Soldaten, erhältlich mit Geschnetzeltem oder Hamburgern</description>
 		</consumable>
 		
-		<consumable id="1">
+		<consumable id="12">
 			<name>TV-Menü</name>
 			<grade id= "5"/>
 			<effects>
@@ -147,6 +147,29 @@
 			<description>Nur in die Mikrowelle schieben und man hat eine komplette Mahlzeit mit Fleisch, womit die Frage aufkommt warum man das Paket nicht kühlen muss...</description>
 		</consumable>
 		
+		<consumable id="13">
+			<name>Marshmallows</name>
+			<grade id= ""/>
+			<effects>
+				<hunger val= "25"/>
+				<thirst val= "0"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Ob geröstet überm Feuer oder roh, diese Zuckenbomben schmecken immer</description>
+		</consumable>
+		
+		<consumable id="14">
+			<name>Trinkpäckchen</name>
+			<grade id= "1"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "20"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Damals in der Grundschule haben sie sich bereits bewährt</description>
+		</consumable>
 		
 		
 	
