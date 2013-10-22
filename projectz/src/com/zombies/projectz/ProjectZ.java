@@ -63,6 +63,10 @@ public class ProjectZ implements ApplicationListener {
 		//InputListener first parameter is the touchpad that isn't active
 		input = new InputHelper(null, true);
 		stage.addListener(input);
+		
+		//Debug output something goes wrong with the height and width :(
+		System.out.println("~~Spiel gestartet~~");
+		System.out.println("Width: "+Gdx.graphics.getWidth()+" Height:" + Gdx.graphics.getHeight());
 	}
 
 	/**
@@ -79,8 +83,6 @@ public class ProjectZ implements ApplicationListener {
 	 * resizes the Window and set the Viewport
 	 */
 	public void resize(int width, int height) {
-		width = 1280;
-		height = 759;	//786
 		stage.setViewport(width, height, false);
 	}
 

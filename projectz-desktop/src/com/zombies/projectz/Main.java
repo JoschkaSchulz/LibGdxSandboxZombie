@@ -11,7 +11,7 @@ public class Main {
 
 		cfg.resizable = false;
 		cfg.width = 1280;
-		cfg.height = 759; //786 klappt nicht mehr
+		cfg.height = 786; //786 klappt nicht mehr
 		
 		new LwjglApplication(new ProjectZ(), cfg);
 	}
