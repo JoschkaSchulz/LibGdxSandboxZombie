@@ -12,6 +12,10 @@ import com.zombies.helper.InputHelper;
 
 public class Map extends Group {
 	
+	/*********************************************************
+	 * 			Variables
+	 *********************************************************/
+	
 	public static final int TYPE_CITY 		= 0;
 	public static final int TYPE_FOREST 	= 1;
 	
@@ -28,6 +32,10 @@ public class Map extends Group {
 	private MapTile[][] world;
 	private TextureRegion tileSet[][];
 	
+	/*********************************************************
+	 * 			Constructor
+	 *********************************************************/
+	
 	public Map(int width, int height) {
 		dragX = 0;
 		dragY = 0;
@@ -36,6 +44,23 @@ public class Map extends Group {
 		this.height = height;
 		world = new MapTile[width][height];
 	}
+	
+	/*********************************************************
+	 * 			Getter and Setter
+	 *********************************************************/
+	
+	public int getMapWidth() {
+		return this.width * MapTile.TILE_WIDTH;
+	}
+	
+	public int getMapHeight() {
+		return this.height * MapTile.TILE_HEIGHT;
+	}
+	
+	
+	/*********************************************************
+	 * 			Methods
+	 *********************************************************/
 	
 	/**
 	 * magic in every row! Generates the map :D
@@ -301,6 +326,10 @@ public class Map extends Group {
 		
 	}
 	
+	/**
+	 * This method replaces all Street tiles with real street tiles and
+	 * looking for double streets to remove.
+	 */
 	private void prepareWays() {
 		int worldWidth = world[0].length;
 		int worldHeight = world.length;
@@ -321,15 +350,33 @@ public class Map extends Group {
 				}
 				
 				//Remove double streets
+				/* #=Street o=other or street
+				 *   o##
+				 *   o?#
+				 *   ooo
+				 */
 				if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
 					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				/* #=Street o=other or street
+				 *   ##o
+				 *   #?o
+				 *   ooo
+				 */
 				}else if(neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && !neighbours[SOUTH] && world[w-1][h-1].getType() == MapTile.TYPE_STREET) {
 					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				/* #=Street o=other or street
+				 *   ooo
+				 *   #?o
+				 *   ##o
+				 */
 				}else if(!neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && neighbours[SOUTH] && world[w-1][h+1].getType() == MapTile.TYPE_STREET) {
 					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				/* #=Street o=other or street
+				 *   ooo
+				 *   o?#
+				 *   o##
+				 */
 				}else if(!neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && neighbours[SOUTH] && world[w+1][h+1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
-				}else if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
 					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
 				}
 			}
@@ -404,6 +451,11 @@ public class Map extends Group {
 		}
 	}
 
+	/**
+	 * This method replaces all Buildings andreplace it with real buildings.
+	 * If it is happen it will also look if some buildings can upgraded to
+	 * lvl2 or lvl3 buildings.
+	 */
 	private void prepareBuildings() {
 		
 		float chanceLvl2 = 0.15f;
@@ -489,6 +541,10 @@ public class Map extends Group {
 		}
 	}
 	
+	
+	/**
+	 * This method prints a test Info on the console
+	 */
 	private void printMapInfo() {
 		int empty = 0;
 		int level1 = 0;
@@ -516,14 +572,10 @@ public class Map extends Group {
 		System.out.println("Level3:\t\t\t" + (level3/4));
 	}
 	
-	public int getMapWidth() {
-		return this.width * MapTile.TILE_WIDTH;
-	}
-	
-	public int getMapHeight() {
-		return this.height * MapTile.TILE_HEIGHT;
-	}
-	
+	/**
+	 * Let the Actor act.
+	 * @param float  delta is the time that happens after each frame
+	 */
 	@Override
 	public void act(float delta) {
 		super.act(delta);
