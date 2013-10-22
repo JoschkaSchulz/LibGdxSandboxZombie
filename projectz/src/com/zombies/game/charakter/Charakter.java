@@ -8,6 +8,10 @@ import com.zombies.game.skilltree.Skill;
 import com.zombies.game.skilltree.Skilltree;
 
 public class Charakter {
+	/******************************************
+	 * 			variables
+	 ******************************************/
+	
 	private FileHandle xmlFile;
 	
 	private String name;
@@ -140,6 +144,9 @@ public class Charakter {
 	 * 			methods
 	 ******************************************/
 	
+	/**
+	 * This method loads a character from the .xml file
+	 */
 	private void loadCharakter() {
 		try {
 			XmlReader xml = new XmlReader();
@@ -165,8 +172,8 @@ public class Charakter {
 			this.skilltree = new Skilltree(skills);
 			
 		}catch(Exception e) {
-			e.printStackTrace();
-//			System.err.println("Fehler beim Laden des Charakters!");
+//			e.printStackTrace();
+			System.err.println("Fehler beim Laden des Charakters!");
 		}
 	}
 	
