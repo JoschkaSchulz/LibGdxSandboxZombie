@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+<!-- Consumables are Food, Drinks and Medicine. They have hunger, thirst and health factor that determinates the amount of replenishment -->
+	<consumables>
+	
+		<consumable id="1">
+			<name>Schokoriegel</name>
+			<grade id= "1"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "0"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Ein 25g Schokoriegel, Achtung macht schlechte Zähne</description>
+		</consumable>
+  
+	
+	</consumables>
+	
+<!-- Equipment are Cloth or Backpacks. They have a damage reduction(percentage of total damage reduction)  
+a Slot (id of the slot where the equipment fits) and a space value that determinates the ammount of inventory slots that are added -->
+	<equipments>
+	</equipments>
+	
+<!-- weapons are Melee weapons, they have a rate of fire (determinating the cooldown) and a damage -->
+	<meleeweapons>
+	</meleeweapons>
+	
+<!-- guns are firearms !!TODO!! -->
+</items>
