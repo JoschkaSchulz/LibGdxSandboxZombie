@@ -14,7 +14,141 @@
 			</effects>
 			<description>Ein 25g Schokoriegel, Achtung macht schlechte Zähne</description>
 		</consumable>
-  
+		
+		<consumable id="2">
+			<name>Gummibären</name>
+			<grade id= "1"/>
+			<effects>
+				<hunger val= "15"/>
+				<thirst val= "0"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Eine kleine Packung gummiger Bären. Man kann sie essen oder in Wasser stecken</description>
+		</consumable>
+		
+		<consumable id="3">
+			<name>Tüte Chips</name>
+			<grade id= "2"/>
+			<effects>
+				<hunger val= "25"/>
+				<thirst val= "-10"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>175g Kartoffelchips mit Zwiebelgeschmack, Vorsicht sehr salzig!</description>
+		</consumable>
+		
+		<consumable id="4">
+			<name>Apfel</name>
+			<grade id= "2"/>
+			<effects>
+				<hunger val= "15"/>
+				<thirst val= "10"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Saftiger Apfel, auch wenn daran schon Prinzessinnen erstickt sein sollen ist dieser eher gesund als gefährlich</description>
+		</consumable>
+		
+		<consumable id="5">
+			<name>Dosenfleisch</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "35"/>
+				<thirst val= "0"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Frühstücks - "Fleisch" aus der Dose. Bestimmt nicht das beste Fleisch aber füllt den Magen! </description>
+		</consumable>
+		
+		<consumable id="6">
+			<name>Dose Thunfisch</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "30"/>
+				<thirst val= "10"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>In Wasser eingelegter Thunfisch, garantiert ohne Delfin!</description>
+		</consumable>
+
+		<consumable id="7">
+			<name>Dose Annanas</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "20"/>
+				<thirst val= "20"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Eine Dose mit Annanasscheiben inclusive Annanas Saft zum trinken</description>
+		</consumable>
+		
+		<consumable id="8">
+			<name>Dosen Raviolis</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "50"/>
+				<thirst val= "0"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Vorgekochte Ravioli in Tomatensauce, Studenten vieler Generationen haben hiermit überlebt,</description>
+		</consumable>
+		
+		<consumable id="9">
+			<name>Dosensuppe</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "30"/>
+				<thirst val= "20"/>
+				<health val= "10"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Fast wie die von Omi, nur aus der Dose. Hilft bei Erkältungen</description>
+		</consumable>
+		
+		<consumable id="10">
+			<name>Wassermelone</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "20"/>
+				<thirst val= "40"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Eine große noch intakte Frucht voller Wasser und Fruchtzucker</description>
+		</consumable>
+		
+		<consumable id="11">
+			<name>Einmannpackung</name>
+			<grade id= "5"/>
+			<effects>
+				<hunger val= "80"/>
+				<thirst val= "20"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Vollverpflegung für Soldaten, erhältlich mit Geschnetzeltem oder Hamburgern</description>
+		</consumable>
+		
+		<consumable id="1">
+			<name>TV-Menü</name>
+			<grade id= "5"/>
+			<effects>
+				<hunger val= "70"/>
+				<thirst val= "10"/>
+				<health val= "0"/>
+				<img val = "randomimage.png"/>
+			</effects>
+			<description>Nur in die Mikrowelle schieben und man hat eine komplette Mahlzeit mit Fleisch, womit die Frage aufkommt warum man das Paket nicht kühlen muss...</description>
+		</consumable>
+		
+		
+		
 	
 	</consumables>
 	
