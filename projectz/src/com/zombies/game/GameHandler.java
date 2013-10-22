@@ -13,6 +13,11 @@ import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
 
 public class GameHandler extends Group {
+
+	/**************************************************************************
+	 * 				Variables
+	 **************************************************************************/
+	
 	//static final
 	public static final int STATE_CHARAKTERPICKER = 1;
 	public static final int STATE_INTRO = 2;
@@ -27,6 +32,13 @@ public class GameHandler extends Group {
 	
 	private int state;
 	
+	/**************************************************************************
+	 * 				Constructor
+	 **************************************************************************/
+	
+	/**
+	 * The constructor of the GameHandler
+	 */
 	public GameHandler() {
 		charPicker = new CharakterPicker();
 		
@@ -34,6 +46,10 @@ public class GameHandler extends Group {
 		state = 0;
 	}
 
+	/**************************************************************************
+	 * 				Methods
+	 **************************************************************************/
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -58,6 +74,11 @@ public class GameHandler extends Group {
 		}
 	}
 	
+	/**
+	 * This method sets a charakter and change thestate to the intro state
+	 * 
+	 * @param charakter selected character forthe game
+	 */
 	public void setCharakterAndStart(Charakter charakter) {
 		this.charakter = charakter;
 		state = STATE_INTRO;
