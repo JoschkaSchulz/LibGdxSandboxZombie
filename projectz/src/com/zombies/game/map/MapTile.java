@@ -15,26 +15,26 @@ public class MapTile extends Image {
 	/*****************************************************************
 	 *					Variables
 	 ****************************************************************/
-	public static final int TILE_WIDTH = 128;
-	public static final int TILE_HEIGHT = 128;
+	public static final int TILE_WIDTH = 128;	//The tile width
+	public static final int TILE_HEIGHT = 128;	//The tile height
 	
-	public static final int TYPE_EMPTY = -1;
-	public static final int TYPE_STREET = 0;
-	public static final int TYPE_LVL1 = 1;
-	public static final int TYPE_LVL2 = 2;
-	public static final int TYPE_LVL3 = 3;
-	public static final int TYPE_LVL4 = 4;
-	public static final int TYPE_LVL5 = 5;
+	public static final int TYPE_EMPTY = -1;	//type for empty tiles
+	public static final int TYPE_STREET = 0;	//typr for streets
+	public static final int TYPE_LVL1 = 1;		//type for 1x1 buildings
+	public static final int TYPE_LVL2 = 2;		//type for 2x1 buildings
+	public static final int TYPE_LVL3 = 3;		//type for 2x2 buildings
+	public static final int TYPE_LVL4 = 4;		//not implemented yet
+	public static final int TYPE_LVL5 = 5;		//not implemented yet
 	
-	private boolean debug;
-	private Color debugColor;
-	private ShapeRenderer debugRenderer;
+	private boolean debug;					//if activates draws the debug tiles
+	private Color debugColor;				//color for debug drawer
+	private ShapeRenderer debugRenderer;	//the debug ShapeRenderer
 	
-	private int posX;
-	private int posY;
-	private boolean isStart;
-	private boolean isExit;
-	private int type;
+	private int posX;			//The position x of the tile [TILE_WIDTH*x]	
+	private int posY;			//The position y of the tile [TILE_HEIGHT*y]	
+	private boolean isStart;	//is the tile a start tile
+	private boolean isExit;		//is the tile a exit tile
+	private int type;			//The type of the tile
 	
 	/*****************************************************************
 	 *					Constructors
@@ -57,6 +57,14 @@ public class MapTile extends Image {
 		setType(TYPE_EMPTY);
 	}
 	
+	/**
+	 * Quick Contructor, doesn'T needto use setType after that.
+	 * 
+	 * @param texture the texture of the tile
+	 * @param x the x coordinate in the matrix
+	 * @param y the y coordinate in the matrix
+	 * @param type the type of the tile, look in the static variables for types
+	 */
 	public MapTile(TextureRegion texture, int x, int y, int type) {
 		super(texture);
 		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
@@ -66,6 +74,13 @@ public class MapTile extends Image {
 		debug = false;
 	}
 	
+	/**
+	 * Constructor for creating a tile
+	 * 
+	 * @param texture the texture of the tile
+	 * @param x the x coordinate in the matrix
+	 * @param y the y coordinate in the matrix
+	 */
 	public MapTile(TextureRegion texture, int x, int y) {
 		super(texture);
 		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
