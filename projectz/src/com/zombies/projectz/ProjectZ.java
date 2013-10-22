@@ -26,11 +26,30 @@ import com.zombies.helper.InputHelper;
 import com.zombies.mainmenu.MainMenu;
 
 public class ProjectZ implements ApplicationListener {
+	/**************************************************************************
+	 * 				Variables
+	 **************************************************************************/
+	
 	private Stage stage;
 	private MainMenu mainMenu;
 	private GameHandler gameHandler;
 	private InputHelper input;
 	
+	/**************************************************************************
+	 * 				Constructor
+	 **************************************************************************/
+	
+	/**
+	 * This class doesn't need a constructor.
+	 */
+	
+	/**************************************************************************
+	 * 				Methods
+	 **************************************************************************/
+	
+	/**
+	 * Create the the game start
+	 */
 	public void create() {
 		stage = new Stage();
 		FontHelper.loadFontHelper();
@@ -46,6 +65,9 @@ public class ProjectZ implements ApplicationListener {
 		stage.addListener(input);
 	}
 
+	/**
+	 * Clears the stage and creates a new GameHandler
+	 */
 	public void startGame() {
 		stage.clear();
 		
@@ -53,26 +75,41 @@ public class ProjectZ implements ApplicationListener {
 		stage.addActor(gameHandler);
 	}
 	
+	/**
+	 * resizes the Window and set the Viewport
+	 */
 	public void resize(int width, int height) {
 		width = 1280;
 		height = 759;	//786
 		stage.setViewport(width, height, false);
 	}
 
+	/**
+	 * Renders every single frame
+	 */
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
 
+	/**
+	 * clean exit the game
+	 */
 	public void dispose() {
 		stage.dispose();
 	}
 
+	/**
+	 * If the game is paused this method is started
+	 */
 	@Override
 	public void pause() {
 	}
 
+	/**
+	 * If the game is resumed this method is used
+	 */
 	@Override
 	public void resume() {
 	}
