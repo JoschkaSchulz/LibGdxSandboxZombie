@@ -170,7 +170,138 @@
 			<img val = "randomimage.png"/>
 			<description>Damals in der Grundschule haben sie sich bereits bewährt</description>
 		</consumable>
+	
+		<consumable id="15">
+			<name>Wassereis (geschmolzen)</name>
+			<grade id= "1"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "10"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Als Kind hat man immer darauf gewartet dass das Eis schmilzt, jetzt hätte man lieber eine Abkühlung</description>
+		</consumable>
 		
+		<consumable id="16">
+			<name>Coladose</name>
+			<grade id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "30"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Mehr Zucker als Wasser trotzdem erfrischend</description>
+		</consumable>
+		
+		<consumable id="17">
+			<name>Kakaotüte</name>
+			<grade id= "2"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "25"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Wie die Milch immer noch gut sein kann ist ein Mysterium</description>
+		</consumable>
+		
+		<consumable id="18">
+			<name>Wasserflasche (0.5l)</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "50"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Nichts besonderes trotzdem Lebensrettend</description>
+		</consumable>
+		
+		<consumable id="19">
+			<name>Smoothie</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "20"/>
+				<thirst val= "40"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Sehr dickflüssiger Saft. Durststillend und Nahrhaft zugleich</description>
+		</consumable>
+		
+		<consumable id="20">
+			<name>Softdrink (0.5l)</name>
+			<grade id= "3"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "50"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Zucker und Wasser gemischt mit Zitronensäure, bestimmt nicht gesund aber der Zucker hält einen am Laufen</description>
+		</consumable>
+		
+		<consumable id="21">
+			<name>Wasserflasche (0.75l)</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "75"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Klares Wasser aus der Plastikflasche. Natriumarm.</description>
+		</consumable>
+		
+		<consumable id="22">
+			<name>Multivitaminsaft (0.75l)</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "65"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Mit Fruchtstückchen und dem Versprechen auf ein besseres Leben</description>
+		</consumable>
+		
+		<consumable id="23">
+			<name>Softdrink (0.75l)</name>
+			<grade id= "4"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "75"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Eine größere Flasche mit Zitrus Zuckerwasser</description>
+		</consumable>
+		
+		<consumable id="24">
+			<name>Wasserflasche (1l)</name>
+			<grade id= "5"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "100"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Große Flasche mit klarem Wasser, was kann man sich mehr wünschen?!</description>
+		</consumable>
+		
+		<consumable id="25">
+			<name>Iso-Drink</name>
+			<grade id= "5"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "100"/>
+				<health val= "10"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Es hat Elektrolyte!</description>
+		</consumable>
 		
 	
 	</consumables>
