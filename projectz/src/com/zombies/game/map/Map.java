@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.helper.InputHelper;
@@ -32,6 +33,8 @@ public class Map extends Group {
 	private MapTile[][] world;
 	private TextureRegion tileSet[][];
 	
+	private ShapeRenderer debugRenderer;
+	
 	/*********************************************************
 	 * 			Constructor
 	 *********************************************************/
@@ -43,6 +46,7 @@ public class Map extends Group {
 		this.width = width;
 		this.height = height;
 		world = new MapTile[width][height];
+		this.debugRenderer = new ShapeRenderer();
 	}
 	
 	/*********************************************************
@@ -75,6 +79,7 @@ public class Map extends Group {
 	 * 			defined as static variables.
 	 */
 	public void generateMap(int type) {
+		System.out.println("Memory before: " + Gdx.app.getNativeHeap());
 		getParent().addActor(new MapUI(this));
 		
 		switch(type) {
@@ -107,7 +112,7 @@ public class Map extends Group {
 			//first clear the complete world
 			for(int h = 0; h < world[0].length; h++){
 				for(int w = 0; w < world.length; w++) {
-					world[w][h] = new MapTile(w, h);
+					world[w][h] = new MapTile(w, h, debugRenderer);
 					world[w][h].setType(MapTile.TYPE_EMPTY);
 				}
 			}
@@ -117,19 +122,19 @@ public class Map extends Group {
 			if(horizontal) {
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
-				world[0][startPos] = new MapTile(0, startPos);	//TODO: hier start einfügen
+				world[0][startPos] = new MapTile(0, startPos, debugRenderer);	//TODO: hier start einfügen
 				world[0][startPos].setStart(true);
 				world[0][startPos].setType(MapTile.TYPE_STREET);
-				world[world.length-1][exitPos] = new MapTile((world.length-1), exitPos);; //TODO: hier exit einfügen
+				world[world.length-1][exitPos] = new MapTile((world.length-1), exitPos, debugRenderer);; //TODO: hier exit einfügen
 				world[world.length-1][exitPos].setExit(true);
 				world[world.length-1][exitPos].setType(MapTile.TYPE_STREET);
 			}else{
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
-				world[startPos][0] = new MapTile(startPos, 0);;	//TODO: hier start einfügen
+				world[startPos][0] = new MapTile(startPos, 0, debugRenderer);;	//TODO: hier start einfügen
 				world[startPos][0].setStart(true);
 				world[startPos][0].setType(MapTile.TYPE_STREET);
-				world[exitPos][world[0].length-1] = new MapTile(exitPos, world[0].length-1); //TODO: hier exit einfügen
+				world[exitPos][world[0].length-1] = new MapTile(exitPos, world[0].length-1, debugRenderer); //TODO: hier exit einfügen
 				world[exitPos][world[0].length-1].setExit(true);
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
 			}
@@ -140,9 +145,10 @@ public class Map extends Group {
 				//*******************************************************************************
 				//Step II ~ get values from the world
 				//*******************************************************************************
-					
+
 				//Clear the old free Places
 				freePlaces.clear();
+				
 				
 				//First find all Streets but not the exit!
 				for(int h = 0; h < world[0].length; h++){
@@ -167,7 +173,8 @@ public class Map extends Group {
 						}
 					}
 				}
-				
+
+
 				//*******************************************************************************
 				//Step III ~ place new tiles
 				//*******************************************************************************
@@ -178,13 +185,12 @@ public class Map extends Group {
 					for(int i = 0; i < until; i++) {
 						int index = (int)(Math.random()*(freePlaces.size()-1));
 						MapTile mt = freePlaces.get(index);
-						world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY());
+						world[mt.getPosX()][mt.getPosY()] = new MapTile(mt.getPosX(),mt.getPosY(), debugRenderer);
 						world[mt.getPosX()][mt.getPosY()].setType(MapTile.TYPE_LVL1);
 						freePlaces.remove(index);
 						activity = true;
 					}
 				}
-				
 				//*******************************************************************************
 				//Step IV ~ place new ways on the world
 				//*******************************************************************************
@@ -224,10 +230,9 @@ public class Map extends Group {
 						}
 					}
 				
-				
 					//Choose direction
 					if(!possibleDirection[SOUTH]&& !possibleDirection[EAST]&& !possibleDirection[NORTH]&& !possibleDirection[WEST]) {
-						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
+						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY(), debugRenderer);
 						world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
 					}else{
 						boolean foundDirection = false;
@@ -244,27 +249,27 @@ public class Map extends Group {
 						int streetCount = (int)(Math.random()*maxStreets) + 1;
 						
 						//Build streets
-						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY());
+						world[streetStart.getPosX()][streetStart.getPosY()] = new MapTile(streetStart.getPosX(), streetStart.getPosY(), debugRenderer);
 						world[streetStart.getPosX()][streetStart.getPosY()].setType(MapTile.TYPE_STREET);
 						for(int i = 0; i < streetCount; i++) {
 							if(choosenDirection == NORTH && (streetStart.getPosY() - (i+1)) >= 0) {
 								if(world[streetStart.getPosX()][streetStart.getPosY() - (i+1)].getType() == MapTile.TYPE_EMPTY) {
-									world[streetStart.getPosX()][streetStart.getPosY() - (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() - (i+1));
+									world[streetStart.getPosX()][streetStart.getPosY() - (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() - (i+1), debugRenderer);
 								}else break;
 							}
 							if(choosenDirection == SOUTH && (streetStart.getPosY() + (i+1)) < world[0].length) {
 								if(world[streetStart.getPosX()][streetStart.getPosY() + (i+1)].getType() == MapTile.TYPE_EMPTY) {
-									world[streetStart.getPosX()][streetStart.getPosY() + (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() + (i+1));
+									world[streetStart.getPosX()][streetStart.getPosY() + (i+1)] = new MapTile(streetStart.getPosX(), streetStart.getPosY() + (i+1), debugRenderer);
 								}else break;
 							}
 							if(choosenDirection == EAST && (streetStart.getPosX() + (i+1)) < world.length) {
 								if(world[streetStart.getPosX() + (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
-									world[streetStart.getPosX() + (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() + (i+1), streetStart.getPosY());
+									world[streetStart.getPosX() + (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() + (i+1), streetStart.getPosY(), debugRenderer);
 								}else break;
 							}
 							if(choosenDirection == WEST && (streetStart.getPosX() - (i+1)) >= 0) {
 								if(world[streetStart.getPosX() - (i+1)][streetStart.getPosY()].getType() == MapTile.TYPE_EMPTY) {
-									world[streetStart.getPosX() - (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() - (i+1), streetStart.getPosY());
+									world[streetStart.getPosX() - (i+1)][streetStart.getPosY()] = new MapTile(streetStart.getPosX() - (i+1), streetStart.getPosY(), debugRenderer);
 								}else break;
 							}
 						}
@@ -308,10 +313,8 @@ public class Map extends Group {
 		
 		//Preparing all ways with the right Texture
 		prepareWays();
-		
 		//Prepare the buildings or trees
 		prepareBuildings();
-		
 		//Add the world to the group
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
