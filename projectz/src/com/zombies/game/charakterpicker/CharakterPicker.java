@@ -95,7 +95,7 @@ public class CharakterPicker extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		if(InputHelper.ACTION) {
+		if(InputHelper.ACTION || InputHelper.DRAG) {
 			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 		

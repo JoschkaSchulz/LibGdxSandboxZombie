@@ -45,7 +45,7 @@ public class MapTile extends Image {
 	 * @param x
 	 * @param y
 	 */
-	public MapTile(int x, int y) {
+	public MapTile(int x, int y, ShapeRenderer debugRenderer) {
 		debug = true;
 		debugColor = new Color(1f, 1f, 1f, 1f);
 		
@@ -53,7 +53,8 @@ public class MapTile extends Image {
 		posY = y;
 		setPosition(x * TILE_WIDTH, y * TILE_HEIGHT);
 		setBounds(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-		debugRenderer = new ShapeRenderer();
+//		debugRenderer = new ShapeRenderer();
+		this.debugRenderer = debugRenderer;
 		setType(TYPE_EMPTY);
 	}
 	
