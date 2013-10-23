@@ -44,7 +44,7 @@ public class CharakterPicker extends Group {
 	
 	private HashMap<String, String> t;		//Translations for Strings
 	
-	public CharakterPicker() {
+	public CharakterPicker(ShapeRenderer debugRenderer) {
 		chars = new Charakter[2][2];
 		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski_ger.xml"));
 		chars[1][0] = new Charakter(Gdx.files.internal("data/char/Kasia_vonLuprecht_ger.xml"));
@@ -88,7 +88,7 @@ public class CharakterPicker extends Group {
 		
 		selectCharakter(currentX, currentY);
 		
-		this.debugRenderer = new ShapeRenderer();
+		this.debugRenderer = debugRenderer;
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package com.zombies.game;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.animation.Animation;
@@ -31,7 +32,7 @@ public class GameHandler extends Group {
 	private Charakter charakter;
 	
 	private int state;
-	
+	private ShapeRenderer debugRenderer;
 	/**************************************************************************
 	 * 				Constructor
 	 **************************************************************************/
@@ -39,8 +40,9 @@ public class GameHandler extends Group {
 	/**
 	 * The constructor of the GameHandler
 	 */
-	public GameHandler() {
-		charPicker = new CharakterPicker();
+	public GameHandler(ShapeRenderer debugRenderer) {
+		this.debugRenderer = debugRenderer;
+		charPicker = new CharakterPicker(debugRenderer);
 		
 		charakter = null;
 		state = 0;
@@ -62,7 +64,7 @@ public class GameHandler extends Group {
 			if(intro.getFinished()) {
 				state = STATE_MAP;
 				this.clear();
-				map = new Map(16,16);
+				map = new Map(16,16, debugRenderer);
 				this.addActor(map);
 				map.generateMap(Map.TYPE_CITY);
 			}

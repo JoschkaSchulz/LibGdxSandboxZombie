@@ -53,7 +53,6 @@ public class MapTile extends Image {
 		posY = y;
 		setPosition(x * TILE_WIDTH, y * TILE_HEIGHT);
 		setBounds(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-//		debugRenderer = new ShapeRenderer();
 		this.debugRenderer = debugRenderer;
 		setType(TYPE_EMPTY);
 	}

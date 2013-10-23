@@ -39,14 +39,14 @@ public class Map extends Group {
 	 * 			Constructor
 	 *********************************************************/
 	
-	public Map(int width, int height) {
+	public Map(int width, int height, ShapeRenderer debugRenderer) {
 		dragX = 0;
 		dragY = 0;
 		
 		this.width = width;
 		this.height = height;
 		world = new MapTile[width][height];
-		this.debugRenderer = new ShapeRenderer();
+		this.debugRenderer = debugRenderer;
 	}
 	
 	/*********************************************************
@@ -79,7 +79,7 @@ public class Map extends Group {
 	 * 			defined as static variables.
 	 */
 	public void generateMap(int type) {
-		System.out.println("Memory before: " + Gdx.app.getNativeHeap());
+		long mem = Gdx.app.getNativeHeap();
 		getParent().addActor(new MapUI(this));
 		
 		switch(type) {
@@ -324,7 +324,8 @@ public class Map extends Group {
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
-		
+		System.out.println("Die Map belegt " + ((Gdx.app.getNativeHeap()-mem)/1000000.0) + "MB");
+		System.out.println("Das Spiel belegt " + (Gdx.app.getNativeHeap()/1000000.0) + "MB");
 		printMapInfo();
 		
 	}

@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zombies.game.GameHandler;
 import com.zombies.helper.FontHelper;
@@ -34,6 +35,7 @@ public class ProjectZ implements ApplicationListener {
 	private MainMenu mainMenu;
 	private GameHandler gameHandler;
 	private InputHelper input;
+	private ShapeRenderer debugRenderer;
 	
 	/**************************************************************************
 	 * 				Constructor
@@ -53,9 +55,10 @@ public class ProjectZ implements ApplicationListener {
 	public void create() {
 		stage = new Stage();
 		FontHelper.loadFontHelper();
+		debugRenderer = new ShapeRenderer();
 		
 		//Start with the main Menu (memo: stage.clear removes all actors)
-		mainMenu = new MainMenu(this);
+		mainMenu = new MainMenu(this, this.debugRenderer);
 		stage.addActor(mainMenu);
 		
 		Gdx.input.setInputProcessor(stage);
@@ -75,7 +78,7 @@ public class ProjectZ implements ApplicationListener {
 	public void startGame() {
 		stage.clear();
 		
-		this.gameHandler = new GameHandler();
+		this.gameHandler = new GameHandler(this.debugRenderer);
 		stage.addActor(gameHandler);
 	}
 	

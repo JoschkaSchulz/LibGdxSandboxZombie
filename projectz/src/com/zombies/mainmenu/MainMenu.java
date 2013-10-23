@@ -37,7 +37,7 @@ public class MainMenu extends Group {
 	 * 				Construcktors
 	 ********************************************************/
 	
-	public MainMenu(ProjectZ projectZRef) {
+	public MainMenu(ProjectZ projectZRef, ShapeRenderer debugRenderer) {
 		this.selection = MENU_START;
 		this.projectZRef = projectZRef;
 		
@@ -68,7 +68,7 @@ public class MainMenu extends Group {
 		imgButtonExit.setName("button_exit");
 		this.addActor(imgButtonExit);
 		
-		this.debugRenderer = new ShapeRenderer();
+		this.debugRenderer = debugRenderer;
 	}
 
 	/********************************************************
