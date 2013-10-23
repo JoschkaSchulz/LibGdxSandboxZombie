@@ -5,6 +5,7 @@
 	
 		<consumable id="1">
 			<name>Schokoriegel</name>
+			<typ id= "1"/>
 			<grade id= "1"/>
 			<effects>
 				<hunger val= "10"/>
@@ -18,6 +19,7 @@
 		<consumable id="2">
 			<name>Gummibären</name>
 			<grade id= "1"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "15"/>
 				<thirst val= "0"/>
@@ -30,6 +32,7 @@
 		<consumable id="3">
 			<name>Tüte Chips</name>
 			<grade id= "2"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "25"/>
 				<thirst val= "-10"/>
@@ -42,6 +45,7 @@
 		<consumable id="4">
 			<name>Apfel</name>
 			<grade id= "2"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "15"/>
 				<thirst val= "10"/>
@@ -54,6 +58,7 @@
 		<consumable id="5">
 			<name>Dosenfleisch</name>
 			<grade id= "3"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "35"/>
 				<thirst val= "0"/>
@@ -66,6 +71,7 @@
 		<consumable id="6">
 			<name>Dose Thunfisch</name>
 			<grade id= "3"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "30"/>
 				<thirst val= "10"/>
@@ -78,6 +84,7 @@
 		<consumable id="7">
 			<name>Dose Annanas</name>
 			<grade id= "3"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "20"/>
 				<thirst val= "20"/>
@@ -90,6 +97,7 @@
 		<consumable id="8">
 			<name>Dosen Raviolis</name>
 			<grade id= "4"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "50"/>
 				<thirst val= "0"/>
@@ -102,6 +110,7 @@
 		<consumable id="9">
 			<name>Dosensuppe</name>
 			<grade id= "4"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "30"/>
 				<thirst val= "20"/>
@@ -114,6 +123,7 @@
 		<consumable id="10">
 			<name>Wassermelone</name>
 			<grade id= "4"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "20"/>
 				<thirst val= "40"/>
@@ -126,6 +136,7 @@
 		<consumable id="11">
 			<name>Einmannpackung</name>
 			<grade id= "5"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "80"/>
 				<thirst val= "20"/>
@@ -138,6 +149,7 @@
 		<consumable id="12">
 			<name>TV-Menü</name>
 			<grade id= "5"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "70"/>
 				<thirst val= "10"/>
@@ -149,7 +161,8 @@
 		
 		<consumable id="13">
 			<name>Marshmallows</name>
-			<grade id= ""/>
+			<grade id= "2"/>
+			<typ id= "1"/>
 			<effects>
 				<hunger val= "25"/>
 				<thirst val= "0"/>
@@ -162,6 +175,7 @@
 		<consumable id="14">
 			<name>Trinkpäckchen</name>
 			<grade id= "1"/>
+			<typ id= "2"/>
 			<effects>
 				<hunger val= "0"/>
 				<thirst val= "20"/>
@@ -170,8 +184,253 @@
 			<img val = "randomimage.png"/>
 			<description>Damals in der Grundschule haben sie sich bereits bewährt</description>
 		</consumable>
+	
+		<consumable id="15">
+			<name>Wassereis (geschmolzen)</name>
+			<grade id= "1"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "10"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Als Kind hat man immer darauf gewartet dass das Eis schmilzt, jetzt hätte man lieber eine Abkühlung</description>
+		</consumable>
 		
+		<consumable id="16">
+			<name>Coladose</name>
+			<grade id= "2"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "30"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Mehr Zucker als Wasser trotzdem erfrischend</description>
+		</consumable>
 		
+		<consumable id="17">
+			<name>Kakaotüte</name>
+			<grade id= "2"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "25"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Wie die Milch immer noch gut sein kann ist ein Mysterium</description>
+		</consumable>
+		
+		<consumable id="18">
+			<name>Wasserflasche (0.5l)</name>
+			<grade id= "3"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "50"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Nichts besonderes trotzdem Lebensrettend</description>
+		</consumable>
+		
+		<consumable id="19">
+			<name>Smoothie</name>
+			<grade id= "3"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "20"/>
+				<thirst val= "40"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Sehr dickflüssiger Saft. Durststillend und Nahrhaft zugleich</description>
+		</consumable>
+		
+		<consumable id="20">
+			<name>Softdrink (0.5l)</name>
+			<grade id= "3"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "50"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Zucker und Wasser gemischt mit Zitronensäure, bestimmt nicht gesund aber der Zucker hält einen am Laufen</description>
+		</consumable>
+		
+		<consumable id="21">
+			<name>Wasserflasche (0.75l)</name>
+			<grade id= "4"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "75"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Klares Wasser aus der Plastikflasche. Natriumarm.</description>
+		</consumable>
+		
+		<consumable id="22">
+			<name>Multivitaminsaft (0.75l)</name>
+			<grade id= "4"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "65"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Mit Fruchtstückchen und dem Versprechen auf ein besseres Leben</description>
+		</consumable>
+		
+		<consumable id="23">
+			<name>Softdrink (0.75l)</name>
+			<grade id= "4"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "10"/>
+				<thirst val= "75"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Eine größere Flasche mit Zitrus Zuckerwasser</description>
+		</consumable>
+		
+		<consumable id="24">
+			<name>Wasserflasche (1l)</name>
+			<grade id= "5"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "100"/>
+				<health val= "0"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Große Flasche mit klarem Wasser, was kann man sich mehr wünschen?!</description>
+		</consumable>
+		
+		<consumable id="25">
+			<name>Iso-Drink</name>
+			<grade id= "5"/>
+			<typ id= "2"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "100"/>
+				<health val= "10"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Es hat Elektrolyte!</description>
+		</consumable>
+		
+		<consumable id="26">
+			<name>Pflaster</name>
+			<grade id= "1"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "10"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Heftpflaster, einige von ihnen haben Dinomotive</description>
+		</consumable>
+		
+		<consumable id="27">
+			<name>Hustensaft</name>
+			<grade id= "1"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "5"/>
+				<health val= "10"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Hilft gut bei kleineren Erkältungen</description>
+		</consumable>
+		
+		<consumable id="28">
+			<name>Verbände</name>
+			<grade id= "2"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "20"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Alltägliche Verbände zum Bedecken von Wunden</description>
+		</consumable>
+		
+		<consumable id="29">
+			<name>Schmerzmittel</name>
+			<grade id= "3"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "30"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Verschreibungspflichtige Schmerztabletten</description>
+		</consumable>
+		
+		<consumable id="30">
+			<name>Antibiotikum</name>
+			<grade id= "3"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "40"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Hilft bei Bakteriellen Infektionen und ist auch sonst fiebersenkend</description>
+		</consumable>
+		
+		<consumable id="31">
+			<name>Erste-Hilfe Kasten</name>
+			<grade id= "4"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "50"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Ein kompletter Erste-Hilfe Kasten wie ihn jeder in seinem Auto haben sollte</description>
+		</consumable>
+		
+		<consumable id="32">
+			<name>Arztkoffer</name>
+			<grade id= "5"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "80"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Arztkoffer mit allem was man braucht um mittlere bis schwere Verletzungen zu behandeln</description>
+		</consumable>
+		
+		<consumable id="33">
+			<name>Feld Chirourg Tasche</name>
+			<grade id= "5"/>
+			<typ id= "3"/>
+			<effects>
+				<hunger val= "0"/>
+				<thirst val= "0"/>
+				<health val= "200"/>
+			</effects>
+			<img val = "randomimage.png"/>
+			<description>Die Ausrüstung eines Feldchirourgen. Mit diesem könnte man ALLE Wunden behandeln</description>
+		</consumable>
 	
 	</consumables>
 	
@@ -184,5 +443,7 @@ a Slot (id of the slot where the equipment fits) and a space value that determin
 	<meleeweapons>
 	</meleeweapons>
 	
-<!-- guns are firearms !!TODO!! -->
+<!-- guns are firearms, they have a rate of fire(deteminating cooldown) a damage, a range (determinating space for hitbox), a speed (speed in which the slider moves), a magazine size and an id of what ammunition it uses -->
+	<guns>
+	</guns>
 </items>
