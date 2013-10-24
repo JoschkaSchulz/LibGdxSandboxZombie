@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
+import com.zombies.helper.SoundHelper;
 import com.zombies.projectz.ProjectZ;
 
 public class MainMenu extends Group {
@@ -130,7 +131,8 @@ public class MainMenu extends Group {
 	 */
 	private void fireSelection() {
 		switch(selection) {
-			default: 
+			default:
+				SoundHelper.play_Shotgun();
 				projectZRef.startGame();
 			case MENU_OPTIONS:
 				break;

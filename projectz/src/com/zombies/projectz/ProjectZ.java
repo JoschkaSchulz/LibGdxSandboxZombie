@@ -67,6 +67,9 @@ public class ProjectZ implements ApplicationListener {
 		input = new InputHelper(null, true);
 		stage.addListener(input);
 		
+		//Preloading sound in Gamecache
+		com.zombies.helper.SoundHelper.initialize_all_sounds();
+		
 		//Debug output something goes wrong with the height and width :(
 		System.out.println("~~Spiel gestartet~~");
 		System.out.println("Width: "+Gdx.graphics.getWidth()+" Height:" + Gdx.graphics.getHeight());
