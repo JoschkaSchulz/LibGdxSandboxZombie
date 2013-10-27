@@ -106,6 +106,7 @@ public class GameHandler extends Group {
 	 */
 	public void setCharakterAndStart(Charakter charakter) {
 		this.charakter = charakter;
+		eventHandler.setCharRef(this.charakter);
 		state = STATE_INTRO;
 		this.clear();
 		intro = new Animation();

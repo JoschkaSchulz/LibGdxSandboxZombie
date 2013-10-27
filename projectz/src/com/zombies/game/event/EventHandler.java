@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.XmlReader;
+import com.sun.org.apache.xml.internal.utils.CharKey;
+import com.zombies.game.charakter.Charakter;
 import com.zombies.game.skilltree.Skill;
 
 public class EventHandler extends Group {
@@ -18,6 +20,7 @@ public class EventHandler extends Group {
 	private ShapeRenderer debugRenderer;
 	
 	private Event currentEvent;
+	private Charakter charRef;
 	
 	public EventHandler(ShapeRenderer debugRenderer) {
 		allEvents = new ArrayList<EventType>();
@@ -25,6 +28,10 @@ public class EventHandler extends Group {
 		
 		//Loads all events from the events_[lang].xml
 		loadEvents();
+	}
+	
+	public void setCharRef(Charakter charRef) {
+		this.charRef = charRef;
 	}
 	
 	/**

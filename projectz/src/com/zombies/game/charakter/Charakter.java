@@ -19,12 +19,17 @@ public class Charakter {
 	private String height;			//Height of the charakter
 	private String image;			//The profile photo of the charakter
 	private String story;			//Background story of the charakter
+	
 	private int maxLP;				//Maximal Life Points of the charakter
 	private int currentLP;			//Current Life Points of the charakter
 	private int maxStomach;			// ???
 	private int currentStomach;		// ???
 	private int maxThirst;			//Maximal thirst of the charakter
 	private int currentThirst;		//Current thirst of the charakter
+	
+	private int mapX;				//The X coordinate of the map matrix
+	private int mapY;				//The Y coordinate of the map matrix
+	
 	private int meal;				// ???
 	private Skilltree skilltree;	//The skilltree of the charakter
 	
@@ -37,6 +42,19 @@ public class Charakter {
 	/******************************************
 	 * 			getter & setter
 	 ******************************************/
+	
+	public void setMapCoordinates(int x, int y) {
+		this.mapX = x;
+		this.mapY = y;
+	}
+	
+	public int getMapX() {
+		return this.mapX;
+	}
+
+	public int getMapY() {
+		return this.mapY;
+	}
 	
 	public String getName() {
 		return name;

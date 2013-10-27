@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.InputHelper;
 
 public class Map extends Group {
@@ -32,6 +33,7 @@ public class Map extends Group {
 	
 	private MapTile[][] world;
 	private TextureRegion tileSet[][];
+	private Charakter charRef;
 	
 	private ShapeRenderer debugRenderer;
 	
@@ -61,6 +63,9 @@ public class Map extends Group {
 		return this.height * MapTile.TILE_HEIGHT;
 	}
 	
+	public void setCharRef(Charakter charRef) {
+		this.charRef = charRef;
+	}
 	
 	/*********************************************************
 	 * 			Methods
