@@ -14,19 +14,19 @@ public class Charakter {
 	
 	private FileHandle xmlFile;
 	
-	private String name;
-	private String age;
-	private String height;
-	private String image;
-	private String story;
-	private int maxLP;
-	private int currentLP;
-	private int maxStomach;
-	private int currentStomach;
-	private int maxThirst;
-	private int currentThirst;
-	private int meal;
-	private Skilltree skilltree;
+	private String name;			//Name of the charakter
+	private String age;				//Age of the charakter
+	private String height;			//Height of the charakter
+	private String image;			//The profile photo of the charakter
+	private String story;			//Background story of the charakter
+	private int maxLP;				//Maximal Life Points of the charakter
+	private int currentLP;			//Current Life Points of the charakter
+	private int maxStomach;			// ???
+	private int currentStomach;		// ???
+	private int maxThirst;			//Maximal thirst of the charakter
+	private int currentThirst;		//Current thirst of the charakter
+	private int meal;				// ???
+	private Skilltree skilltree;	//The skilltree of the charakter
 	
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
