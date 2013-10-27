@@ -149,7 +149,6 @@ public class Map extends Group {
 				//Clear the old free Places
 				freePlaces.clear();
 				
-				
 				//First find all Streets but not the exit!
 				for(int h = 0; h < world[0].length; h++){
 					for(int w = 0; w < world.length; w++) {
@@ -179,7 +178,7 @@ public class Map extends Group {
 				//Step III ~ place new tiles
 				//*******************************************************************************
 				
-				//Select buildings to set in the free Room (TODO: at the moment only 1x1)
+				//Select buildings to set in the free Room
 				if(freePlaces.size() > 0) {
 					int until = (int)(Math.random()*(freePlaces.size()-decreaseTiles)) + 1;
 					for(int i = 0; i < until; i++) {

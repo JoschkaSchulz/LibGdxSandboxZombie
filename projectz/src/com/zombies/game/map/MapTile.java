@@ -36,6 +36,8 @@ public class MapTile extends Image {
 	private boolean isExit;		//is the tile a exit tile
 	private int type;			//The type of the tile
 	
+	private int eventID;		//The ID from the event that is binded to this tile
+	
 	/*****************************************************************
 	 *					Constructors
 	 ****************************************************************/
@@ -123,6 +125,14 @@ public class MapTile extends Image {
 
 	public int getPosY() {
 		return posY;
+	}
+	
+	public int getEventID() {
+		return eventID;
+	}
+	
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
 	}
 
 	/*****************************************************************

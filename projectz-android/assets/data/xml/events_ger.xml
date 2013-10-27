@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Information zum events_ger.xml
+
+ID:
+Jedes Event ist mit einer eindeutigen ID belegt, diese darf kein zweites mal
+vorkommen!
+
+Gruppe:
+Die Gruppe beschreibt in welchem Gebiet das Event auftreten kann. Durch eine
+Stringfolge wird dies bestimmt wobei:
+c = city
+f = forest
+p = plains
+ -->
+
+<events>
+    <event id="1">
+        <name>Zombie Kampf</name>
+        <classname>ZombieFight</classname>
+        <group id="c" />
+    </event>
+</events>

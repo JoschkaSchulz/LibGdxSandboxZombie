@@ -9,6 +9,7 @@ import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.animation.Animation;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.game.charakterpicker.CharakterPicker;
+import com.zombies.game.event.EventHandler;
 import com.zombies.game.map.Map;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
@@ -20,14 +21,18 @@ public class GameHandler extends Group {
 	 **************************************************************************/
 	
 	//static final
-	public static final int STATE_CHARAKTERPICKER = 1;
-	public static final int STATE_INTRO = 2;
-	public static final int STATE_MAP = 3;
+	public static final int STATE_CHARAKTERPICKER 	= 1;
+	public static final int STATE_INTRO 			= 2;
+	public static final int STATE_MAP 				= 3;
+	public static final int STATE_EVENTINIT 		= 4;
+	public static final int STATE_EVENT 			= 5;
+	public static final int STATE_EVENTDONE			= 6;
 	
 	//groups
 	private CharakterPicker charPicker;
 	private Animation intro;
 	private Map map;
+	private EventHandler eventHandler;
 	
 	private Charakter charakter;
 	
@@ -43,7 +48,7 @@ public class GameHandler extends Group {
 	public GameHandler(ShapeRenderer debugRenderer) {
 		this.debugRenderer = debugRenderer;
 		charPicker = new CharakterPicker(debugRenderer);
-		
+		eventHandler = new EventHandler(debugRenderer);
 		charakter = null;
 		state = 0;
 	}
@@ -70,10 +75,28 @@ public class GameHandler extends Group {
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
-				map.clear();
-				map.generateMap(Map.TYPE_CITY);
+				loadEvent(1);	//Test Zombie Fight Event!
+				//map.clear();
+				//map.generateMap(Map.TYPE_CITY);
 			}
+		}else if(state == STATE_EVENTINIT) {
+			this.clear();
+			this.addActor(eventHandler);
+			state = STATE_EVENT;
+		}else if(state == STATE_EVENTDONE) {
+			this.clear();
+			this.addActor(map);
+			state = STATE_MAP;
 		}
+	}
+	
+	public void loadEvent(int eventId) {
+		eventHandler.loadEvent(eventId);
+		state = STATE_EVENTINIT;
+	}
+	
+	public void finishEvent() {
+		state = STATE_EVENTDONE;
 	}
 	
 	/**
