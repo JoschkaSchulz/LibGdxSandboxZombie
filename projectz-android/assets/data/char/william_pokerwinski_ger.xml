@@ -18,5 +18,19 @@
     <skills>
         <skill id="1" known="true" />
         <skill id="2" known="false" />
+        <skill id="9" known="false" />
+        <skill id="13" known="false" />
+        <skill id="14" known="false" />
+        <skill id="15" known="false" />
+        <skill id="16" known="false" />
+        <skill id="18" known="false" />
+        <skill id="26" known="false" />
+        <skill id="27" known="false" />
+        <skill id="28" known="false" />
+        <skill id="29" known="false" />
+        <skill id="30" known="false" />
+        <skill id="31" known="false" />
+        <skill id="32" known="false" />
+        <skill id="33" known="false" />
     </skills>
 </charakter>

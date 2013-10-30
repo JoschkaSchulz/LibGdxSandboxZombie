@@ -78,10 +78,6 @@ public class CharakterPicker extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		if(InputHelper.DRAG || InputHelper.ACTION) {
-			((GameHandler) this.getParent()).setCharakterAndStart(selection);
-		}
-		
 		//Move to right side
 		if(currentX > targetX) {
 			this.translate((500 * delta), 0);
@@ -135,6 +131,8 @@ public class CharakterPicker extends Group {
 			this.targetY++;
 			this.inAnimation = true;
 			time = 0;
+		}else if((InputHelper.DRAG || InputHelper.ACTION) && time > 0.25f) {
+			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 	}
 
@@ -186,11 +184,11 @@ public class CharakterPicker extends Group {
 		rightTable.debug();
 		
 		rightTable.add(new Label(t.get("cp_hobby"), SkinHelper.SKIN));
-		rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(0).getName(), SkinHelper.SKIN));
+		rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(0).getName(), SkinHelper.SKIN)).left();
 		for(int i = 1; i < c.getSkilltree().getAvaibleSkills().size(); i++) {
 			rightTable.row();
 			rightTable.add();
-			rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(i).getName(), SkinHelper.SKIN));
+			rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(i).getName(), SkinHelper.SKIN)).left();
 		}
 		
 		rightTable.row();
@@ -199,12 +197,12 @@ public class CharakterPicker extends Group {
 		for(int i = 0; i < c.getSkilltree().getSkilltreeSkills().size(); i++) {
 			if(!c.getSkilltree().getAvaibleSkills().contains(c.getSkilltree().getSkilltreeSkills().get(i))){
 				if(first) {
-					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN));
+					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN)).left();
 					first = false;
 				}else{
 					rightTable.row();
 					rightTable.add();
-					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN));
+					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN)).left();
 				}
 			}
 		}
