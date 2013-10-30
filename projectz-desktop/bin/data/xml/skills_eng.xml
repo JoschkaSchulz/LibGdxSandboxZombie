@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skills>
     <skill id="1">
-        <name>Langsame Verdauung I</name>
-        <effect>Nahrungsverbrauch sinkt insgesamt um 10%</effect>
+        <name>Slow digestion I</name>
+        <effect>Food consumption is decreased by 10%</effect>
 		<description></description>
     </skill>
     <skill id="2">
-        <name>Langsame Verdauung II</name>
-        <effect>Nahrungsverbrauch sinkt insgesamt um 20%</effect>
+        <name>Slow digestion II</name>
+        <effect>Food consumption is decreased by 20%</effect>
 		<description></description>
     </skill>
 	<skill id="3">
-        <name>Guter Verwerter (Nahrung) I</name>
-        <effect>Nahrung stillt insgesamt 10% mehr Hunger</effect>
+        <name>Good exploitation (food) I</name>
+        <effect>Food fills belly 10% more</effect>
 		<description></description>
     </skill>
 	<skill id="4">
-        <name>Guter Verwerter (Nahrung) II</name>
-        <effect>Nahrung stillt insgesamt 20% mehr Hunger</effect>
+        <name>Good exploitation (food) II</name>
+        <effect>Food fills belly 20% more</effect>
 		<description></description>
     </skill>
 	<skill id="5">
-        <name>Kaum Durstig I</name>
-        <effect>Durst steigt insgesamt 10% langsamer</effect>
+        <name>Less thirsty I</name>
+        <effect>getting thirsty 10% slower</effect>
 		<description></description>
     </skill>
 	<skill id="6">
-        <name>Kaum Durstig II</name>
-        <effect>Durst steigt insgesamt 20% langsamer</effect>
+        <name>Less thisty II</name>
+        <effect>Getting thirsty 20% slower</effect>
 		<description></description>
     </skill>
 	<skill id="7">
-        <name>Guter Verwerter (Trinken) I</name>
-        <effect>Getränke stillen insgesamt 10% mehr Durst</effect>
+        <name>Good exploitation (drinks) I</name>
+        <effect>Drinks refill 10% more thirst</effect>
 		<description></description>
     </skill>
 	<skill id="8">
-        <name>Guter Verwerter (Trinken) II</name>
-        <effect>Getränke stillen insgesamt 20% mehr Durst</effect>
+        <name>Good exploitation (drinks) II</name>
+        <effect>Drinks refill 20% more thirst</effect>
 		<description></description>
     </skill>
 	<skill id="9">
