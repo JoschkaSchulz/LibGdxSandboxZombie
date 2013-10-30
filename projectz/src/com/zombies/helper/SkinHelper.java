@@ -30,6 +30,7 @@ public class SkinHelper {
 		textButtonStyle.up = new TextureRegionDrawable(SKIN_TEXTUREREGION[0][0]);
 		textButtonStyle.down = new TextureRegionDrawable(SKIN_TEXTUREREGION[0][1]);
 		textButtonStyle.over = new TextureRegionDrawable(SKIN_TEXTUREREGION[0][2]);
+		textButtonStyle.checked = new TextureRegionDrawable(SKIN_TEXTUREREGION[0][2]);
 		textButtonStyle.font = SKIN.get("font", BitmapFont.class);
 		SKIN.add("default", textButtonStyle);
 		

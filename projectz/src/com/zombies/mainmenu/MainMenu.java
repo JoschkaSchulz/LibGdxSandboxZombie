@@ -9,8 +9,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
+import com.zombies.helper.SkinHelper;
 import com.zombies.helper.SoundHelper;
 import com.zombies.projectz.ProjectZ;
 
@@ -26,9 +30,7 @@ public class MainMenu extends Group {
 	
 	private int selection;					//The actual selected  menu
 	private Image imgBackground;			//The image of the background
-	private Image imgButtonStart;			//The image of the start button
-	private Image imgButtonOptions;			//The image of the options button
-	private Image imgButtonExit;			//The image of the  exit button
+	private TextButton buttons[];				//Menubuttons
 	
 	private float time = 0;					//This variable is used for check the time between two inputs
 	
@@ -51,23 +53,7 @@ public class MainMenu extends Group {
 		imgBackground.scale(0.35f,0.5f);
 		this.addActor(imgBackground);
 		
-		Texture texButtonStart = new Texture(Gdx.files.internal("data/gfx/MainMenu/button_start.png"));
-		imgButtonStart = new Image(texButtonStart);
-		imgButtonStart.setPosition(450, GUIHelper.getNewCoordinates(60, 64));
-		imgButtonStart.setName("button_start");
-		this.addActor(imgButtonStart);
-		
-		Texture texButtonOptions = new Texture(Gdx.files.internal("data/gfx/MainMenu/button_options.png"));
-		imgButtonOptions = new Image(texButtonOptions);
-		imgButtonOptions.setPosition(340, GUIHelper.getNewCoordinates(215, 64));
-		imgButtonOptions.setName("button_options");
-		this.addActor(imgButtonOptions);
-		
-		Texture texButtonExit = new Texture(Gdx.files.internal("data/gfx/MainMenu/button_exit.png"));
-		imgButtonExit = new Image(texButtonExit);
-		imgButtonExit.setPosition(40, GUIHelper.getNewCoordinates(345, 64));
-		imgButtonExit.setName("button_exit");
-		this.addActor(imgButtonExit);
+		createMenu();
 		
 		this.debugRenderer = debugRenderer;
 	}
@@ -83,39 +69,98 @@ public class MainMenu extends Group {
 	 * 				Methods
 	 ********************************************************/
 	
+	private void createMenu() {
+		int menuW = 1024, menuH = 786;
+		Table menu = new Table().top().left();
+		menu.size(menuW, menuH);
+		menu.setPosition(128, GUIHelper.getNewCoordinates(128, menuH));
+		menu.debug();
+		
+		buttons = new TextButton[3];	
+		
+		buttons[MENU_START] = new TextButton("Start", SkinHelper.SKIN);
+		buttons[MENU_START].toggle();
+		buttons[MENU_OPTIONS] = new TextButton("Optionen", SkinHelper.SKIN);
+		buttons[MENU_EXIT] = new TextButton("Beenden", SkinHelper.SKIN);
+		
+		buttons[MENU_START].addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(buttons[MENU_START].isPressed()) {
+					fireSelection();
+				}
+			}
+		});
+		
+		buttons[MENU_OPTIONS].addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(buttons[MENU_OPTIONS].isPressed()) {
+					fireSelection();
+				}
+			}
+		});
+		
+		buttons[MENU_EXIT].addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(buttons[MENU_EXIT].isPressed()) {
+					fireSelection();
+				}
+			}
+		});
+		
+		menu.add(buttons[MENU_START]).width(256);
+		menu.row().height(128);
+		menu.add().row();
+		menu.add(buttons[MENU_OPTIONS]).width(256);
+		menu.row().height(128);
+		menu.add().row();
+		menu.add(buttons[MENU_EXIT]).width(256);
+		
+		addActor(menu);
+	}
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
 		
-		//Mouse and Touch inputs
-		Actor overActor = this.hit(Gdx.input.getX(),Gdx.graphics.getHeight() - Gdx.input.getY(), false);
-		if(overActor != null) {
-			if (overActor.getName().equals("button_start")) {
-				selection = MENU_START;
-				if(Gdx.input.isTouched()) fireSelection();
-			}else if (overActor.getName().equals("button_options")) {
-				selection = MENU_OPTIONS;
-				if(Gdx.input.isTouched()) fireSelection();
-			}else if (overActor.getName().equals("button_exit")) {
-				selection = MENU_EXIT;
-				if(Gdx.input.isTouched()) fireSelection();
-			}
+		if(buttons[MENU_START].isOver()) {
+			buttons[selection].toggle();
+			buttons[MENU_START].toggle();
+			selection = MENU_START;
+		}else if(buttons[MENU_OPTIONS].isOver()) {
+			buttons[selection].toggle();
+			buttons[MENU_OPTIONS].toggle();
+			selection = MENU_OPTIONS;
+		}else if(buttons[MENU_EXIT].isOver()) {
+			buttons[selection].toggle();
+			buttons[MENU_EXIT].toggle();
+			selection = MENU_EXIT;
 		}
 		
 		//Keyboard inputs and maybe Controller?
 		time += delta;
 		if(InputHelper.UP && time > 0.25f) {
-			if(selection < MENU_START) {
+			if(selection <= MENU_START) {
+				buttons[selection].toggle();
 				selection = MENU_EXIT;
+				buttons[selection].toggle();
 			}else{
+				buttons[selection].toggle();
 				selection--;
+				buttons[selection].toggle();
 			}
 			time = 0;
 		}else if (InputHelper.DOWN && time > 0.25f){
-			if(selection > MENU_EXIT) {
+			if(selection >= MENU_EXIT) {
+				buttons[selection].toggle();
 				selection = MENU_START;
+				buttons[selection].toggle();
 			}else{
+				buttons[selection].toggle();
 				selection++;
+				buttons[selection].toggle();
 			}
 			time = 0;
 		}else if(InputHelper.ACTION) {
@@ -145,23 +190,5 @@ public class MainMenu extends Group {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
-		//Debug functions
-		batch.end();
-		this.debugRenderer.begin(ShapeType.Rectangle);
-		this.debugRenderer.setColor(Color.RED);
-		switch(selection) {
-			default:
-				this.debugRenderer.rect(450, GUIHelper.getNewCoordinates(60, 64), 256, 64);
-				break;
-			case MENU_OPTIONS:
-				this.debugRenderer.rect(340, GUIHelper.getNewCoordinates(215, 64), 256, 64);
-				break;
-			case MENU_EXIT:
-				this.debugRenderer.rect(40, GUIHelper.getNewCoordinates(345, 64), 256, 64);
-				break;
-		}
-		this.debugRenderer.end();
-		batch.begin();
 	}
 }
