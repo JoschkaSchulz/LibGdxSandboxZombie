@@ -78,7 +78,7 @@ public class CharakterPicker extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		if(InputHelper.DRAG) {
+		if(InputHelper.DRAG || InputHelper.ACTION) {
 			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 		
@@ -221,56 +221,7 @@ public class CharakterPicker extends Group {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * draws the charakter info Text
-	 * 
-	 * @param x start x value (0 for first char, 1 for second... not pixel!)
-	 * @param y start y value (0 for the first, 1 for the second... not pixel!)
-	 * @param c the charakter
-	 * @param batch the batch of wich should be drawn
-	 */
-	private void drawCharakterInfo(int x, int y, Charakter c, SpriteBatch batch) {
-		//Calculation for x and y
-		x = (int)(128 + (Gdx.graphics.getWidth() * x) + getX());
-		y = (int)(128 + (786 * y) - getY());
-		
-		//Graphical output
-		SkinHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
-		SkinHelper.KITEONE.draw(batch, t.get("cp_name"), x, GUIHelper.getNewCoordinates(y, 16));
-		SkinHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y + (32 * 1), 16));
-		SkinHelper.KITEONE.draw(batch, t.get("cp_age"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
-		SkinHelper.KITEONE.draw(batch, c.getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
-		SkinHelper.KITEONE.draw(batch, t.get("cp_height"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
-		SkinHelper.KITEONE.draw(batch, c.getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
-		SkinHelper.KITEONE.draw(batch, t.get("cp_story"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 6)));
-		for(int i = 0; i < c.getStory().length()/40; i++) {
-			SkinHelper.KITEONE.draw(batch, c.getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
-			if(c.getStory().length() > 40 && i == (c.getStory().length()/40)-1) {
-				SkinHelper.KITEONE.draw(batch, c.getStory().subSequence(i+1*40, c.getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
-			}
-		}
-		int counter = 0;
-		SkinHelper.KITEONE.draw(batch, t.get("cp_hobby"), x+512, GUIHelper.getNewCoordinates(y, 16));
-		for(int i = 0; i < c.getSkilltree().getAvaibleSkills().size(); i++) {
-			SkinHelper.KITEONE.draw(batch, c.getSkilltree().getAvaibleSkills().get(i).getName(), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 1 + i)));
-			counter++;
-		}
-		String become = "";
-		SkinHelper.KITEONE.draw(batch, t.get("cp_become"), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 2 + counter)));
-		for(int i = 0; i < c.getSkilltree().getSkilltreeSkills().size(); i++) {
-			if(!c.getSkilltree().getAvaibleSkills().contains(c.getSkilltree().getSkilltreeSkills().get(i))){
-				become =  become + (i != 0 ? ", " : "" ) + c.getSkilltree().getSkilltreeSkills().get(i).getName();
-			}
-		}
-		for(int i = 0; i < become.length()/40; i++) {
-			SkinHelper.KITEONE.draw(batch, become.subSequence(i*40, (i+1)*40), x +512, GUIHelper.getNewCoordinates(y, 16 + (32 * 3 + counter)));
-			if(become.length() > 40 && i == (become.length()/40)-1) {
-				SkinHelper.KITEONE.draw(batch, become.subSequence(i+1*40, become.length()), x + 512, GUIHelper.getNewCoordinates(y, 16 + (32 * 4 + counter)));
-			}
-		}
-	}
-	
+
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);

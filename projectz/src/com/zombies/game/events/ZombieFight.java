@@ -1,6 +1,9 @@
 package com.zombies.game.events;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.zombies.game.event.Event;
 import com.zombies.helper.SkinHelper;
 import com.zombies.helper.GUIHelper;
@@ -11,23 +14,43 @@ public class ZombieFight extends Event {
 	
 	public ZombieFight() {
 		super();
-		
-		timer = 0;
+
+		String dialogText = "Zombies überall! Dies ist ein Zombie" +
+				"Test Event es soll momentan nur demonstieren" +
+				"wie man mit den Events arbeitet!";
+		String[] a = {"Zombies überall! Kämpfe dich durch bis zum bitteren Ende",
+						"Springe über den Zaun und lauf um dein Leben"};
+		showDialog(dialogText, a);
 	}
 	
 	public void act(float delta) {
 		super.act(delta);
-		
-		timer += delta;
-		
-		if(timer > 5.0) {
-			finishEvent();
-		}
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		SkinHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
-		SkinHelper.KITEONE.draw(batch, "Zombie Fight DEMO EVENT ( "+Math.round(5-timer)+"s verbleibend)", 10, GUIHelper.getNewCoordinates(50, 16));
+		super.draw(batch, parentAlpha);
 	}
+
+	@Override
+	protected void dialogAnswer1() {
+		finishEvent();
+	}
+
+	@Override
+	protected void dialogAnswer2() {
+		//Not used here
+	}
+
+	@Override
+	protected void dialogAnswer3() {
+		//Not used here
+	}
+
+	@Override
+	protected void dialogAnswer4() {
+		//Not used here
+	}
+	
+	
 }
