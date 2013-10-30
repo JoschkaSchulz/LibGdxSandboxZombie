@@ -51,6 +51,11 @@ public class Skill {
 		return this.getId() == skill.getId();
 	}
 	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
 	public static LinkedList<Skill> loadSkills(FileHandle xmlFile) {
 		try {
 			LinkedList<Skill> skilllist = new LinkedList<Skill>();

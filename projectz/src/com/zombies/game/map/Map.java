@@ -323,6 +323,7 @@ public class Map extends Group {
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
 				if(world[w][h] != null && world[w][h].getType() != MapTile.TYPE_EMPTY) addActor(world[w][h]);
+				
 			}
 		}
 		
@@ -548,7 +549,7 @@ public class Map extends Group {
 			}
 		}
 	}
-	
+
 	
 	/**
 	 * This method prints a test Info on the console

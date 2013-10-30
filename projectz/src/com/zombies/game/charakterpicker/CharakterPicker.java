@@ -11,10 +11,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.esotericsoftware.tablelayout.Cell;
 import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
-import com.zombies.helper.FontHelper;
+import com.zombies.helper.SkinHelper;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.XMLHelper;
@@ -62,29 +65,9 @@ public class CharakterPicker extends Group {
 		
 		this.inAnimation = false;
 		
-		Texture texBackground1 = new Texture(Gdx.files.internal("data/gfx/charakterpicker/bg1.png"));
-		imgBackground1 = new Image(texBackground1);
-		imgBackground1.setPosition(128, GUIHelper.getNewCoordinates(128, 512));
-		imgBackground1.setName("button_start");
-		this.addActor(imgBackground1);
-		
-		Texture texBackground2 = new Texture(Gdx.files.internal("data/gfx/charakterpicker/bg2.png"));
-		imgBackground2 = new Image(texBackground2);
-		imgBackground2.setPosition(128 + 1280, GUIHelper.getNewCoordinates(128, 512));
-		imgBackground2.setName("button_start");
-		this.addActor(imgBackground2);
-		
-		Texture texBackground3 = new Texture(Gdx.files.internal("data/gfx/charakterpicker/bg3.png"));
-		imgBackground3 = new Image(texBackground3);
-		imgBackground3.setPosition(128, GUIHelper.getNewCoordinates(128 + 786, 512));
-		imgBackground3.setName("button_start");
-		this.addActor(imgBackground3);
-		
-		Texture texBackground4 = new Texture(Gdx.files.internal("data/gfx/charakterpicker/bg4.png"));
-		imgBackground4 = new Image(texBackground4);
-		imgBackground4.setPosition(128 + 1280, GUIHelper.getNewCoordinates(128 + 786, 512));
-		imgBackground4.setName("button_start");
-		this.addActor(imgBackground4);
+		drawTable(0, 0, chars[0][0]);
+		drawTable(0, 1, chars[0][1]);
+		drawTable(1, 0, chars[1][0]);
 		
 		selectCharakter(currentX, currentY);
 		
@@ -95,7 +78,7 @@ public class CharakterPicker extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		if(InputHelper.ACTION || InputHelper.DRAG) {
+		if(InputHelper.DRAG) {
 			((GameHandler) this.getParent()).setCharakterAndStart(selection);
 		}
 		
@@ -166,6 +149,79 @@ public class CharakterPicker extends Group {
 		if(selection != null) System.out.println(selection.toString());
 	}
 	
+	private void drawTable(int x, int y, Charakter c) {
+		x = (int)((Gdx.graphics.getWidth() * x) + getX());
+		y = (int)(64 + (Gdx.graphics.getHeight() * y) - getY());
+		
+		Table leftTable = new Table();
+		leftTable.setWidth(786);
+		leftTable.setWidth(512);
+		leftTable.top();
+//		leftTable.debug();
+		
+		leftTable.add(new Label(t.get("cp_name"), SkinHelper.SKIN));
+		leftTable.add(new Label(c.getName(), SkinHelper.SKIN));
+		
+		leftTable.row();
+		leftTable.add(new Label(t.get("cp_age"), SkinHelper.SKIN));
+		leftTable.add(new Label(c.getAge(), SkinHelper.SKIN));
+		
+		leftTable.row();
+		leftTable.add(new Label(t.get("cp_height"), SkinHelper.SKIN));
+		leftTable.add(new Label(c.getHeight(), SkinHelper.SKIN));
+		
+		leftTable.row();
+		Label storyLabel = new Label(t.get("cp_story") + "\n" + c.getStory(), SkinHelper.SKIN);
+		storyLabel.setWrap(true);
+		leftTable.add(storyLabel).colspan(2).width(400).height(500).top();
+		
+		leftTable.setPosition(x, GUIHelper.getNewCoordinates(y, (int)leftTable.getHeight()));
+		addActor(leftTable);
+
+		//Right Table
+		Table rightTable = new Table();
+		rightTable.setWidth(786);
+		rightTable.setWidth(512);
+		rightTable.top();
+//		rightTable.debug();
+		
+		rightTable.add(new Label(t.get("cp_hobby"), SkinHelper.SKIN));
+		rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(0).getName(), SkinHelper.SKIN));
+		for(int i = 1; i < c.getSkilltree().getAvaibleSkills().size(); i++) {
+			rightTable.row();
+			rightTable.add();
+			rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(i).getName(), SkinHelper.SKIN));
+		}
+		
+		rightTable.row();
+		rightTable.add(new Label(t.get("cp_become"), SkinHelper.SKIN));
+		boolean first = true;
+		for(int i = 0; i < c.getSkilltree().getSkilltreeSkills().size(); i++) {
+			if(!c.getSkilltree().getAvaibleSkills().contains(c.getSkilltree().getSkilltreeSkills().get(i))){
+				if(first) {
+					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN));
+					first = false;
+				}else{
+					rightTable.row();
+					rightTable.add();
+					rightTable.add(new Label(c.getSkilltree().getSkilltreeSkills().get(i).getName(), SkinHelper.SKIN));
+				}
+			}
+		}
+		
+		rightTable.setPosition(x + leftTable.getWidth() + 128, GUIHelper.getNewCoordinates(y, (int)rightTable.getHeight()));
+		addActor(rightTable);
+
+		try{
+			Texture charPicTex = new Texture(Gdx.files.internal("data/gfx/charakter/"+c.getImage()));
+			Image charPic = new Image(charPicTex);
+			charPic.setBounds(x+(Gdx.graphics.getWidth()/2)-64, GUIHelper.getNewCoordinates(y+(Gdx.graphics.getHeight()/2), 256), 256, 256);
+			addActor(charPic);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * draws the charakter info Text
 	 * 
@@ -180,37 +236,37 @@ public class CharakterPicker extends Group {
 		y = (int)(128 + (786 * y) - getY());
 		
 		//Graphical output
-		FontHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
-		FontHelper.KITEONE.draw(batch, t.get("cp_name"), x, GUIHelper.getNewCoordinates(y, 16));
-		FontHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y + (32 * 1), 16));
-		FontHelper.KITEONE.draw(batch, t.get("cp_age"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
-		FontHelper.KITEONE.draw(batch, c.getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
-		FontHelper.KITEONE.draw(batch, t.get("cp_height"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
-		FontHelper.KITEONE.draw(batch, c.getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
-		FontHelper.KITEONE.draw(batch, t.get("cp_story"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 6)));
+		SkinHelper.KITEONE.setColor(1f, 1f, 1f, 1f);
+		SkinHelper.KITEONE.draw(batch, t.get("cp_name"), x, GUIHelper.getNewCoordinates(y, 16));
+		SkinHelper.KITEONE.draw(batch, c.getName(), x, GUIHelper.getNewCoordinates(y + (32 * 1), 16));
+		SkinHelper.KITEONE.draw(batch, t.get("cp_age"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 2)));
+		SkinHelper.KITEONE.draw(batch, c.getAge(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 3)));
+		SkinHelper.KITEONE.draw(batch, t.get("cp_height"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 4)));
+		SkinHelper.KITEONE.draw(batch, c.getHeight(), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 5)));
+		SkinHelper.KITEONE.draw(batch, t.get("cp_story"), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 6)));
 		for(int i = 0; i < c.getStory().length()/40; i++) {
-			FontHelper.KITEONE.draw(batch, c.getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
+			SkinHelper.KITEONE.draw(batch, c.getStory().subSequence(i*40, (i+1)*40), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 7+i)));
 			if(c.getStory().length() > 40 && i == (c.getStory().length()/40)-1) {
-				FontHelper.KITEONE.draw(batch, c.getStory().subSequence(i+1*40, c.getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
+				SkinHelper.KITEONE.draw(batch, c.getStory().subSequence(i+1*40, c.getStory().length()), x, GUIHelper.getNewCoordinates(y, 16 + (32 * 8+i)));
 			}
 		}
 		int counter = 0;
-		FontHelper.KITEONE.draw(batch, t.get("cp_hobby"), x+512, GUIHelper.getNewCoordinates(y, 16));
+		SkinHelper.KITEONE.draw(batch, t.get("cp_hobby"), x+512, GUIHelper.getNewCoordinates(y, 16));
 		for(int i = 0; i < c.getSkilltree().getAvaibleSkills().size(); i++) {
-			FontHelper.KITEONE.draw(batch, c.getSkilltree().getAvaibleSkills().get(i).getName(), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 1 + i)));
+			SkinHelper.KITEONE.draw(batch, c.getSkilltree().getAvaibleSkills().get(i).getName(), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 1 + i)));
 			counter++;
 		}
 		String become = "";
-		FontHelper.KITEONE.draw(batch, t.get("cp_become"), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 2 + counter)));
+		SkinHelper.KITEONE.draw(batch, t.get("cp_become"), x+512, GUIHelper.getNewCoordinates(y, 16 + (32 * 2 + counter)));
 		for(int i = 0; i < c.getSkilltree().getSkilltreeSkills().size(); i++) {
 			if(!c.getSkilltree().getAvaibleSkills().contains(c.getSkilltree().getSkilltreeSkills().get(i))){
 				become =  become + (i != 0 ? ", " : "" ) + c.getSkilltree().getSkilltreeSkills().get(i).getName();
 			}
 		}
 		for(int i = 0; i < become.length()/40; i++) {
-			FontHelper.KITEONE.draw(batch, become.subSequence(i*40, (i+1)*40), x +512, GUIHelper.getNewCoordinates(y, 16 + (32 * 3 + counter)));
+			SkinHelper.KITEONE.draw(batch, become.subSequence(i*40, (i+1)*40), x +512, GUIHelper.getNewCoordinates(y, 16 + (32 * 3 + counter)));
 			if(become.length() > 40 && i == (become.length()/40)-1) {
-				FontHelper.KITEONE.draw(batch, become.subSequence(i+1*40, become.length()), x + 512, GUIHelper.getNewCoordinates(y, 16 + (32 * 4 + counter)));
+				SkinHelper.KITEONE.draw(batch, become.subSequence(i+1*40, become.length()), x + 512, GUIHelper.getNewCoordinates(y, 16 + (32 * 4 + counter)));
 			}
 		}
 	}
@@ -219,8 +275,8 @@ public class CharakterPicker extends Group {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
-		drawCharakterInfo(0, 0, chars[0][0], batch);
-		drawCharakterInfo(1, 0, chars[1][0], batch);
-		drawCharakterInfo(0, 1,chars[0][1], batch);
+//		drawCharakterInfo(0, 0, chars[0][0], batch);
+//		drawCharakterInfo(1, 0, chars[1][0], batch);
+//		drawCharakterInfo(0, 1,chars[0][1], batch);
 	}
 }

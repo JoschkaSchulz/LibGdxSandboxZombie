@@ -20,9 +20,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.zombies.game.GameHandler;
-import com.zombies.helper.FontHelper;
+import com.zombies.helper.SkinHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.mainmenu.MainMenu;
 
@@ -53,15 +59,17 @@ public class ProjectZ implements ApplicationListener {
 	 * Create the the game start
 	 */
 	public void create() {
+		SkinHelper.loadFontHelper();
+		
 		stage = new Stage();
-		FontHelper.loadFontHelper();
+		Gdx.input.setInputProcessor(stage);
+		
 		debugRenderer = new ShapeRenderer();
 		
 		//Start with the main Menu (memo: stage.clear removes all actors)
 		mainMenu = new MainMenu(this, this.debugRenderer);
 		stage.addActor(mainMenu);
 		
-		Gdx.input.setInputProcessor(stage);
 		
 		//InputListener first parameter is the touchpad that isn't active
 		input = new InputHelper(null, true);
@@ -94,11 +102,17 @@ public class ProjectZ implements ApplicationListener {
 
 	/**
 	 * Renders every single frame
+	 * 
+	 * TODO: the try catch block is only a workaround on a wrong counter! 
 	 */
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		try{
+			stage.act(Gdx.graphics.getDeltaTime());
+			stage.draw();
+		}catch(Exception e) {
+			System.err.println("Fehler beim render!");
+		}
 	}
 
 	/**
