@@ -3,14 +3,24 @@ package com.zombies.game.map;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zombies.game.charakter.Charakter;
+import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
+import com.zombies.helper.SkinHelper;
 
 public class Map extends Group {
 	
@@ -34,6 +44,7 @@ public class Map extends Group {
 	private MapTile[][] world;
 	private TextureRegion tileSet[][];
 	private Charakter charRef;
+	private Table ui;
 	
 	private ShapeRenderer debugRenderer;
 	
@@ -65,11 +76,51 @@ public class Map extends Group {
 	
 	public void setCharRef(Charakter charRef) {
 		this.charRef = charRef;
+		
+		generateUI();
 	}
 	
 	/*********************************************************
 	 * 			Methods
 	 *********************************************************/
+	
+	private void generateUI() {
+		ui = new Table();
+		ui.top().left();
+		ui.size(Gdx.graphics.getWidth(), 64);
+		ui.setPosition(0, GUIHelper.getNewCoordinates(0, 64));
+		ui.setBackground(new TextureRegionDrawable(SkinHelper.SKIN_TEXTUREREGION[0][3]));
+		ui.debug();
+		
+		ui.add(new Label(charRef.getName(), SkinHelper.SKIN)).width(256);
+		ui.add(new Label("LP:" + charRef.getCurrentLP() + "/" + charRef.getMaxLP(), SkinHelper.SKIN)).width(192);
+		ui.add(new Label("Hunger:" + charRef.getCurrentStomach() + "/" + charRef.getMaxStomach(), SkinHelper.SKIN)).width(192);
+		ui.add(new Label("Durst:" + charRef.getCurrentThirst() + "/" + charRef.getMaxThirst(), SkinHelper.SKIN)).width(192);
+
+		TextButton inventory = new TextButton("Inventar", SkinHelper.SKIN);
+		inventory.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				System.out.println("OPEN INVENTROY");
+			}
+		});
+		ui.add(inventory).width(192);
+		
+		TextButton options = new TextButton("Options", SkinHelper.SKIN);
+		options.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				System.out.println("Options");
+			}
+		});
+		ui.add(options).width(192);
+		
+		showUI();
+	}
+	
+	public void showUI() {
+		getParent().addActor(ui);
+	}
 	
 	/**
 	 * magic in every row! Generates the map :D
@@ -85,7 +136,6 @@ public class Map extends Group {
 	 */
 	public void generateMap(int type) {
 		long mem = Gdx.app.getNativeHeap();
-		getParent().addActor(new MapUI(this));
 		
 		switch(type) {
 			default:	//city
@@ -604,6 +654,7 @@ public class Map extends Group {
 			else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
 			if(getY() < 0) setY(0);
 			else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
+			
 		}else dragX = dragY = 0;
 	}
 }

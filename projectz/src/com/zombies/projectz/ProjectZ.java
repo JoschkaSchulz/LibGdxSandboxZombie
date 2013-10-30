@@ -110,7 +110,7 @@ public class ProjectZ implements ApplicationListener {
 		try{
 			stage.act(Gdx.graphics.getDeltaTime());
 			stage.draw();
-//			Table.drawDebug(stage);
+			Table.drawDebug(stage);
 		}catch(Exception e) {
 			System.err.println("Fehler beim render!");
 		}

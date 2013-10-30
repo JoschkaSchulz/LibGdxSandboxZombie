@@ -72,6 +72,7 @@ public class GameHandler extends Group {
 				map = new Map(16,16, debugRenderer);
 				this.addActor(map);
 				map.generateMap(Map.TYPE_CITY);
+				map.setCharRef(charakter);
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
@@ -86,6 +87,7 @@ public class GameHandler extends Group {
 		}else if(state == STATE_EVENTDONE) {
 			this.clear();
 			this.addActor(map);
+			map.showUI();
 			state = STATE_MAP;
 		}
 	}
