@@ -10,6 +10,7 @@ import com.zombies.animation.Animation;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.game.charakterpicker.CharakterPicker;
 import com.zombies.game.event.EventHandler;
+import com.zombies.game.inventory.InventoryActor;
 import com.zombies.game.map.Map;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
@@ -27,12 +28,16 @@ public class GameHandler extends Group {
 	public static final int STATE_EVENTINIT 		= 4;
 	public static final int STATE_EVENT 			= 5;
 	public static final int STATE_EVENTDONE			= 6;
+	public static final int STATE_OPENINVENTORY		= 7;
+	public static final int STATE_INVENTORY			= 8;
+	public static final int STATE_CLOSEINVENTORY	= 9;
 	
 	//groups
 	private CharakterPicker charPicker;
 	private Animation intro;
 	private Map map;
 	private EventHandler eventHandler;
+	private InventoryActor inventoryActor;
 	
 	private Charakter charakter;
 	
@@ -52,7 +57,14 @@ public class GameHandler extends Group {
 		charakter = null;
 		state = 0;
 	}
-
+	/**************************************************************************
+	 * 				getter & setter
+	 **************************************************************************/
+	
+	public int getState() {
+		return state;
+	}
+	
 	/**************************************************************************
 	 * 				Methods
 	 **************************************************************************/
@@ -81,7 +93,7 @@ public class GameHandler extends Group {
 				//map.generateMap(Map.TYPE_CITY);
 			}
 		}else if(state == STATE_EVENTINIT) {
-			this.clear();
+//			this.clear();
 			this.addActor(eventHandler);
 			state = STATE_EVENT;
 		}else if(state == STATE_EVENTDONE) {
@@ -89,7 +101,24 @@ public class GameHandler extends Group {
 			this.addActor(map);
 			map.showUI();
 			state = STATE_MAP;
+		}else if(state == STATE_OPENINVENTORY) {
+//			this.clear();
+			this.addActor(inventoryActor);
+			state = STATE_INVENTORY;
+		}else if(state == STATE_CLOSEINVENTORY) {
+			this.clear();
+			this.addActor(map);
+			map.showUI();
+			state = STATE_MAP;
 		}
+	}
+	
+	public void openInventory() {
+		state = STATE_OPENINVENTORY;
+	}
+	
+	public void closeInventory() {
+		state = STATE_CLOSEINVENTORY;
 	}
 	
 	public void loadEvent(int eventId) {
@@ -109,6 +138,7 @@ public class GameHandler extends Group {
 	public void setCharakterAndStart(Charakter charakter) {
 		this.charakter = charakter;
 		eventHandler.setCharRef(this.charakter);
+		inventoryActor = new InventoryActor(this.charakter);
 		state = STATE_INTRO;
 		this.clear();
 		intro = new Animation();

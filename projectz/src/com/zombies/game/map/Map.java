@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
@@ -44,7 +45,10 @@ public class Map extends Group {
 	private MapTile[][] world;
 	private TextureRegion tileSet[][];
 	private Charakter charRef;
+	
 	private Table ui;
+	private TextButton inventory;
+	private TextButton options;
 	
 	private ShapeRenderer debugRenderer;
 	
@@ -97,20 +101,22 @@ public class Map extends Group {
 		ui.add(new Label("Hunger:" + charRef.getCurrentStomach() + "/" + charRef.getMaxStomach(), SkinHelper.SKIN)).width(192);
 		ui.add(new Label("Durst:" + charRef.getCurrentThirst() + "/" + charRef.getMaxThirst(), SkinHelper.SKIN)).width(192);
 
-		TextButton inventory = new TextButton("Inventar", SkinHelper.SKIN);
+		inventory = new TextButton("Inventar", SkinHelper.SKIN);
 		inventory.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				System.out.println("OPEN INVENTROY");
+				((GameHandler)getParent()).openInventory();
+				inventory.setChecked(false);
 			}
 		});
 		ui.add(inventory).width(192);
 		
-		TextButton options = new TextButton("Options", SkinHelper.SKIN);
+		options = new TextButton("Options", SkinHelper.SKIN);
 		options.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				System.out.println("Options");
+				options.setChecked(false);
 			}
 		});
 		ui.add(options).width(192);
