@@ -57,7 +57,14 @@ public class GameHandler extends Group {
 		charakter = null;
 		state = 0;
 	}
-
+	/**************************************************************************
+	 * 				getter & setter
+	 **************************************************************************/
+	
+	public int getState() {
+		return state;
+	}
+	
 	/**************************************************************************
 	 * 				Methods
 	 **************************************************************************/
@@ -86,7 +93,7 @@ public class GameHandler extends Group {
 				//map.generateMap(Map.TYPE_CITY);
 			}
 		}else if(state == STATE_EVENTINIT) {
-			this.clear();
+//			this.clear();
 			this.addActor(eventHandler);
 			state = STATE_EVENT;
 		}else if(state == STATE_EVENTDONE) {
@@ -95,7 +102,7 @@ public class GameHandler extends Group {
 			map.showUI();
 			state = STATE_MAP;
 		}else if(state == STATE_OPENINVENTORY) {
-			this.clear();
+//			this.clear();
 			this.addActor(inventoryActor);
 			state = STATE_INVENTORY;
 		}else if(state == STATE_CLOSEINVENTORY) {
