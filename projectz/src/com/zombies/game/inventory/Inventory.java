@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Inventory {
 
-	List<Item> Inventar;
-	int maxsize;
+	private List<Item> Inventar;
+	private int maxsize;
 
 	public Inventory() {
 		maxsize = 8;
@@ -51,5 +51,12 @@ public class Inventory {
 			}
 		}
 	}
+
+	public List<Item> getInventar() {
+		return new ArrayList<Item>(Inventar);
+	}
+
+	
+	
 
 }
