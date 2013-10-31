@@ -649,22 +649,24 @@ public class Map extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		if(InputHelper.DRAG && dragX == 0 && dragY == 0) {
-			dragX = InputHelper.DRAG_X;
-			dragY = InputHelper.DRAG_Y;
-		}else if(InputHelper.DRAG) {
-			int vectorX = (int)(InputHelper.DRAG_X - dragX);
-			int vectorY = (int)(InputHelper.DRAG_Y - dragY);
-			dragX = dragY = 0;
-			translate(vectorX, vectorY);
-			
-//			System.out.println(getX() + "/" + getY());
-			//Correct x and y for map borders
-			if(getX() > 0) setX(0);
-			else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
-			if(getY() < 0) setY(0);
-			else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
-			
-		}else dragX = dragY = 0;
+		if(((GameHandler)getParent()).getState() == GameHandler.STATE_MAP) {
+			if(InputHelper.DRAG && dragX == 0 && dragY == 0) {
+				dragX = InputHelper.DRAG_X;
+				dragY = InputHelper.DRAG_Y;
+			}else if(InputHelper.DRAG) {
+				int vectorX = (int)(InputHelper.DRAG_X - dragX);
+				int vectorY = (int)(InputHelper.DRAG_Y - dragY);
+				dragX = dragY = 0;
+				translate(vectorX, vectorY);
+				
+	//			System.out.println(getX() + "/" + getY());
+				//Correct x and y for map borders
+				if(getX() > 0) setX(0);
+				else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
+				if(getY() < 0) setY(0);
+				else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
+				
+			}else dragX = dragY = 0;
+		}
 	}
 }
