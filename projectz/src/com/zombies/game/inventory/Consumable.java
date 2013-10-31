@@ -14,4 +14,18 @@ public class Consumable extends Item {
 		this.drink = drink;
 		this.health = drink;
 	}
+
+	public int getFood() {
+		return food;
+	}
+
+	public int getDrink() {
+		return drink;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+	
+	
 }
