@@ -17,7 +17,7 @@ public class Inventory {
 		maxsize = size;
 		Inventar = new ArrayList<Item>();
 	}
-
+	
 	public boolean addItem(Item item) {
 		if (Inventar.size() >= maxsize)
 			return false;
