@@ -59,7 +59,7 @@ public class ProjectZ implements ApplicationListener {
 	 * Create the the game start
 	 */
 	public void create() {
-		SkinHelper.loadFontHelper();
+		SkinHelper.loadSkinHelper();
 		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.animation.Animation;
 import com.zombies.game.charakter.Charakter;
@@ -14,6 +15,7 @@ import com.zombies.game.inventory.InventoryActor;
 import com.zombies.game.map.Map;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
+import com.zombies.helper.SkinHelper;
 
 public class GameHandler extends Group {
 
@@ -43,6 +45,7 @@ public class GameHandler extends Group {
 	
 	private int state;
 	private ShapeRenderer debugRenderer;
+	private Image greyLayer;
 	/**************************************************************************
 	 * 				Constructor
 	 **************************************************************************/
@@ -55,6 +58,8 @@ public class GameHandler extends Group {
 		charPicker = new CharakterPicker(debugRenderer);
 		eventHandler = new EventHandler(debugRenderer);
 		charakter = null;
+		greyLayer = new Image(SkinHelper.GREY_LAYER);
+		greyLayer.size(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		state = 0;
 	}
 	/**************************************************************************
@@ -94,6 +99,8 @@ public class GameHandler extends Group {
 			}
 		}else if(state == STATE_EVENTINIT) {
 //			this.clear();
+			map.hideUI();
+			this.addActor(greyLayer);
 			this.addActor(eventHandler);
 			state = STATE_EVENT;
 		}else if(state == STATE_EVENTDONE) {
@@ -103,6 +110,8 @@ public class GameHandler extends Group {
 			state = STATE_MAP;
 		}else if(state == STATE_OPENINVENTORY) {
 //			this.clear();
+			map.hideUI();
+			this.addActor(greyLayer);
 			this.addActor(inventoryActor);
 			state = STATE_INVENTORY;
 		}else if(state == STATE_CLOSEINVENTORY) {

@@ -128,6 +128,10 @@ public class Map extends Group {
 		getParent().addActor(ui);
 	}
 	
+	public void hideUI() {
+		getParent().removeActor(ui);
+	}
+	
 	/**
 	 * magic in every row! Generates the map :D
 	 * Please don't refactore the method... it's easy to

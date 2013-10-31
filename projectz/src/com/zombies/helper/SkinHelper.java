@@ -12,11 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class SkinHelper {
 	public static BitmapFont KITEONE;
 	public static TextureRegion SKIN_TEXTUREREGION[][];
+	public static Texture GREY_LAYER;
 	public static Skin SKIN;
 	
-	public static void loadFontHelper() {
+	public static void loadSkinHelper() {
 		KITEONE = new BitmapFont(Gdx.files.internal("data/fonts/KiteOne.fnt"),Gdx.files.internal("data/fonts/KiteOne_0.png"), false);
 	
+		GREY_LAYER = new Texture(Gdx.files.internal("data/gfx/skin/grey_layer.png"));
+		
 		Texture skinTex = new Texture(Gdx.files.internal("data/gfx/skin/skin.png"));
 		SKIN_TEXTUREREGION = TextureRegion.split(skinTex, 128, 64);
 		
