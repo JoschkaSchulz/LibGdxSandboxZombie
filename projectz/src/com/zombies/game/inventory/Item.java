@@ -1,15 +1,24 @@
 package com.zombies.game.inventory;
 
-public class Item {
+import com.badlogic.gdx.graphics.Texture;
+
+public abstract class Item {
 	private int ID;
 	private String Name;
 	private String Discription;
+	private Texture Texture;
+	
+	
+	public abstract Item clone();
 	
 	
 	
-	
-	
-	
+	public Texture getTexture() {
+		return Texture;
+	}
+	public void setTexture(Texture texture) {
+		Texture = texture;
+	}
 	public int getID() {
 		return ID;
 	}
