@@ -1,12 +1,12 @@
 package com.zombies.game.events;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
+
+
 import com.zombies.game.event.Event;
-import com.zombies.helper.SkinHelper;
-import com.zombies.helper.GUIHelper;
+
+
 
 public class ZombieFight extends Event {
 	
@@ -23,14 +23,7 @@ public class ZombieFight extends Event {
 		showDialog(dialogText, a);
 	}
 	
-	public void act(float delta) {
-		super.act(delta);
-	}
 	
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-	}
 
 	@Override
 	protected void dialogAnswer1() {

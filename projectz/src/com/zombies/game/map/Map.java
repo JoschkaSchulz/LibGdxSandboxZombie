@@ -43,6 +43,7 @@ public class Map extends Group {
 	private int height;
 	
 	private MapTile[][] world;
+	private MapTile[][] fog;
 	private TextureRegion tileSet[][];
 	private Charakter charRef;
 	

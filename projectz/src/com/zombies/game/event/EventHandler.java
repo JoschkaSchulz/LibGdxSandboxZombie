@@ -1,6 +1,6 @@
 package com.zombies.game.event;
 
-import java.lang.reflect.Constructor;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+
 import com.badlogic.gdx.utils.XmlReader;
-import com.sun.org.apache.xml.internal.utils.CharKey;
+
 import com.zombies.game.charakter.Charakter;
 import com.zombies.game.skilltree.Skill;
 
@@ -109,10 +109,6 @@ public class EventHandler extends Group {
 		this.clear();
 	}
 	
-	@Override
-	public void act(float delta) {
-		super.act(delta);		
-	}
 	
 	
 }

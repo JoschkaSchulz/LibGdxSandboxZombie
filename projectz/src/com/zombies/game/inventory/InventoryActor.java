@@ -1,6 +1,6 @@
 package com.zombies.game.inventory;
 
-import java.util.ArrayList;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import com.esotericsoftware.tablelayout.Cell;
 import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
@@ -144,15 +144,7 @@ public class InventoryActor extends Group {
 		return menu;
 	}
 	
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-	}
 
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-	}
 	
 	
 }
