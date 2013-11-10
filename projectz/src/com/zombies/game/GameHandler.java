@@ -88,8 +88,8 @@ public class GameHandler extends Group {
 				this.clear();
 				map = new Map(16,16, debugRenderer);
 				this.addActor(map);
-				map.generateMap(Map.TYPE_CITY);
 				map.setCharRef(charakter);
+				map.generateMap(Map.TYPE_CITY);
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {

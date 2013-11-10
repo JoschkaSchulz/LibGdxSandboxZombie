@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.GUIHelper;
 
 public class MapTile extends Image {
@@ -25,6 +26,7 @@ public class MapTile extends Image {
 	public static final int TYPE_LVL3 = 3;		//type for 2x2 buildings
 	public static final int TYPE_LVL4 = 4;		//not implemented yet
 	public static final int TYPE_LVL5 = 5;		//not implemented yet
+	public static final int TYPE_FOG = 100;
 	
 	private boolean debug;					//if activates draws the debug tiles
 	private Color debugColor;				//color for debug drawer
@@ -85,7 +87,7 @@ public class MapTile extends Image {
 	 */
 	public MapTile(TextureRegion texture, int x, int y) {
 		super(texture);
-		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
+		setPosition(x,y);
 		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
 		setSize(TILE_WIDTH, TILE_HEIGHT);
 		setType(TYPE_EMPTY);
@@ -94,6 +96,10 @@ public class MapTile extends Image {
 	/*****************************************************************
 	 *					Getter and Setter
 	 ****************************************************************/
+	
+	public void setPosition(int x, int y) {
+		super.setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
+	}
 	
 	public boolean isStart() {
 		return isStart;
@@ -197,4 +203,15 @@ public class MapTile extends Image {
 		String stringType[] = {"empty","street","lvl1","lvl2","lvl3","lvl4","lvl5"};
 		return "MapTile ("+stringType[getType()+1]+" & "+getPosX()+"/"+getPosY()+")";
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if ( other == null ) return false;
+		if ( other == this ) return true;
+
+		MapTile tile = (MapTile) other;
+		return this.getPosX() == tile.getPosX() && this.getPosY() == tile.getPosY() && this.getType() == tile.getType();
+	}
+	
+	
 }

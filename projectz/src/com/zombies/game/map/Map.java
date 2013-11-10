@@ -43,9 +43,10 @@ public class Map extends Group {
 	private int height;
 	
 	private MapTile[][] world;
-	private MapTile[][] fog;
+	private FogTile[][] fog;
 	private TextureRegion tileSet[][];
 	private Charakter charRef;
+	private MapTile charPointer;
 	
 	private Table ui;
 	private TextButton inventory;
@@ -64,6 +65,7 @@ public class Map extends Group {
 		this.width = width;
 		this.height = height;
 		world = new MapTile[width][height];
+		fog = new FogTile[width][height];
 		this.debugRenderer = debugRenderer;
 	}
 	
@@ -88,6 +90,95 @@ public class Map extends Group {
 	/*********************************************************
 	 * 			Methods
 	 *********************************************************/
+	
+	/**
+	 * This Method looks after the Player position and clears only the Fog
+	 * on this position
+	 */
+	public void calcFog() {
+		int x = charRef.getMapX();
+		int y = charRef.getMapY();
+		
+		//Makes all the Fog visible
+		setAllFogVisible();
+		
+		//Show the Position of the player
+		if(fog[x][y].getType() != MapTile.TYPE_EMPTY) {
+			fog[x][y].setVisible(false);
+			System.out.println("Make invisible: " + x + "/" + y);
+		}
+		
+		//Try all directions for making the fog away :D
+		boolean findEnd = false;
+		int west = x, east = x, north = y, south = y;
+		while(!findEnd) {
+			if(west > 0) {
+				west--;
+				if(this.world[west][y].getType() == MapTile.TYPE_STREET) fog[west][y].setVisible(false);
+				else findEnd = true;
+			}else findEnd = true;
+		}
+		findEnd = false;
+		while(!findEnd) {
+			if(east < this.width) {
+				east++;
+				if(this.world[east][y].getType() == MapTile.TYPE_STREET) fog[east][y].setVisible(false);
+				else findEnd = true;
+			}else findEnd = true;
+		}
+		findEnd = false;
+		while(!findEnd) {
+			if(south > 0) {
+				south--;
+				if(this.world[x][south].getType() == MapTile.TYPE_STREET) fog[x][south].setVisible(false);
+				else findEnd = true;
+			}else findEnd = true;
+		}
+		findEnd = false;
+		while(!findEnd) {
+			if(north < this.height) {
+				north++;
+				if(this.world[x][north].getType() == MapTile.TYPE_STREET) fog[x][north].setVisible(false);
+				else findEnd = true;
+			}else findEnd = true;
+		}
+		
+		for(int mapY = 0; mapY < world[0].length; mapY++) {
+			for(int mapX = 0; mapX < world.length; mapX++) {
+				if(world[mapX][mapY].getType() == MapTile.TYPE_STREET && !fog[mapX][mapY].isVisible()) {
+					if(mapX > 0 && isBuilding(mapX-1, mapY)) fog[mapX-1][mapY].setVisible(false);
+					if(mapX < width && isBuilding(mapX+1, mapY)) fog[mapX+1][mapY].setVisible(false);
+					if(mapY > 0 && isBuilding(mapX, mapY-1)) fog[mapX][mapY-1].setVisible(false);
+					if(mapY < height && isBuilding(mapX, mapY+1)) fog[mapX][mapY+1].setVisible(false);
+				}
+			}
+		}
+	}
+	
+	private boolean isBuilding(int mapX, int mapY) {
+		return world[mapX][mapY].getType() == MapTile.TYPE_LVL1 ||
+				world[mapX][mapY].getType() == MapTile.TYPE_LVL2 ||
+				world[mapX][mapY].getType() == MapTile.TYPE_LVL3 ||
+				world[mapX][mapY].getType() == MapTile.TYPE_LVL4 ||
+				world[mapX][mapY].getType() == MapTile.TYPE_LVL5;
+	}
+
+	private void setAllFogVisible() {
+		for(int y = 0; y < fog[0].length; y++) {
+			for(int x = 0; x < fog.length; x++) {
+				fog[x][y].setVisible(true);
+			}
+		}
+	}
+	
+	public void addFog(TextureRegion texture) {
+		for(int y = 0; y < fog[0].length; y++) {
+			for(int x = 0; x < fog.length; x++) {
+				fog[x][y] = new FogTile(texture, x, y);
+				addActor(fog[x][y]);
+			}
+		}
+	}
 	
 	private void generateUI() {
 		ui = new Table();
@@ -194,6 +285,7 @@ public class Map extends Group {
 				world[world.length-1][exitPos] = new MapTile((world.length-1), exitPos, debugRenderer);; //TODO: hier exit einfügen
 				world[world.length-1][exitPos].setExit(true);
 				world[world.length-1][exitPos].setType(MapTile.TYPE_STREET);
+				charRef.setMapCoordinates(0, startPos);
 			}else{
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
@@ -203,6 +295,7 @@ public class Map extends Group {
 				world[exitPos][world[0].length-1] = new MapTile(exitPos, world[0].length-1, debugRenderer); //TODO: hier exit einfügen
 				world[exitPos][world[0].length-1].setExit(true);
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
+				charRef.setMapCoordinates(startPos, 0);
 			}
 
 			while(activity) {
@@ -387,6 +480,14 @@ public class Map extends Group {
 				
 			}
 		}
+		
+		//After drawing the world, draw the fog on the top of it
+		addFog(tileSet[0][7]);
+		calcFog();	//shows the visibility
+		
+		//shows the player
+		charPointer = new MapTile(tileSet[1][7], charRef.getMapX(), charRef.getMapY(), MapTile.TYPE_EMPTY);
+		addActor(charPointer);
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
@@ -646,6 +747,7 @@ public class Map extends Group {
 	 * Let the Actor act.
 	 * @param float  delta is the time that happens after each frame
 	 */
+	private float arrowTimer = 0;
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -668,6 +770,39 @@ public class Map extends Group {
 				else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
 				
 			}else dragX = dragY = 0;
+			
+			arrowTimer += delta;
+			int x = charRef.getMapX();
+			int y = charRef.getMapY();
+			if(InputHelper.DOWN && y < height && arrowTimer > 1) {
+				if(world[x][y+1].getType() == MapTile.TYPE_STREET) {
+					charRef.setMapCoordinates(x, y+1);
+					charPointer.setPosition(x, y+1);
+					calcFog();
+					arrowTimer = 0;
+				}
+			}else if(InputHelper.UP && y > 0 && arrowTimer > 1) {
+				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
+					charRef.setMapCoordinates(x, y-1);
+					charPointer.setPosition(x, y-1);
+					calcFog();
+					arrowTimer = 0;
+				}
+			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 1) {
+				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
+					charRef.setMapCoordinates(x-1, y);
+					charPointer.setPosition(x-1, y);
+					calcFog();
+					arrowTimer = 0;
+				}
+			}else if(InputHelper.RIGHT && x < width && arrowTimer > 1) {
+				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
+					charRef.setMapCoordinates(x+1, y);
+					charPointer.setPosition(x+1, y);
+					calcFog();
+					arrowTimer = 0;
+				}
+			}
 		}
 	}
 }
