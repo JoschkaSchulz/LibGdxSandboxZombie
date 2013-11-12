@@ -105,7 +105,6 @@ public class Map extends Group {
 		//Show the Position of the player
 		if(fog[x][y].getType() != MapTile.TYPE_EMPTY) {
 			fog[x][y].setVisible(false);
-			System.out.println("Make invisible: " + x + "/" + y);
 		}
 		
 		//Try all directions for making the fog away :D
@@ -155,6 +154,13 @@ public class Map extends Group {
 		}
 	}
 	
+	/**
+	 * This method checks if the point mapX and mapY is a building from
+	 * level 1 up to level 5
+	 * @param mapX the matrix x coordinates of the point
+	 * @param mapY the matrix y coordinates of the point
+	 * @return a true if the given point is a building
+	 */
 	private boolean isBuilding(int mapX, int mapY) {
 		return world[mapX][mapY].getType() == MapTile.TYPE_LVL1 ||
 				world[mapX][mapY].getType() == MapTile.TYPE_LVL2 ||
@@ -163,6 +169,9 @@ public class Map extends Group {
 				world[mapX][mapY].getType() == MapTile.TYPE_LVL5;
 	}
 
+	/**
+	 * Iterates over each field of the world and set the fog enabled
+	 */
 	private void setAllFogVisible() {
 		for(int y = 0; y < fog[0].length; y++) {
 			for(int x = 0; x < fog.length; x++) {
@@ -171,6 +180,10 @@ public class Map extends Group {
 		}
 	}
 	
+	/**
+	 * This method is used to init the fog with the given TextureRegion
+	 * @param texture The texture of the fog
+	 */
 	public void addFog(TextureRegion texture) {
 		for(int y = 0; y < fog[0].length; y++) {
 			for(int x = 0; x < fog.length; x++) {
@@ -180,6 +193,9 @@ public class Map extends Group {
 		}
 	}
 	
+	/**
+	 * This method generates the UI for the user on the top of the map
+	 */
 	private void generateUI() {
 		ui = new Table();
 		ui.top().left();
