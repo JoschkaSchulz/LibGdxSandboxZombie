@@ -90,9 +90,11 @@ public class GameHandler extends Group {
 				this.addActor(map);
 				map.setCharRef(charakter);
 				map.generateMap(Map.TYPE_CITY);
+				map.moveCameraToCharacter();
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
+//				map.moveCameraToCharacter(); //Test movement of the camera to char
 				loadEvent(1);	//Test Zombie Fight Event!
 				//map.clear();
 				//map.generateMap(Map.TYPE_CITY);

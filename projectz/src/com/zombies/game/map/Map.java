@@ -728,9 +728,22 @@ public class Map extends Group {
 		}
 	}
 
+	/**
+	 * Moves the Character in the middle of the screen without
+	 * leaving the borders of the map
+	 */
 	public void moveCameraToCharacter() {
+		//Calculate the player position
 		int calcedX = -(charRef.getMapX()*MapTile.TILE_WIDTH) + (Gdx.graphics.getWidth()/2);
-		int calcedY = charRef.getMapY()*MapTile.TILE_WIDTH;
+		int calcedY = charRef.getMapY()*MapTile.TILE_WIDTH - (Gdx.graphics.getHeight()/2);
+		
+		//Don't leave the borders!
+		if(calcedX > 0) calcedX = 0;
+		else if(calcedX < -getMapWidth() + Gdx.graphics.getWidth()) calcedX = -getMapWidth() + Gdx.graphics.getWidth();
+		if(calcedY < -64) calcedY = -64;
+		else if(calcedY > getMapHeight() - Gdx.graphics.getHeight()) calcedY = getMapHeight() - Gdx.graphics.getHeight();
+		
+		//Set the new position to camera
 		this.setPosition(calcedX, calcedY);
 	}
 	
@@ -801,6 +814,7 @@ public class Map extends Group {
 					charPointer.setPosition(x, y+1);
 					calcFog();
 					arrowTimer = 0;
+					moveCameraToCharacter();
 				}
 			}else if(InputHelper.UP && y > 0 && arrowTimer > 1) {
 				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
@@ -808,6 +822,7 @@ public class Map extends Group {
 					charPointer.setPosition(x, y-1);
 					calcFog();
 					arrowTimer = 0;
+					moveCameraToCharacter();
 				}
 			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 1) {
 				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
@@ -815,6 +830,7 @@ public class Map extends Group {
 					charPointer.setPosition(x-1, y);
 					calcFog();
 					arrowTimer = 0;
+					moveCameraToCharacter();
 				}
 			}else if(InputHelper.RIGHT && x < width && arrowTimer > 1) {
 				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
@@ -822,6 +838,7 @@ public class Map extends Group {
 					charPointer.setPosition(x+1, y);
 					calcFog();
 					arrowTimer = 0;
+					moveCameraToCharacter();
 				}
 			}
 		}
