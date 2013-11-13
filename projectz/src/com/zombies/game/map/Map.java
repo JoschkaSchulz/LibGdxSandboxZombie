@@ -98,7 +98,7 @@ public class Map extends Group {
 	public void calcFog() {
 		int x = charRef.getMapX();
 		int y = charRef.getMapY();
-		
+
 		//Makes all the Fog visible
 		setAllFogVisible();
 		
@@ -728,6 +728,11 @@ public class Map extends Group {
 		}
 	}
 
+	public void moveCameraToCharacter() {
+		int calcedX = -(charRef.getMapX()*MapTile.TILE_WIDTH) + (Gdx.graphics.getWidth()/2);
+		int calcedY = charRef.getMapY()*MapTile.TILE_WIDTH;
+		this.setPosition(calcedX, calcedY);
+	}
 	
 	/**
 	 * This method prints a test Info on the console
@@ -782,7 +787,7 @@ public class Map extends Group {
 				//Correct x and y for map borders
 				if(getX() > 0) setX(0);
 				else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
-				if(getY() < 0) setY(0);
+				if(getY() < -64) setY(-64);
 				else if(getY() > getMapHeight() - Gdx.graphics.getHeight()) setY(getMapHeight() - Gdx.graphics.getHeight());
 				
 			}else dragX = dragY = 0;
