@@ -28,6 +28,8 @@ public class MapTile extends Image {
 	public static final int TYPE_LVL5 = 5;		//not implemented yet
 	public static final int TYPE_FOG = 100;
 	
+	public static final int SUBTYPE_EMPTYHOUSE = 0;	//Sub-type for an empty house
+	
 	private boolean debug;					//if activates draws the debug tiles
 	private Color debugColor;				//color for debug drawer
 	private ShapeRenderer debugRenderer;	//the debug ShapeRenderer
@@ -37,6 +39,12 @@ public class MapTile extends Image {
 	private boolean isStart;	//is the tile a start tile
 	private boolean isExit;		//is the tile a exit tile
 	private int type;			//The type of the tile
+	private int subtype;		//Subtype of the tile
+
+	private MapTile northNeighbor;	//Neighbor for higher level tiles
+	private MapTile southNeighbor;	//Neighbor for higher level tiles
+	private MapTile westNeighbor;	//Neighbor for higher level tiles
+	private MapTile eastNeighbor;	//Neighbor for higher level tiles
 	
 	private int eventID;		//The ID from the event that is binded to this tile
 	
@@ -140,10 +148,86 @@ public class MapTile extends Image {
 	public void setEventID(int eventID) {
 		this.eventID = eventID;
 	}
+	
+	public int getSubtype() {
+		return subtype;
+	}
+
+	public void setSubtype(int subtype) {
+		this.subtype = subtype;
+	}
+
+	public MapTile getNorthNeighbor() {
+		return northNeighbor;
+	}
+
+	public void setNorthNeighbor(MapTile northNeighbor) {
+		this.northNeighbor = northNeighbor;
+	}
+
+	public MapTile getSouthNeighbor() {
+		return southNeighbor;
+	}
+
+	public void setSouthNeighbor(MapTile southNeighbor) {
+		this.southNeighbor = southNeighbor;
+	}
+
+	public MapTile getWestNeighbor() {
+		return westNeighbor;
+	}
+
+	public void setWestNeighbor(MapTile westNeighbor) {
+		this.westNeighbor = westNeighbor;
+	}
+
+	public MapTile getEastNeighbor() {
+		return eastNeighbor;
+	}
+
+	public void setEastNeighbor(MapTile eastNeighbor) {
+		this.eastNeighbor = eastNeighbor;
+	}
 
 	/*****************************************************************
 	 *					Methods
 	 ****************************************************************/
+	
+	/**
+	 * checks if there is a neighbor in the north
+	 * 
+	 * @return true if northNeighbor isn't null
+	 */
+	public boolean hasNorthNeighbor() {
+		return northNeighbor != null;
+	}
+	
+	/**
+	 * checks if there is a neighbor in the south
+	 * 
+	 * @return true if southNeighbor isn't null
+	 */
+	public boolean hasSouthNeighbor() {
+		return southNeighbor != null;
+	}
+	
+	/**
+	 * checks if there is a neighbor in the west
+	 * 
+	 * @return true if westNeighbor isn't null
+	 */
+	public boolean hasWestNeighbor() {
+		return westNeighbor != null;
+	}
+	
+	/**
+	 * checks if there is a neighbor in the east
+	 * 
+	 * @return true if eastNeighbor isn't null
+	 */
+	public boolean hasEastNeighbor() {
+		return eastNeighbor != null;
+	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
