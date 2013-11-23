@@ -40,6 +40,7 @@ public class MapTile extends Image {
 	private boolean isExit;		//is the tile a exit tile
 	private int type;			//The type of the tile
 	private int subtype;		//Subtype of the tile
+	private boolean highlight;	//Highlights the tile
 
 	private MapTile northNeighbor;	//Neighbor for higher level tiles
 	private MapTile southNeighbor;	//Neighbor for higher level tiles
@@ -63,10 +64,11 @@ public class MapTile extends Image {
 		
 		posX = x;
 		posY = y;
-		setPosition(x * TILE_WIDTH, y * TILE_HEIGHT);
+		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
 		setBounds(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		this.debugRenderer = debugRenderer;
 		setType(TYPE_EMPTY);
+		this.highlight = false;
 	}
 	
 	/**
@@ -77,13 +79,17 @@ public class MapTile extends Image {
 	 * @param y the y coordinate in the matrix
 	 * @param type the type of the tile, look in the static variables for types
 	 */
-	public MapTile(TextureRegion texture, int x, int y, int type) {
+	public MapTile(TextureRegion texture, int x, int y, int type, ShapeRenderer debugRenderer) {
 		super(texture);
+		posX = x;
+		posY = y;
 		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
 		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
 		setSize(TILE_WIDTH, TILE_HEIGHT);
 		setType(type);
 		debug = false;
+		this.highlight = false;
+		this.debugRenderer = debugRenderer;
 	}
 	
 	/**
@@ -93,13 +99,18 @@ public class MapTile extends Image {
 	 * @param x the x coordinate in the matrix
 	 * @param y the y coordinate in the matrix
 	 */
-	public MapTile(TextureRegion texture, int x, int y) {
+	public MapTile(TextureRegion texture, int x, int y, ShapeRenderer debugRenderer) {
 		super(texture);
-		setPosition(x,y);
+		posX = x;
+		posY = y;
+		setPosition(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT));
+		//setPosition(x,y);
 		setBounds(x * TILE_WIDTH, GUIHelper.getNewCoordinates(y * TILE_HEIGHT, TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT);
 		setSize(TILE_WIDTH, TILE_HEIGHT);
 		setType(TYPE_EMPTY);
 		debug = false;
+		this.highlight = false;
+		this.debugRenderer = debugRenderer;
 	}
 	/*****************************************************************
 	 *					Getter and Setter
@@ -189,6 +200,17 @@ public class MapTile extends Image {
 		this.eastNeighbor = eastNeighbor;
 	}
 
+	public boolean isHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(boolean highlight) {
+		this.highlight = highlight;
+	}
+	
+	public TextureRegion getHighlight() {
+		return ((Map)getParent()).getHighlight();
+	}
 	/*****************************************************************
 	 *					Methods
 	 ****************************************************************/
@@ -273,7 +295,12 @@ public class MapTile extends Image {
 			debugRenderer.end();
 			batch.begin();
 		}else{
+			//The normal code without debugging!
 			super.draw(batch, parentAlpha);
+		}
+		
+		if(isHighlight()) {
+			batch.draw(getHighlight(), getX(), getY(),getOriginX(), getOriginY(),getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		}
 	}
 	
@@ -285,7 +312,7 @@ public class MapTile extends Image {
 
 	public String toString() {
 		String stringType[] = {"empty","street","lvl1","lvl2","lvl3","lvl4","lvl5"};
-		return "MapTile ("+stringType[getType()+1]+" & "+getPosX()+"/"+getPosY()+")";
+		return "MapTile ("+stringType[getType()+1]+" & posXY "+getPosX()+"/"+getPosY()+" & XY " + getX() + "/" + getY();
 	}
 
 	@Override

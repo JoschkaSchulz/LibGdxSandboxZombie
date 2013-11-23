@@ -95,9 +95,10 @@ public class GameHandler extends Group {
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
 //				map.moveCameraToCharacter(); //Test movement of the camera to char
-				loadEvent(1);	//Test Zombie Fight Event!
+				//loadEvent(1);	//Test Zombie Fight Event!
 				//map.clear();
 				//map.generateMap(Map.TYPE_CITY);
+				map.debugInfo();
 			}
 		}else if(state == STATE_EVENTINIT) {
 //			this.clear();

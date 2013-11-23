@@ -45,6 +45,7 @@ public class Map extends Group {
 	private MapTile[][] world;
 	private FogTile[][] fog;
 	private TextureRegion tileSet[][];
+	private TextureRegion highlight;
 	private Charakter charRef;
 	private MapTile charPointer;
 	
@@ -87,6 +88,10 @@ public class Map extends Group {
 		generateUI();
 	}
 	
+	public TextureRegion getHighlight() {
+		return this.highlight;
+	}
+	
 	/*********************************************************
 	 * 			Methods
 	 *********************************************************/
@@ -111,7 +116,7 @@ public class Map extends Group {
 		boolean findEnd = false;
 		int west = x, east = x, north = y, south = y;
 		while(!findEnd) {
-			if(west > 0) {
+			if(west > 0 && this.world[west-1][y] != null) {
 				west--;
 				if(this.world[west][y].getType() == MapTile.TYPE_STREET) fog[west][y].setVisible(false);
 				else findEnd = true;
@@ -119,7 +124,7 @@ public class Map extends Group {
 		}
 		findEnd = false;
 		while(!findEnd) {
-			if(east < this.width) {
+			if(east < this.width-1 && this.world[east+1][y] != null) {
 				east++;
 				if(this.world[east][y].getType() == MapTile.TYPE_STREET) fog[east][y].setVisible(false);
 				else findEnd = true;
@@ -127,7 +132,7 @@ public class Map extends Group {
 		}
 		findEnd = false;
 		while(!findEnd) {
-			if(south > 0) {
+			if(south > 0 && this.world[x][south-1] != null) {
 				south--;
 				if(this.world[x][south].getType() == MapTile.TYPE_STREET) fog[x][south].setVisible(false);
 				else findEnd = true;
@@ -135,7 +140,7 @@ public class Map extends Group {
 		}
 		findEnd = false;
 		while(!findEnd) {
-			if(north < this.height) {
+			if(north < this.height-1 && this.world[x][north+1] != null) {
 				north++;
 				if(this.world[x][north].getType() == MapTile.TYPE_STREET) fog[x][north].setVisible(false);
 				else findEnd = true;
@@ -146,9 +151,9 @@ public class Map extends Group {
 			for(int mapX = 0; mapX < world.length; mapX++) {
 				if(world[mapX][mapY].getType() == MapTile.TYPE_STREET && !fog[mapX][mapY].isVisible()) {
 					if(mapX > 0 && isBuilding(mapX-1, mapY)) fog[mapX-1][mapY].setVisible(false);
-					if(mapX < width && isBuilding(mapX+1, mapY)) fog[mapX+1][mapY].setVisible(false);
+					if(mapX < width-1 && isBuilding(mapX+1, mapY)) fog[mapX+1][mapY].setVisible(false);
 					if(mapY > 0 && isBuilding(mapX, mapY-1)) fog[mapX][mapY-1].setVisible(false);
-					if(mapY < height && isBuilding(mapX, mapY+1)) fog[mapX][mapY+1].setVisible(false);
+					if(mapY < height-1 && isBuilding(mapX, mapY+1)) fog[mapX][mapY+1].setVisible(false);
 				}
 			}
 		}
@@ -187,7 +192,7 @@ public class Map extends Group {
 	public void addFog(TextureRegion texture) {
 		for(int y = 0; y < fog[0].length; y++) {
 			for(int x = 0; x < fog.length; x++) {
-				fog[x][y] = new FogTile(texture, x, y);
+				fog[x][y] = new FogTile(texture, x, y, this.debugRenderer);
 				addActor(fog[x][y]);
 			}
 		}
@@ -263,6 +268,9 @@ public class Map extends Group {
 			case TYPE_FOREST:
 				break;
 		}
+		
+		//Set the highlight Texture
+		highlight = tileSet[2][7];
 		
 		//Variables
 		boolean done = false;
@@ -347,7 +355,6 @@ public class Map extends Group {
 						}
 					}
 				}
-
 
 				//*******************************************************************************
 				//Step III ~ place new tiles
@@ -492,8 +499,8 @@ public class Map extends Group {
 		//Add the world to the group
 		for(int h = 0; h < world[0].length; h++){
 			for(int w = 0; w < world.length; w++) {
-				if(world[w][h] != null && world[w][h].getType() != MapTile.TYPE_EMPTY) addActor(world[w][h]);
-				
+				if(world[w][h] != null && world[w][h].getType() != MapTile.TYPE_EMPTY) 
+					addActor(world[w][h]);
 			}
 		}
 		
@@ -502,7 +509,7 @@ public class Map extends Group {
 		calcFog();	//shows the visibility
 		
 		//shows the player
-		charPointer = new MapTile(tileSet[1][7], charRef.getMapX(), charRef.getMapY(), MapTile.TYPE_EMPTY);
+		charPointer = new MapTile(tileSet[1][7], charRef.getMapX(), charRef.getMapY(), MapTile.TYPE_EMPTY, this.debugRenderer);
 		addActor(charPointer);
 		
 		System.out.println("~~~~ Map created ~~~~");
@@ -543,28 +550,28 @@ public class Map extends Group {
 				 *   ooo
 				 */
 				if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ##o
 				 *   #?o
 				 *   ooo
 				 */
 				}else if(neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && !neighbours[SOUTH] && world[w-1][h-1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ooo
 				 *   #?o
 				 *   ##o
 				 */
 				}else if(!neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && neighbours[SOUTH] && world[w-1][h+1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ooo
 				 *   o?#
 				 *   o##
 				 */
 				}else if(!neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && neighbours[SOUTH] && world[w+1][h+1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				}
 			}
 		}
@@ -583,53 +590,53 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][3], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][3], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][2], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][0], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 				}else if(!neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][4], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(180);
 					world[w][h].translate(129, 127);
 				}else if(!neighbours[NORTH] && neighbours[SOUTH] && !neighbours[WEST] && neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(90);
 					world[w][h].translate(128, -1);
 				}else if(neighbours[NORTH] && !neighbours[SOUTH] && neighbours[WEST] && !neighbours[EAST]){ 
-					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET);
+					world[w][h] = new MapTile(tileSet[0][1], w, h, MapTile.TYPE_STREET, this.debugRenderer);
 					world[w][h].rotate(-90);
 					world[w][h].translate(1, 128);
 				}
@@ -666,17 +673,27 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[WEST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
-					world[w-1][h] = new MapTile(tileSet[1][1], w-1, h, MapTile.TYPE_LVL2);
+					//Set MapTiles
+					world[w][h] = new MapTile(tileSet[4][1], w, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w-1][h] = new MapTile(tileSet[4][0], w-1, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					//Set Neighbors
+					world[w][h].setWestNeighbor(world[w-1][h]);
+					world[w-1][h].setEastNeighbor(world[w][h]);
 				}else if(neighbours[EAST] && Math.random() < chanceLvl2 && w > 0 && w < worldWidth-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
-					world[w+1][h] = new MapTile(tileSet[1][1], w+1, h, MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[4][0], w, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w+1][h] = new MapTile(tileSet[4][1], w+1, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w][h].setEastNeighbor(world[w+1][h]);
+					world[w+1][h].setWestNeighbor(world[w][h]);
 				}else if(neighbours[NORTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
-					world[w][h-1] = new MapTile(tileSet[1][1], w, h-1, MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[5][2], w, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w][h-1] = new MapTile(tileSet[4][2], w, h-1, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w][h].setNorthNeighbor(world[w][h-1]);
+					world[w][h-1].setSouthNeighbor(world[w][h]);
 				}else if(neighbours[SOUTH] && Math.random() < chanceLvl2 && h > 0 && h < worldHeight-1) {
-					world[w][h] = new MapTile(tileSet[1][1], w, h, MapTile.TYPE_LVL2);
-					world[w][h+1] = new MapTile(tileSet[1][1], w, h+1, MapTile.TYPE_LVL2);
+					world[w][h] = new MapTile(tileSet[4][2], w, h, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w][h+1] = new MapTile(tileSet[5][2], w, h+1, MapTile.TYPE_LVL2, this.debugRenderer);
+					world[w][h].setNorthNeighbor(world[w][h+1]);
+					world[w][h+1].setSouthNeighbor(world[w][h]);
 				}
 				
 				//A Second run for lvl3 buildings
@@ -691,13 +708,30 @@ public class Map extends Group {
 				}
 				
 				if(neighbours[NORTH] && neighbours[EAST] && world[w+1][h-1].getType() == MapTile.TYPE_LVL2) {
-					world[w][h] 	= new MapTile(tileSet[1][2], w, h, MapTile.TYPE_LVL3);
-					world[w+1][h] 	= new MapTile(tileSet[1][2], w+1, h, MapTile.TYPE_LVL3);
-					world[w+1][h-1] = new MapTile(tileSet[1][2], w+1, h-1, MapTile.TYPE_LVL3);
-					world[w][h-1] 	= new MapTile(tileSet[1][2], w, h-1, MapTile.TYPE_LVL3);
+					world[w][h] 	= new MapTile(tileSet[7][0], w, h, MapTile.TYPE_LVL3, this.debugRenderer);
+					world[w+1][h] 	= new MapTile(tileSet[7][1], w+1, h, MapTile.TYPE_LVL3, this.debugRenderer);
+					world[w+1][h-1] = new MapTile(tileSet[6][1], w+1, h-1, MapTile.TYPE_LVL3, this.debugRenderer);
+					world[w][h-1] 	= new MapTile(tileSet[6][0], w, h-1, MapTile.TYPE_LVL3, this.debugRenderer);
+					
+					/*
+					 *  w/h-1 	w+1/h-1
+					 * 	w/h		w+1/h
+					 * 	
+					 */
+					world[w][h].setEastNeighbor(world[w+1][h]);
+					world[w][h].setNorthNeighbor(world[w][h-1]);
+					
+					world[w+1][h].setWestNeighbor(world[w][h]);
+					world[w+1][h].setNorthNeighbor(world[w+1][h-1]);					
+
+					world[w+1][h-1].setWestNeighbor(world[w][h-1]);					
+					world[w+1][h-1].setSouthNeighbor(world[w+1][h]);
+					
+					world[w][h-1].setSouthNeighbor(world[w][h]);
+					world[w][h-1].setEastNeighbor(world[w+1][h-1]);
 				}
 				
-				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 			}
 		}
 		
@@ -718,7 +752,7 @@ public class Map extends Group {
 					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
 				
 					if(checkSplitBug && onLvl3) {
-						world[w][h] = new MapTile(tileSet[1][0], w, h, MapTile.TYPE_LVL1);
+						world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 						
 						checkSplitBug = true;
 						onLvl3 = false;
@@ -777,6 +811,13 @@ public class Map extends Group {
 		System.out.println("Level3:\t\t\t" + (level3/4));
 	}
 	
+	public void debugInfo() {
+		int x = charRef.getMapX();
+		int y = charRef.getMapY();
+		System.out.println("~~~~MapTile " + x + " / " + y + "~~~~\n" +
+				world[x][y].toString());
+	}
+	
 	/**
 	 * Let the Actor act.
 	 * @param float  delta is the time that happens after each frame
@@ -808,7 +849,7 @@ public class Map extends Group {
 			arrowTimer += delta;
 			int x = charRef.getMapX();
 			int y = charRef.getMapY();
-			if(InputHelper.DOWN && y < height && arrowTimer > 1) {
+			if(InputHelper.DOWN && y < height && arrowTimer > 0.5) {
 				if(world[x][y+1].getType() == MapTile.TYPE_STREET) {
 					charRef.setMapCoordinates(x, y+1);
 					charPointer.setPosition(x, y+1);
@@ -816,7 +857,7 @@ public class Map extends Group {
 					arrowTimer = 0;
 					moveCameraToCharacter();
 				}
-			}else if(InputHelper.UP && y > 0 && arrowTimer > 1) {
+			}else if(InputHelper.UP && y > 0 && arrowTimer > 0.5) {
 				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
 					charRef.setMapCoordinates(x, y-1);
 					charPointer.setPosition(x, y-1);
@@ -824,7 +865,7 @@ public class Map extends Group {
 					arrowTimer = 0;
 					moveCameraToCharacter();
 				}
-			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 1) {
+			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 0.5) {
 				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
 					charRef.setMapCoordinates(x-1, y);
 					charPointer.setPosition(x-1, y);
@@ -832,7 +873,7 @@ public class Map extends Group {
 					arrowTimer = 0;
 					moveCameraToCharacter();
 				}
-			}else if(InputHelper.RIGHT && x < width && arrowTimer > 1) {
+			}else if(InputHelper.RIGHT && x < width && arrowTimer > 0.5) {
 				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
 					charRef.setMapCoordinates(x+1, y);
 					charPointer.setPosition(x+1, y);
