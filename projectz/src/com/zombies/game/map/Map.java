@@ -54,7 +54,6 @@ public class Map extends Group {
 	
 	private ShapeRenderer debugRenderer;
 	private TextureRegion[][] tileSet;
-	private TextureRegion highlight;
 	
 	/*********************************************************
 	 * 			Constructor
@@ -264,9 +263,6 @@ public class Map extends Group {
 			case TYPE_FOREST:
 				break;
 		}
-		
-		//Set the highlight Texture
-		highlight = TextureHelper.MAP_HIGHLIGHT;
 		
 		//Variables
 		boolean done = false;

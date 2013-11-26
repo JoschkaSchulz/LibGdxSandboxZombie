@@ -1,19 +1,10 @@
 package com.zombies.game.events;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-
-
 import com.zombies.game.event.Event;
 import com.zombies.game.event.Fight;
 
-
-
 public class ZombieFight extends Event {
 	
-	private float timer;
 	private Fight fight;
 	
 	public ZombieFight() {
