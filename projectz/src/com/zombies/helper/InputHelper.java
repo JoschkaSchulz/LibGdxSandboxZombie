@@ -12,6 +12,7 @@ public class InputHelper extends InputListener{
 	private boolean mobile;
 	
 	public static boolean ACTION = false;
+	public static boolean SPACE = false;
 	
 	public static boolean UP = false;
 	public static boolean DOWN = false;
@@ -82,6 +83,7 @@ public class InputHelper extends InputListener{
 		if(keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) InputHelper.RIGHT = false;
 		
 		if(keycode == Input.Keys.E || keycode == Input.Keys.ENTER) InputHelper.ACTION = false;
+		if(keycode == Input.Keys.SPACE) InputHelper.SPACE = false;
 		return true;
 	}
 	
@@ -92,6 +94,7 @@ public class InputHelper extends InputListener{
     	if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {InputHelper.RIGHT = true;}
     	
     	if(Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {InputHelper.ACTION = true;}
+    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {InputHelper.SPACE = true;}
     			
 		return true;
 	}

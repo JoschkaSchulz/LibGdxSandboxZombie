@@ -15,7 +15,7 @@ import com.zombies.helper.SkinHelper;
 import com.zombies.helper.TextureHelper;
 
 public abstract class Event extends Group {
-	ShapeRenderer debugRenderer;
+	protected ShapeRenderer debugRenderer;
 	
 	public Event() {
 		

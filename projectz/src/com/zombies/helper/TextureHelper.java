@@ -18,6 +18,8 @@ public class TextureHelper {
 	public static TextureRegion FIGHT_HITBAR;
 	public static TextureRegion FIGHT_POINTER;
 	public static TextureRegion FIGHT_HIT_ZONE;
+	public static TextureRegion FIGHT_SINGLE_ZOMBIE;
+	public static TextureRegion FIGHT_HIT;
 	
 	/***************************************************************************
 	 * 			Methods
@@ -34,6 +36,8 @@ public class TextureHelper {
 		FIGHT_HITBAR = new TextureRegion(fight, 0, 0, 1024, 32);
 		FIGHT_HIT_ZONE = new TextureRegion(fight, 0, 31, 1, 32);
 		FIGHT_POINTER = new TextureRegion(fight, 32, 32, 32, 32);
+		FIGHT_SINGLE_ZOMBIE = new TextureRegion(fight, 64, 32, 32, 32);
+		FIGHT_HIT = new TextureRegion(fight, 96, 32, 32, 32);
 	}
 	
 	public static TextureRegion[][] getCityTileSet() {
