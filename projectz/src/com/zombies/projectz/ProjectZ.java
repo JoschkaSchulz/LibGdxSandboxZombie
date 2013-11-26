@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.zombies.game.GameHandler;
 import com.zombies.helper.SkinHelper;
 import com.zombies.helper.InputHelper;
+import com.zombies.helper.TextureHelper;
 import com.zombies.mainmenu.MainMenu;
 
 public class ProjectZ implements ApplicationListener {
@@ -59,7 +60,11 @@ public class ProjectZ implements ApplicationListener {
 	 * Create the the game start
 	 */
 	public void create() {
+		//Load Skin
 		SkinHelper.loadSkinHelper();
+		
+		//Load Textures
+		TextureHelper.initializeTextures();
 		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);

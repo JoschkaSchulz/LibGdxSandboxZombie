@@ -1,8 +1,10 @@
 package com.zombies.game.event;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.zombies.game.GameHandler;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.SkinHelper;
+import com.zombies.helper.TextureHelper;
 
 public abstract class Event extends Group {
 	ShapeRenderer debugRenderer;
@@ -34,6 +37,15 @@ public abstract class Event extends Group {
 			System.err.println("Fehler beim finden des EventHandler im Event!");
 		}
 	}
+	
+	/**
+	 * Shows the fight against the Zombie
+	 */
+	protected void startFight() {
+		Fight fight = new Fight();
+		addActor(fight);
+	}
+	
 	
 	/**
 	 * Shows a Dialog with max. 4 Answers

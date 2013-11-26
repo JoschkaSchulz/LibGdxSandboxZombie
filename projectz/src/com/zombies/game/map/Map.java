@@ -22,6 +22,7 @@ import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.SkinHelper;
+import com.zombies.helper.TextureHelper;
 
 public class Map extends Group {
 	
@@ -44,8 +45,6 @@ public class Map extends Group {
 	
 	private MapTile[][] world;
 	private FogTile[][] fog;
-	private TextureRegion tileSet[][];
-	private TextureRegion highlight;
 	private Charakter charRef;
 	private MapTile charPointer;
 	
@@ -54,6 +53,8 @@ public class Map extends Group {
 	private TextButton options;
 	
 	private ShapeRenderer debugRenderer;
+	private TextureRegion[][] tileSet;
+	private TextureRegion highlight;
 	
 	/*********************************************************
 	 * 			Constructor
@@ -86,10 +87,6 @@ public class Map extends Group {
 		this.charRef = charRef;
 		
 		generateUI();
-	}
-	
-	public TextureRegion getHighlight() {
-		return this.highlight;
 	}
 	
 	/*********************************************************
@@ -262,15 +259,14 @@ public class Map extends Group {
 		
 		switch(type) {
 			default:	//city
-				Texture tileSetTexture = new Texture(Gdx.files.internal("data/gfx/map_tiles/tileset_city.png"));
-				tileSet = TextureRegion.split(tileSetTexture, 128, 128);
+				tileSet = TextureHelper.getCityTileSet();
 				break;
 			case TYPE_FOREST:
 				break;
 		}
 		
 		//Set the highlight Texture
-		highlight = tileSet[2][7];
+		highlight = TextureHelper.MAP_HIGHLIGHT;
 		
 		//Variables
 		boolean done = false;

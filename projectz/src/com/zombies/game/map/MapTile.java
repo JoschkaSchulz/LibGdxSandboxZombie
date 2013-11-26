@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.GUIHelper;
+import com.zombies.helper.TextureHelper;
 
 public class MapTile extends Image {
 	
@@ -209,7 +210,7 @@ public class MapTile extends Image {
 	}
 	
 	public TextureRegion getHighlight() {
-		return ((Map)getParent()).getHighlight();
+		return TextureHelper.MAP_HIGHLIGHT;
 	}
 	/*****************************************************************
 	 *					Methods
