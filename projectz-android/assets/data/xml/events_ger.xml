@@ -13,13 +13,18 @@ Stringfolge wird dies bestimmt wobei:
 c = city
 f = forest
 p = plains
-s = on streets
+w = on ways
+
+Level:
+0 = Street
+1..3 = Level
  -->
 
 <events>
     <event id="1">
         <name>Zombie Kampf</name>
         <classname>ZombieFight</classname>
-        <group id="c" />
+        <group id="w" />
+        <level id="0" />
     </event>
 </events>

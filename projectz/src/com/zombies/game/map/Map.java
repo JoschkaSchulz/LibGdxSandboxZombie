@@ -1,5 +1,6 @@
 package com.zombies.game.map;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
+import com.zombies.game.event.EventHandler;
+import com.zombies.game.event.EventType;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.SkinHelper;
@@ -82,6 +85,10 @@ public class Map extends Group {
 		return this.height * MapTile.TILE_HEIGHT;
 	}
 	
+	public MapTile getTile(int x, int y) {
+		return world[x][y];
+	}
+	
 	public void setCharRef(Charakter charRef) {
 		this.charRef = charRef;
 		
@@ -91,6 +98,46 @@ public class Map extends Group {
 	/*********************************************************
 	 * 			Methods
 	 *********************************************************/
+	
+	/**
+	 * Set the Events on the map
+	 * 
+	 * @param street the number of street events
+	 * @param lvl1 the number of level 1 events
+	 * @param lvl2 the number of level 2 events
+	 * @param lvl3 the number of level 3 events
+	 */
+	public void setEvents(int street, int lvl1, int lvl2, int lvl3) {
+		EventHandler eventHandler = ((GameHandler)getParent()).getEventHandler();
+		ArrayList<EventType> events = null;
+		ArrayList<MapTile> tiles = null;
+		MapTile tempTile = null;
+		
+		//Street Events
+		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_STREET, 0);	//Street Events
+		tiles = getTilesByGroup(MapTile.TYPE_STREET);
+		while(street > 0) {
+			tempTile = tiles.get((int)(Math.random()*tiles.size()));
+			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
+				tempTile.setEvent(
+						events.get((int)(Math.random()*events.size())).getID(), 
+						MapTile.EVENTTYPE_UNDEFINED);
+				street--;
+			}
+		}
+	}
+	
+	private ArrayList<MapTile> getTilesByGroup(int group) {
+		ArrayList<MapTile> tiles = new ArrayList<MapTile>();
+		
+		for(int mapY = 0; mapY < world[0].length; mapY++) {
+			for(int mapX = 0; mapX < world.length; mapX++) {
+				if(world[mapX][mapY].getType() == group) tiles.add(world[mapX][mapY]);
+			}
+		}
+		
+		return tiles;
+	}
 	
 	/**
 	 * This Method looks after the Player position and clears only the Fog
@@ -839,6 +886,7 @@ public class Map extends Group {
 			}else dragX = dragY = 0;
 			
 			arrowTimer += delta;
+			boolean moved = false;
 			int x = charRef.getMapX();
 			int y = charRef.getMapY();
 			if(InputHelper.DOWN && y < height && arrowTimer > 0.5) {
@@ -848,6 +896,7 @@ public class Map extends Group {
 					calcFog();
 					arrowTimer = 0;
 					moveCameraToCharacter();
+					moved = true;
 				}
 			}else if(InputHelper.UP && y > 0 && arrowTimer > 0.5) {
 				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
@@ -856,6 +905,7 @@ public class Map extends Group {
 					calcFog();
 					arrowTimer = 0;
 					moveCameraToCharacter();
+					moved = true;
 				}
 			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 0.5) {
 				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
@@ -864,6 +914,7 @@ public class Map extends Group {
 					calcFog();
 					arrowTimer = 0;
 					moveCameraToCharacter();
+					moved = true;
 				}
 			}else if(InputHelper.RIGHT && x < width && arrowTimer > 0.5) {
 				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
@@ -872,7 +923,15 @@ public class Map extends Group {
 					calcFog();
 					arrowTimer = 0;
 					moveCameraToCharacter();
+					moved = true;
 				}
+			}
+			
+			if(moved) {
+				if(getTile(charRef.getMapX(), charRef.getMapY()).getEventID() != 0) {
+					((GameHandler)getParent()).loadEvent(getTile(charRef.getMapX(), charRef.getMapY()).getEventID());
+				}
+				moved = false;
 			}
 		}
 	}

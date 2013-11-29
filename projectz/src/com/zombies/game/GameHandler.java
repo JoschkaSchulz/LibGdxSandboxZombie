@@ -13,6 +13,7 @@ import com.zombies.game.charakterpicker.CharakterPicker;
 import com.zombies.game.event.EventHandler;
 import com.zombies.game.inventory.InventoryActor;
 import com.zombies.game.map.Map;
+import com.zombies.game.map.MapTile;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.SkinHelper;
@@ -57,6 +58,7 @@ public class GameHandler extends Group {
 		this.debugRenderer = debugRenderer;
 		charPicker = new CharakterPicker(debugRenderer);
 		eventHandler = new EventHandler(debugRenderer);
+		eventHandler.loadEvents();
 		charakter = null;
 		greyLayer = new Image(SkinHelper.GREY_LAYER);
 		greyLayer.size(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -65,6 +67,10 @@ public class GameHandler extends Group {
 	/**************************************************************************
 	 * 				getter & setter
 	 **************************************************************************/
+	
+	public EventHandler getEventHandler() {
+		return eventHandler;
+	}
 	
 	public int getState() {
 		return state;
@@ -90,15 +96,19 @@ public class GameHandler extends Group {
 				this.addActor(map);
 				map.setCharRef(charakter);
 				map.generateMap(Map.TYPE_CITY);
+				map.setEvents(30, 0, 0, 0);
 				map.moveCameraToCharacter();
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
 //				map.moveCameraToCharacter(); //Test movement of the camera to char
-				loadEvent(1);	//Test Zombie Fight Event!
+				//Start Event on the Player pos
+//				if(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID() != 0) {
+//					loadEvent(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID());
+//				}
 				//map.clear();
 				//map.generateMap(Map.TYPE_CITY);
-//				map.debugInfo();
+				map.debugInfo();
 			}
 		}else if(state == STATE_EVENTINIT) {
 //			this.clear();
@@ -139,6 +149,7 @@ public class GameHandler extends Group {
 	}
 	
 	public void finishEvent() {
+		map.getTile(charakter.getMapX(), charakter.getMapY()).setEvent(0, MapTile.EVENTTYPE_NONE);
 		state = STATE_EVENTDONE;
 	}
 	

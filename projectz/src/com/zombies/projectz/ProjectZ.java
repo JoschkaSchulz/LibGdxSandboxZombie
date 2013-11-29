@@ -112,13 +112,13 @@ public class ProjectZ implements ApplicationListener {
 	 */
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		try{
+//		try{
 			stage.act(Gdx.graphics.getDeltaTime());
 			stage.draw();
 			Table.drawDebug(stage);
-		}catch(Exception e) {
-			System.err.println("Fehler beim render!");
-		}
+//		}catch(Exception e) {
+//			System.err.println("Fehler beim render!");
+//		}
 	}
 
 	/**

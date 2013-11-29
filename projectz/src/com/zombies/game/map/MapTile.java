@@ -31,6 +31,9 @@ public class MapTile extends Image {
 	
 	public static final int SUBTYPE_EMPTYHOUSE = 0;	//Sub-type for an empty house
 	
+	public static final int EVENTTYPE_NONE = 0;
+	public static final int EVENTTYPE_UNDEFINED = 1;
+	
 	private boolean debug;					//if activates draws the debug tiles
 	private Color debugColor;				//color for debug drawer
 	private ShapeRenderer debugRenderer;	//the debug ShapeRenderer
@@ -49,6 +52,7 @@ public class MapTile extends Image {
 	private MapTile eastNeighbor;	//Neighbor for higher level tiles
 	
 	private int eventID;		//The ID from the event that is binded to this tile
+	private int eventType;		//The Type is needed for different Highlights
 	
 	/*****************************************************************
 	 *					Constructors
@@ -70,6 +74,7 @@ public class MapTile extends Image {
 		this.debugRenderer = debugRenderer;
 		setType(TYPE_EMPTY);
 		this.highlight = false;
+		this.eventID = 0;
 	}
 	
 	/**
@@ -91,6 +96,7 @@ public class MapTile extends Image {
 		debug = false;
 		this.highlight = false;
 		this.debugRenderer = debugRenderer;
+		this.eventID = 0;
 	}
 	
 	/**
@@ -112,6 +118,7 @@ public class MapTile extends Image {
 		debug = false;
 		this.highlight = false;
 		this.debugRenderer = debugRenderer;
+		this.eventID = 0;
 	}
 	/*****************************************************************
 	 *					Getter and Setter
@@ -212,6 +219,15 @@ public class MapTile extends Image {
 	public TextureRegion getHighlight() {
 		return TextureHelper.MAP_HIGHLIGHT;
 	}
+	
+	public void setEvent(int eventID) {
+		setEvent(eventID, EVENTTYPE_UNDEFINED);
+	}
+	
+	public void setEvent(int eventID, int eventType) {
+		this.eventID = eventID;
+		this.eventType = eventType;
+	}
 	/*****************************************************************
 	 *					Methods
 	 ****************************************************************/
@@ -300,6 +316,19 @@ public class MapTile extends Image {
 			super.draw(batch, parentAlpha);
 		}
 		
+		//Active Event TODO: HIER WEITER MACHEN!!!
+		if(eventID > 0) {
+			switch(eventType) {
+				default:
+				case EVENTTYPE_UNDEFINED:
+					batch.draw(TextureHelper.MAP_HIGHLIGHT_EVENT, getX(), getY(),getOriginX(), getOriginY(),getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+					break;
+				case EVENTTYPE_NONE:
+					break;
+			}
+		}
+		
+		//Activate Highlight
 		if(isHighlight()) {
 			batch.draw(getHighlight(), getX(), getY(),getOriginX(), getOriginY(),getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		}

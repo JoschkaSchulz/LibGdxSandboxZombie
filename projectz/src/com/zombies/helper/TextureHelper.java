@@ -13,6 +13,7 @@ public class TextureHelper {
 	//Map
 	public static TextureRegion MAP_CITY_TILE_SET[][];
 	public static TextureRegion MAP_HIGHLIGHT;
+	public static TextureRegion MAP_HIGHLIGHT_EVENT;
 	
 	//Event
 	public static TextureRegion FIGHT_HITBAR;
@@ -30,6 +31,7 @@ public class TextureHelper {
 		Texture tileCitySetTexture = new Texture(Gdx.files.internal("data/gfx/map_tiles/tileset_city.png"));
 		MAP_CITY_TILE_SET = TextureRegion.split(tileCitySetTexture, 128, 128);
 		MAP_HIGHLIGHT = MAP_CITY_TILE_SET[2][7];
+		MAP_HIGHLIGHT_EVENT = MAP_CITY_TILE_SET[1][0];
 	
 		//Loading Event Textures
 		Texture fight = new Texture(Gdx.files.internal("data/gfx/events/fight.png"));
