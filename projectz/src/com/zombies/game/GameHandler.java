@@ -135,21 +135,55 @@ public class GameHandler extends Group {
 		}
 	}
 	
+	/**
+	 * Opens the inventory
+	 */
 	public void openInventory() {
 		state = STATE_OPENINVENTORY;
 	}
 	
+	/**
+	 * Closes the inventory
+	 */
 	public void closeInventory() {
 		state = STATE_CLOSEINVENTORY;
 	}
 	
-	public void loadEvent(int eventId) {
-		eventHandler.loadEvent(eventId);
+	/**
+	 * Loads an Event by its id
+	 * @param eventID
+	 */
+	public void loadEventById(int eventID) {
+		eventHandler.loadEvent(eventID);
+		state = STATE_EVENTINIT;
+	}
+	
+	/**
+	 * Loads the event on the characters x and y position and removes it from
+	 * the map.
+	 */
+	public void loadEvent() {
+		MapTile tile = map.getTile(charakter.getMapX(), charakter.getMapY());
+		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
+		eventHandler.loadEvent(tile.getEventID());
+		state = STATE_EVENTINIT;
+	}
+	
+	/**
+	 * Loads an event from the x and y coordinates of the map and removes it
+	 * from the map.
+	 * 
+	 * @param x the map x coordinate in the maptile matrix
+	 * @param y the map y coordinate in the maptile matrix
+	 */
+	public void loadEvent(int x, int y) {
+		MapTile tile = map.getTile(x, y);
+		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
+		eventHandler.loadEvent(tile.getEventID());
 		state = STATE_EVENTINIT;
 	}
 	
 	public void finishEvent() {
-		map.getTile(charakter.getMapX(), charakter.getMapY()).setEvent(0, MapTile.EVENTTYPE_NONE);
 		state = STATE_EVENTDONE;
 	}
 	
