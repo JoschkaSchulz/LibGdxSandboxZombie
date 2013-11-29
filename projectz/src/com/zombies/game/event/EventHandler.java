@@ -16,6 +16,11 @@ import com.zombies.game.skilltree.Skill;
 
 public class EventHandler extends Group {
 	
+	//Static Variables
+	public static final String EVENTTYPE_STREET = "w";
+	public static final String EVENTTYPE_CITY = "c";
+	public static final String EVENTTYPE_FOREST = "f";
+	
 	private ArrayList<EventType> allEvents;
 	private ShapeRenderer debugRenderer;
 	
@@ -53,6 +58,28 @@ public class EventHandler extends Group {
 	}
 	
 	/**
+	 * Returns all Events from the group String it is given
+	 * 
+	 * @param group a String with the characters of the groups
+	 * @param level a Integer with the level
+	 * @return an ArrayList of the events
+	 * 
+	 * TODO: Level muss noch bestimmt werden!
+	 */
+	public ArrayList<EventType> getEventsFromGroup(String group, int level) {
+		ArrayList<EventType> events = new ArrayList<EventType>();
+		
+		for(int i = 0; i < group.length(); i++) {
+			for(EventType e : allEvents) {
+				if(e.containsGroup(Character.toString(group.charAt(i)))) 
+					events.add(e);
+			}
+		}
+		
+		return events;
+	}
+	
+	/**
 	 * Used by the constructor to load all the Events
 	 */
 	public void loadEvents() {
@@ -68,7 +95,8 @@ public class EventHandler extends Group {
 			     EventType event = new EventType(eventElement.getIntAttribute("id"),
 			    		 						 eventElement.getChildByName("name").getText(),
 			    		 						 eventElement.getChildByName("classname").getText(),
-			    		 						 eventElement.getChildByName("group").getText());
+			    		 						 eventElement.getChildByName("group").getAttribute("id"),
+			    		 						 eventElement.getChildByName("level").getIntAttribute("id"));
 			     allEvents.add(event);
 			 }
 		}catch(Exception e) {
@@ -78,7 +106,7 @@ public class EventHandler extends Group {
 	}
 
 	public EventType getEventById(int id) {
-		EventType event = new EventType(0, "No Event", "No Class", "");
+		EventType event = new EventType(0, "No Event", "No Class", "", 0);
 		
 		for(EventType e : allEvents) {
 			if(e.getID() == id) event = e;
