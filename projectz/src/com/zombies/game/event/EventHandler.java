@@ -120,6 +120,7 @@ public class EventHandler extends Group {
 			//Find the Event in all Events
 			EventType eventType = getEventById(eventID);
 			//Generate dynamicly a new Event
+			System.out.println("Lade Event (id: "+eventID+"): " + eventType.getClassName());
 			Event event = (Event)Class.forName("com.zombies.game.events." + eventType.getClassName()).newInstance();
 			//Configure the Event
 			event.configEvent(this.debugRenderer);

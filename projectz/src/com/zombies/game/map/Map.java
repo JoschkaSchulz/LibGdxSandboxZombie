@@ -112,17 +112,20 @@ public class Map extends Group {
 		ArrayList<EventType> events = null;
 		ArrayList<MapTile> tiles = null;
 		MapTile tempTile = null;
+		int index;
 		
 		//Street Events
 		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_STREET, 0);	//Street Events
 		tiles = getTilesByGroup(MapTile.TYPE_STREET);
-		while(street > 0) {
-			tempTile = tiles.get((int)(Math.random()*tiles.size()));
+		while(street > 0 && tiles.size() > 0) {
+			index = (int)(Math.random()*tiles.size());
+			tempTile = tiles.get(index);
 			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
 				tempTile.setEvent(
 						events.get((int)(Math.random()*events.size())).getID(), 
 						MapTile.EVENTTYPE_UNDEFINED);
 				street--;
+				tiles.remove(index);
 			}
 		}
 	}

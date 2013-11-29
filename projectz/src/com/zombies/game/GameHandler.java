@@ -164,8 +164,8 @@ public class GameHandler extends Group {
 	 */
 	public void loadEvent() {
 		MapTile tile = map.getTile(charakter.getMapX(), charakter.getMapY());
-		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
 		eventHandler.loadEvent(tile.getEventID());
+		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
 		state = STATE_EVENTINIT;
 	}
 	
@@ -178,8 +178,8 @@ public class GameHandler extends Group {
 	 */
 	public void loadEvent(int x, int y) {
 		MapTile tile = map.getTile(x, y);
-		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
 		eventHandler.loadEvent(tile.getEventID());
+		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
 		state = STATE_EVENTINIT;
 	}
 	

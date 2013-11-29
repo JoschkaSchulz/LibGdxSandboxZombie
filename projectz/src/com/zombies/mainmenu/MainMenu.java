@@ -177,7 +177,7 @@ public class MainMenu extends Group {
 	private void fireSelection() {
 		switch(selection) {
 			default:
-				SoundHelper.play_Shotgun();
+//				SoundHelper.play_Shotgun();
 				projectZRef.startGame();
 			case MENU_OPTIONS:
 				break;
