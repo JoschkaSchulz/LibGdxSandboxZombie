@@ -252,6 +252,25 @@ public class MapTile extends Image {
 	 *					Methods
 	 ****************************************************************/
 	
+	public void removeEvent() {
+		this.eventID = 0;
+		this.eventType = EVENTTYPE_NONE;
+		
+		//Remove events from the whole building
+		if(hasNorthNeighbor()) {
+			if(getNorthNeighbor().getEventID() != 0) getNorthNeighbor().removeEvent();
+		}
+		if(hasSouthNeighbor()) {
+			if(getSouthNeighbor().getEventID() != 0) getSouthNeighbor().removeEvent();
+		}
+		if(hasEastNeighbor()) {
+			if(getEastNeighbor().getEventID() != 0) getEastNeighbor().removeEvent();
+		}
+		if(hasWestNeighbor()) {
+			if(getWestNeighbor().getEventID() != 0) getWestNeighbor().removeEvent();
+		}
+	}
+	
 	/**
 	 * checks if there is a neighbor in the north
 	 * 

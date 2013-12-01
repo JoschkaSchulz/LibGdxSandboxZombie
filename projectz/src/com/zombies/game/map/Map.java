@@ -108,9 +108,9 @@ public class Map extends Group {
 	 * @param eventLevel the level of the maptile
 	 * @param numberOfTiles how many iterations should be done
 	 */
-	private void putEventsToTiles(EventHandler eventHandler, String eventType, int tileLevel, int numberOfTiles) {
+	private void putEventsToTiles(EventHandler eventHandler, String eventType, int tileLevel, int numberOfTiles, int tileType) {
 		ArrayList<EventType> events = eventHandler.getEventsFromGroup(eventType, tileLevel);
-		ArrayList<MapTile> tiles = getTilesByGroup(MapTile.TYPE_STREET);
+		ArrayList<MapTile> tiles = getTilesByGroup(tileType);
 		
 		int index;
 		MapTile tempTile;
@@ -143,16 +143,16 @@ public class Map extends Group {
 		EventHandler eventHandler = ((GameHandler)getParent()).getEventHandler();
 		
 		//Street Events
-		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_STREET, 0, street);
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_STREET, 0, street, MapTile.TYPE_STREET);
 		
 		//Level1 Events
-		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 1, lvl1);
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 1, lvl1, MapTile.TYPE_LVL1);
 		
 		//Level2 Events
-		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 2, lvl2);
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 2, lvl2, MapTile.TYPE_LVL2);
 		
 		//Level3 Events
-		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 3, lvl3);
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 3, lvl3, MapTile.TYPE_LVL3);
 	}
 	
 	private ArrayList<MapTile> getTilesByGroup(int group) {

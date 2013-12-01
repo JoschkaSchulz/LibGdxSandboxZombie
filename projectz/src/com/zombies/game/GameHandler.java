@@ -95,7 +95,7 @@ public class GameHandler extends Group {
 				this.addActor(map);
 				map.setCharRef(charakter);
 				map.generateMap(Map.TYPE_CITY);
-				map.setEvents(1000000, 1000000, 0, 0);
+				map.setEvents(10, 10, 10, 1);
 				map.moveCameraToCharacter();
 			}
 		}else if(state == STATE_MAP) {
@@ -164,7 +164,7 @@ public class GameHandler extends Group {
 	public void loadEvent() {
 		MapTile tile = map.getTile(charakter.getMapX(), charakter.getMapY());
 		eventHandler.loadEvent(tile.getEventID());
-		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
+		tile.removeEvent();
 		state = STATE_EVENTINIT;
 	}
 	
@@ -178,7 +178,7 @@ public class GameHandler extends Group {
 	public void loadEvent(int x, int y) {
 		MapTile tile = map.getTile(x, y);
 		eventHandler.loadEvent(tile.getEventID());
-		tile.setEvent(0, MapTile.EVENTTYPE_NONE);
+		tile.removeEvent();
 		state = STATE_EVENTINIT;
 	}
 	
