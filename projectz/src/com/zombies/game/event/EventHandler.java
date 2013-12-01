@@ -2,6 +2,7 @@ package com.zombies.game.event;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -71,11 +72,11 @@ public class EventHandler extends Group {
 		
 		for(int i = 0; i < group.length(); i++) {
 			for(EventType e : allEvents) {
-				if(e.containsGroup(Character.toString(group.charAt(i)))) 
+				if(e.containsGroup(Character.toString(group.charAt(i))) && e.hasLevel(level)) {
 					events.add(e);
+				}
 			}
 		}
-		
 		return events;
 	}
 	
@@ -95,9 +96,10 @@ public class EventHandler extends Group {
 			     EventType event = new EventType(eventElement.getIntAttribute("id"),
 			    		 						 eventElement.getChildByName("name").getText(),
 			    		 						 eventElement.getChildByName("classname").getText(),
-			    		 						 eventElement.getChildByName("group").getAttribute("id"),
-			    		 						 eventElement.getChildByName("level").getIntAttribute("id"));
+			    		 						 eventElement.getChildByName("group").getAttribute("group"),
+			    		 						 eventElement.getChildByName("level").getIntAttribute("level"));
 			     allEvents.add(event);
+			     System.out.println("Adding something!");
 			 }
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -120,7 +122,6 @@ public class EventHandler extends Group {
 			//Find the Event in all Events
 			EventType eventType = getEventById(eventID);
 			//Generate dynamicly a new Event
-			System.out.println("Lade Event (id: "+eventID+"): " + eventType.getClassName());
 			Event event = (Event)Class.forName("com.zombies.game.events." + eventType.getClassName()).newInstance();
 			//Configure the Event
 			event.configEvent(this.debugRenderer);

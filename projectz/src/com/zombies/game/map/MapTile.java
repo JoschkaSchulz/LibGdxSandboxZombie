@@ -21,7 +21,7 @@ public class MapTile extends Image {
 	public static final int TILE_HEIGHT = 128;	//The tile height
 	
 	public static final int TYPE_EMPTY = -1;	//type for empty tiles
-	public static final int TYPE_STREET = 0;	//typr for streets
+	public static final int TYPE_STREET = 0;	//type for streets
 	public static final int TYPE_LVL1 = 1;		//type for 1x1 buildings
 	public static final int TYPE_LVL2 = 2;		//type for 2x1 buildings
 	public static final int TYPE_LVL3 = 3;		//type for 2x2 buildings

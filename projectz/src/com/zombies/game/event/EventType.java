@@ -13,7 +13,6 @@ public class EventType {
 		this.className = className;
 		this.groups = groups;
 		this.level = level;
-		System.out.println("Event erstellt (" + groups + ")");
 	}
 	
 	public String getName() {
@@ -34,5 +33,9 @@ public class EventType {
 	
 	public boolean hasLevel(int level) {
 		return level == this.level;
+	}
+	
+	public String toString() {
+		return "Event("+id+"):"+name;
 	}
 }

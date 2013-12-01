@@ -1,6 +1,7 @@
 package com.zombies.game.map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -106,6 +107,8 @@ public class Map extends Group {
 	 * @param lvl1 the number of level 1 events
 	 * @param lvl2 the number of level 2 events
 	 * @param lvl3 the number of level 3 events
+	 * 
+	 * @TODO: Map Types anpassen (city, forest...)
 	 */
 	public void setEvents(int street, int lvl1, int lvl2, int lvl3) {
 		EventHandler eventHandler = ((GameHandler)getParent()).getEventHandler();
@@ -124,6 +127,22 @@ public class Map extends Group {
 				tempTile.setEvent(
 						events.get((int)(Math.random()*events.size())).getID(), 
 						MapTile.EVENTTYPE_UNDEFINED);
+				street--;
+				tiles.remove(index);
+			}
+		}
+		
+		//Level1 Events
+		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
+		tiles = getTilesByGroup(MapTile.TYPE_LVL1);
+		while(lvl1 > 0 && tiles.size() > 0) {
+			index = (int)(Math.random()*tiles.size());
+			tempTile = tiles.get(index);
+			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
+				tempTile.setEvent(
+						events.get((int)(Math.random()*events.size())).getID(), 
+						MapTile.EVENTTYPE_UNDEFINED);
+				System.out.println("ID => " + events.get((int)(Math.random()*events.size())).getID());
 				street--;
 				tiles.remove(index);
 			}
