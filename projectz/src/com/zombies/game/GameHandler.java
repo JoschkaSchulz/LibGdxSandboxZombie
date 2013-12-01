@@ -58,7 +58,6 @@ public class GameHandler extends Group {
 		this.debugRenderer = debugRenderer;
 		charPicker = new CharakterPicker(debugRenderer);
 		eventHandler = new EventHandler(debugRenderer);
-		eventHandler.loadEvents();
 		charakter = null;
 		greyLayer = new Image(SkinHelper.GREY_LAYER);
 		greyLayer.size(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -96,7 +95,7 @@ public class GameHandler extends Group {
 				this.addActor(map);
 				map.setCharRef(charakter);
 				map.generateMap(Map.TYPE_CITY);
-				map.setEvents(30, 0, 0, 0);
+				map.setEvents(0, 50, 0, 0);
 				map.moveCameraToCharacter();
 			}
 		}else if(state == STATE_MAP) {
