@@ -49,10 +49,10 @@ public class CharakterPicker extends Group {
 	
 	public CharakterPicker(ShapeRenderer debugRenderer) {
 		chars = new Charakter[2][2];
-		chars[0][0] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski_ger.xml"));
+		chars[0][0] = new Charakter(Gdx.files.internal("data/char/emanuel_goldbaum_ger.xml"));
 		chars[1][0] = new Charakter(Gdx.files.internal("data/char/Kasia_vonLuprecht_ger.xml"));
-		chars[0][1] = new Charakter(Gdx.files.internal("data/char/Marcel_deBool_ger.xml"));
-		chars[1][1] = null;
+		chars[0][1] = new Charakter(Gdx.files.internal("data/char/william_pokerwinski_ger.xml"));
+		chars[1][1] = new Charakter(Gdx.files.internal("data/char/Marcel_deBool_ger.xml"));;
 		time = 0;
 		t = XMLHelper.loadXML(Gdx.files.internal("data/xml/charakter_picker_ger.xml"));
 		
@@ -155,7 +155,7 @@ public class CharakterPicker extends Group {
 		leftTable.setWidth(786);
 		leftTable.setWidth(512);
 		leftTable.top();
-		leftTable.debug();
+//		leftTable.debug();
 		
 		leftTable.add(new Label(t.get("cp_name"), SkinHelper.SKIN));
 		leftTable.add(new Label(c.getName(), SkinHelper.SKIN));
@@ -181,7 +181,7 @@ public class CharakterPicker extends Group {
 		rightTable.setWidth(786);
 		rightTable.setWidth(512);
 		rightTable.top();
-		rightTable.debug();
+//		rightTable.debug();
 		
 		rightTable.add(new Label(t.get("cp_hobby"), SkinHelper.SKIN));
 		rightTable.add(new Label(c.getSkilltree().getAvaibleSkills().get(0).getName(), SkinHelper.SKIN)).left();

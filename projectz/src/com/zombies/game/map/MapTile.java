@@ -252,6 +252,9 @@ public class MapTile extends Image {
 	 *					Methods
 	 ****************************************************************/
 	
+	/**
+	 * Removing the event from the house and all it tiles
+	 */
 	public void removeEvent() {
 		this.eventID = 0;
 		this.eventType = EVENTTYPE_NONE;
