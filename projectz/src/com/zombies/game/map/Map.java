@@ -101,6 +101,13 @@ public class Map extends Group {
 	 *********************************************************/
 	
 	/**
+	 * Get Level 1 Building TextureRegion
+	 */
+	private TextureRegion getLvl1TextureRegion() {
+		return TextureHelper.MAP_CITY_TILE_SET[(int)((Math.random()*2)+2)][(int)(Math.random()*5)];
+	}
+	
+	/**
 	 * Sets the Events on the specific maptile
 	 * 
 	 * @param eventHandler the event Handler
@@ -617,28 +624,28 @@ public class Map extends Group {
 				 *   ooo
 				 */
 				if(neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && !neighbours[SOUTH] && world[w+1][h-1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+					world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ##o
 				 *   #?o
 				 *   ooo
 				 */
 				}else if(neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && !neighbours[SOUTH] && world[w-1][h-1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+					world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ooo
 				 *   #?o
 				 *   ##o
 				 */
 				}else if(!neighbours[NORTH] && !neighbours[EAST] && neighbours[WEST] && neighbours[SOUTH] && world[w-1][h+1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+					world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				/* #=Street o=other or street
 				 *   ooo
 				 *   o?#
 				 *   o##
 				 */
 				}else if(!neighbours[NORTH] && neighbours[EAST] && !neighbours[WEST] && neighbours[SOUTH] && world[w+1][h+1].getType() == MapTile.TYPE_STREET) {
-					world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+					world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 				}
 			}
 		}
@@ -798,7 +805,7 @@ public class Map extends Group {
 					world[w][h-1].setEastNeighbor(world[w+1][h-1]);
 				}
 				
-				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+				if(world[w][h].getType() == MapTile.TYPE_LVL1) world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 			}
 		}
 		
@@ -819,7 +826,7 @@ public class Map extends Group {
 					if(h < (worldHeight-1) 	&& world[w][h+1].getType() == MapTile.TYPE_LVL2) checkSplitBug = false; 
 				
 					if(checkSplitBug && onLvl3) {
-						world[w][h] = new MapTile(tileSet[2][0], w, h, MapTile.TYPE_LVL1, this.debugRenderer);
+						world[w][h] = new MapTile(getLvl1TextureRegion(), w, h, MapTile.TYPE_LVL1, this.debugRenderer);
 						
 						checkSplitBug = true;
 						onLvl3 = false;
