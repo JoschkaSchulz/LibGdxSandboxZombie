@@ -22,15 +22,27 @@ Level:
 
 <events>
     <event id="1">
-        <name>Zombie Kampf</name>
+        <name>Zombie Kampf(street)</name>
         <classname>ZombieFight</classname>
         <group group="w" />
         <level level="0" />
     </event>
     <event id="2">
-        <name>Zombie Kampf</name>
+        <name>Zombie Kampf(lvl1)</name>
         <classname>ZombieFight</classname>
         <group group="c" />
         <level level="1" />
+    </event>
+    <event id="3">
+        <name>Zombie Kampf(lvl2)</name>
+        <classname>ZombieFight</classname>
+        <group group="c" />
+        <level level="2" />
+    </event>
+    <event id="4">
+        <name>Zombie Kampf(lvl3)</name>
+        <classname>ZombieFight</classname>
+        <group group="c" />
+        <level level="3" />
     </event>
 </events>

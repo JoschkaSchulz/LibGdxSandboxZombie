@@ -101,6 +101,35 @@ public class Map extends Group {
 	 *********************************************************/
 	
 	/**
+	 * Sets the Events on the specific maptile
+	 * 
+	 * @param eventHandler the event Handler
+	 * @param eventType The type of the event
+	 * @param eventLevel the level of the maptile
+	 * @param numberOfTiles how many iterations should be done
+	 */
+	private void putEventsToTiles(EventHandler eventHandler, String eventType, int tileLevel, int numberOfTiles) {
+		ArrayList<EventType> events = eventHandler.getEventsFromGroup(eventType, tileLevel);
+		ArrayList<MapTile> tiles = getTilesByGroup(MapTile.TYPE_STREET);
+		
+		int index;
+		MapTile tempTile;
+		while(numberOfTiles > 0 && tiles.size() > 0) {
+			index = (int)(Math.random()*tiles.size());
+			tempTile = tiles.get(index);
+			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
+				tempTile.setEvent(
+						events.get((int)(Math.random()*events.size())).getID(), 
+						MapTile.EVENTTYPE_UNDEFINED);
+				numberOfTiles--;
+				tiles.remove(index);
+			}else{
+				tiles.remove(index);
+			}
+		}
+	}
+	
+	/**
 	 * Set the Events on the map
 	 * 
 	 * @param street the number of street events
@@ -112,78 +141,18 @@ public class Map extends Group {
 	 */
 	public void setEvents(int street, int lvl1, int lvl2, int lvl3) {
 		EventHandler eventHandler = ((GameHandler)getParent()).getEventHandler();
-		ArrayList<EventType> events = null;
-		ArrayList<MapTile> tiles = null;
-		MapTile tempTile = null;
-		int index;
 		
 		//Street Events
-		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_STREET, 0);	//Street Events
-		tiles = getTilesByGroup(MapTile.TYPE_STREET);
-		while(street > 0 && tiles.size() > 0) {
-			index = (int)(Math.random()*tiles.size());
-			tempTile = tiles.get(index);
-			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
-				tempTile.setEvent(
-						events.get((int)(Math.random()*events.size())).getID(), 
-						MapTile.EVENTTYPE_UNDEFINED);
-				street--;
-				tiles.remove(index);
-			}else{
-				tiles.remove(index);
-			}
-		}
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_STREET, 0, street);
 		
 		//Level1 Events
-		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
-		tiles = getTilesByGroup(MapTile.TYPE_LVL1);
-		while(lvl1 > 0 && tiles.size() > 0) {
-			index = (int)(Math.random()*tiles.size());
-			tempTile = tiles.get(index);
-			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
-				tempTile.setEvent(
-						events.get((int)(Math.random()*events.size())).getID(), 
-						MapTile.EVENTTYPE_UNDEFINED);
-				lvl1--;
-				tiles.remove(index);
-			}else{
-				tiles.remove(index);
-			}
-		}
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 1, lvl1);
 		
 		//Level2 Events
-		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
-		tiles = getTilesByGroup(MapTile.TYPE_LVL2);
-		while(lvl2 > 0 && tiles.size() > 0) {
-			index = (int)(Math.random()*tiles.size());
-			tempTile = tiles.get(index);
-			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
-				tempTile.setEvent(
-						events.get((int)(Math.random()*events.size())).getID(), 
-						MapTile.EVENTTYPE_UNDEFINED);
-				lvl2--;
-				tiles.remove(index);
-			}else{
-				tiles.remove(index);
-			}
-		}
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 2, lvl2);
 		
 		//Level3 Events
-		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
-		tiles = getTilesByGroup(MapTile.TYPE_LVL3);
-		while(lvl3 > 0 && tiles.size() > 0) {
-			index = (int)(Math.random()*tiles.size());
-			tempTile = tiles.get(index);
-			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
-				tempTile.setEvent(
-						events.get((int)(Math.random()*events.size())).getID(), 
-						MapTile.EVENTTYPE_UNDEFINED);
-				lvl3--;
-				tiles.remove(index);
-			}else{
-				tiles.remove(index);
-			}
-		}
+		putEventsToTiles(eventHandler, EventHandler.EVENTTYPE_CITY, 3, lvl3);
 	}
 	
 	private ArrayList<MapTile> getTilesByGroup(int group) {
