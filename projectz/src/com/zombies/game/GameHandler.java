@@ -95,7 +95,7 @@ public class GameHandler extends Group {
 				this.addActor(map);
 				map.setCharRef(charakter);
 				map.generateMap(Map.TYPE_CITY);
-				map.setEvents(0, 50, 0, 0);
+				map.setEvents(1000000, 1000000, 0, 0);
 				map.moveCameraToCharacter();
 			}
 		}else if(state == STATE_MAP) {

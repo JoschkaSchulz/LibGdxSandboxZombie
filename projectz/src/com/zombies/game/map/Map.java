@@ -129,6 +129,8 @@ public class Map extends Group {
 						MapTile.EVENTTYPE_UNDEFINED);
 				street--;
 				tiles.remove(index);
+			}else{
+				tiles.remove(index);
 			}
 		}
 		
@@ -142,8 +144,43 @@ public class Map extends Group {
 				tempTile.setEvent(
 						events.get((int)(Math.random()*events.size())).getID(), 
 						MapTile.EVENTTYPE_UNDEFINED);
-				System.out.println("ID => " + events.get((int)(Math.random()*events.size())).getID());
-				street--;
+				lvl1--;
+				tiles.remove(index);
+			}else{
+				tiles.remove(index);
+			}
+		}
+		
+		//Level2 Events
+		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
+		tiles = getTilesByGroup(MapTile.TYPE_LVL2);
+		while(lvl2 > 0 && tiles.size() > 0) {
+			index = (int)(Math.random()*tiles.size());
+			tempTile = tiles.get(index);
+			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
+				tempTile.setEvent(
+						events.get((int)(Math.random()*events.size())).getID(), 
+						MapTile.EVENTTYPE_UNDEFINED);
+				lvl2--;
+				tiles.remove(index);
+			}else{
+				tiles.remove(index);
+			}
+		}
+		
+		//Level3 Events
+		events = eventHandler.getEventsFromGroup(EventHandler.EVENTTYPE_CITY, 1);	//Lvl1 Events
+		tiles = getTilesByGroup(MapTile.TYPE_LVL3);
+		while(lvl3 > 0 && tiles.size() > 0) {
+			index = (int)(Math.random()*tiles.size());
+			tempTile = tiles.get(index);
+			if(tempTile.getEventID() == 0 && !tempTile.isStart()) {
+				tempTile.setEvent(
+						events.get((int)(Math.random()*events.size())).getID(), 
+						MapTile.EVENTTYPE_UNDEFINED);
+				lvl3--;
+				tiles.remove(index);
+			}else{
 				tiles.remove(index);
 			}
 		}

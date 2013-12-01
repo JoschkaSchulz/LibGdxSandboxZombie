@@ -207,7 +207,7 @@ public class MapTile extends Image {
 	public void setEastNeighbor(MapTile eastNeighbor) {
 		this.eastNeighbor = eastNeighbor;
 	}
-
+	
 	public boolean isHighlight() {
 		return highlight;
 	}
@@ -224,9 +224,29 @@ public class MapTile extends Image {
 		setEvent(eventID, EVENTTYPE_UNDEFINED);
 	}
 	
+	/**
+	 * Sets the Event ID and the type of the event for it and all neighbors
+	 * 
+	 * @param eventID the event if of the event
+	 * @param eventType the type of the event
+	 */
 	public void setEvent(int eventID, int eventType) {
 		this.eventID = eventID;
 		this.eventType = eventType;
+		
+		//Set the whole building
+		if(hasNorthNeighbor()) {
+			if(getNorthNeighbor().getEventID() == 0) getNorthNeighbor().setEvent(eventID, eventType);
+		}
+		if(hasSouthNeighbor()) {
+			if(getSouthNeighbor().getEventID() == 0) getSouthNeighbor().setEvent(eventID, eventType);
+		}
+		if(hasEastNeighbor()) {
+			if(getEastNeighbor().getEventID() == 0) getEastNeighbor().setEvent(eventID, eventType);
+		}
+		if(hasWestNeighbor()) {
+			if(getWestNeighbor().getEventID() == 0) getWestNeighbor().setEvent(eventID, eventType);
+		}
 	}
 	/*****************************************************************
 	 *					Methods
