@@ -53,12 +53,14 @@ public class Map extends Group {
 	private MapTile charPointer;
 	
 	private Table ui;
+	private Label uiStomach;
+	private Label uiThirst;
+	private Label uiLP;
 	private TextButton inventory;
 	private TextButton options;
 	
 	private ShapeRenderer debugRenderer;
 	private TextureRegion[][] tileSet;
-	
 	/*********************************************************
 	 * 			Constructor
 	 *********************************************************/
@@ -90,15 +92,34 @@ public class Map extends Group {
 		return world[x][y];
 	}
 	
+	public MapTile getStartTile() {
+		for(int mapY = 0; mapY < world[0].length; mapY++) {
+			for(int mapX = 0; mapX < world.length; mapX++) {
+				if(world[mapX][mapY].isStart()) return world[mapX][mapY];
+			}
+		}
+		return null;	//Include NoSuchTileException here
+	}
+	
 	public void setCharRef(Charakter charRef) {
 		this.charRef = charRef;
-		
-		generateUI();
 	}
 	
 	/*********************************************************
 	 * 			Methods
 	 *********************************************************/
+	
+	public void setCharakterOnPosition(int x, int y) {
+		//Set the charakter on the specific point
+		charRef.setMapCoordinates(x,y);
+		
+		//Calculating the fog
+		calcFog();
+		
+		//Show the player on the map
+		charPointer = new MapTile(tileSet[1][7], x, y, MapTile.TYPE_EMPTY, this.debugRenderer);
+		addActor(charPointer);
+	}
 	
 	/**
 	 * Get Level 1 Building TextureRegion
@@ -276,10 +297,28 @@ public class Map extends Group {
 		}
 	}
 	
+	private String getStomachString() {
+		return "Hunger:" + charRef.getCurrentStomach() + "/" + charRef.getMaxStomach();
+	}
+	
+	private String getThirstString() {
+		return "Durst:" + charRef.getCurrentThirst() + "/" + charRef.getMaxThirst();
+	}
+	
+	private String getLPString() {
+		return "LP:" + charRef.getCurrentLP() + "/" + charRef.getMaxLP();
+	}
+	
+	public void refreshUI() {
+		uiStomach.setText(getStomachString());
+		uiThirst.setText(getThirstString());
+		uiLP.setText(getLPString());
+	}
+	
 	/**
 	 * This method generates the UI for the user on the top of the map
 	 */
-	private void generateUI() {
+	public void generateUI() {
 		ui = new Table();
 		ui.top().left();
 		ui.size(Gdx.graphics.getWidth(), 64);
@@ -288,9 +327,18 @@ public class Map extends Group {
 		ui.debug();
 		
 		ui.add(new Label(charRef.getName(), SkinHelper.SKIN)).width(256);
-		ui.add(new Label("LP:" + charRef.getCurrentLP() + "/" + charRef.getMaxLP(), SkinHelper.SKIN)).width(192);
-		ui.add(new Label("Hunger:" + charRef.getCurrentStomach() + "/" + charRef.getMaxStomach(), SkinHelper.SKIN)).width(192);
-		ui.add(new Label("Durst:" + charRef.getCurrentThirst() + "/" + charRef.getMaxThirst(), SkinHelper.SKIN)).width(192);
+		
+		//Adding the live points label
+		uiLP = new Label(getLPString(), SkinHelper.SKIN);
+		ui.add(uiLP).width(192);
+		
+		//Adding the stomach label
+		uiStomach = new Label(getStomachString(), SkinHelper.SKIN);
+		ui.add(uiStomach).width(192);
+		
+		//Adding the thirsts label
+		uiThirst = new Label(getThirstString(), SkinHelper.SKIN);
+		ui.add(uiThirst).width(192);
 
 		inventory = new TextButton("Inventar", SkinHelper.SKIN);
 		inventory.addListener(new ChangeListener() {
@@ -383,7 +431,6 @@ public class Map extends Group {
 				world[world.length-1][exitPos] = new MapTile((world.length-1), exitPos, debugRenderer);; //TODO: hier exit einfügen
 				world[world.length-1][exitPos].setExit(true);
 				world[world.length-1][exitPos].setType(MapTile.TYPE_STREET);
-				charRef.setMapCoordinates(0, startPos);
 			}else{
 				int startPos  = (int)(Math.random()*world[0].length);
 				int exitPos = (int)(Math.random()*world[0].length);
@@ -393,7 +440,6 @@ public class Map extends Group {
 				world[exitPos][world[0].length-1] = new MapTile(exitPos, world[0].length-1, debugRenderer); //TODO: hier exit einfügen
 				world[exitPos][world[0].length-1].setExit(true);
 				world[exitPos][world[0].length-1].setType(MapTile.TYPE_STREET);
-				charRef.setMapCoordinates(startPos, 0);
 			}
 
 			while(activity) {
@@ -580,11 +626,6 @@ public class Map extends Group {
 		
 		//After drawing the world, draw the fog on the top of it
 		addFog(tileSet[0][7]);
-		calcFog();	//shows the visibility
-		
-		//shows the player
-		charPointer = new MapTile(tileSet[1][7], charRef.getMapX(), charRef.getMapY(), MapTile.TYPE_EMPTY, this.debugRenderer);
-		addActor(charPointer);
 		
 		System.out.println("~~~~ Map created ~~~~");
 		System.out.println("Der Map aufbau hat " + (System.currentTimeMillis() - debugTime) + "ms gedauert");
@@ -893,6 +934,32 @@ public class Map extends Group {
 	}
 	
 	/**
+	 * Method to handle movement of a charakter.
+	 * 
+	 * @param x move the character to the x position of the map
+	 * @param y move the character to the y position of the map
+	 */
+	public void moveCharacter(int x, int y) {
+		//Set the charakter map coordinates
+		charRef.setMapCoordinates(x, y);
+		//Set the graphic of the character to this position
+		charPointer.setPosition(x, y);
+		//calculate the new fog
+		calcFog();
+		//reset the timer for pressing the direction
+		arrowTimer = 0;
+		//try to move the character in the middle of the screen
+		moveCameraToCharacter();
+		//Reduce Stomach
+		charRef.reduceStomach(5);
+		//Reduce Thirst
+		charRef.reduceThirst(5);
+		
+		//Draw the UI again
+		refreshUI();
+	}
+	
+	/**
 	 * Let the Actor act.
 	 * @param float  delta is the time that happens after each frame
 	 */
@@ -902,6 +969,8 @@ public class Map extends Group {
 		super.act(delta);
 		
 		if(((GameHandler)getParent()).getState() == GameHandler.STATE_MAP) {
+			
+			//Add a dragging Method for Mouse and Touch
 			if(InputHelper.DRAG && dragX == 0 && dragY == 0) {
 				dragX = InputHelper.DRAG_X;
 				dragY = InputHelper.DRAG_Y;
@@ -911,7 +980,6 @@ public class Map extends Group {
 				dragX = dragY = 0;
 				translate(vectorX, vectorY);
 				
-	//			System.out.println(getX() + "/" + getY());
 				//Correct x and y for map borders
 				if(getX() > 0) setX(0);
 				else if(getX() < -getMapWidth() + Gdx.graphics.getWidth()) setX(-getMapWidth() + Gdx.graphics.getWidth());
@@ -920,50 +988,35 @@ public class Map extends Group {
 				
 			}else dragX = dragY = 0;
 			
+			//Handle charakter movement
 			arrowTimer += delta;
 			boolean moved = false;
 			int x = charRef.getMapX();
 			int y = charRef.getMapY();
 			if(InputHelper.DOWN && y < height && arrowTimer > 0.5) {
 				if(world[x][y+1].getType() == MapTile.TYPE_STREET) {
-					charRef.setMapCoordinates(x, y+1);
-					charPointer.setPosition(x, y+1);
-					calcFog();
-					arrowTimer = 0;
-					moveCameraToCharacter();
+					moveCharacter(x, y+1);
 					moved = true;
 				}else if (world[x][y+1].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x, y+1);
 				}
 			}else if(InputHelper.UP && y > 0 && arrowTimer > 0.5) {
 				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
-					charRef.setMapCoordinates(x, y-1);
-					charPointer.setPosition(x, y-1);
-					calcFog();
-					arrowTimer = 0;
-					moveCameraToCharacter();
+					moveCharacter(x, y-1);
 					moved = true;
 				}else if (world[x][y-1].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x, y-1);
 				}
 			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 0.5) {
 				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
-					charRef.setMapCoordinates(x-1, y);
-					charPointer.setPosition(x-1, y);
-					calcFog();
-					arrowTimer = 0;
-					moveCameraToCharacter();
+					moveCharacter(x-1, y);
 					moved = true;
 				}else if (world[x-1][y].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x-1, y);
 				}
 			}else if(InputHelper.RIGHT && x < width && arrowTimer > 0.5) {
 				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
-					charRef.setMapCoordinates(x+1, y);
-					charPointer.setPosition(x+1, y);
-					calcFog();
-					arrowTimer = 0;
-					moveCameraToCharacter();
+					moveCharacter(x+1, y);
 					moved = true;
 				}else if (world[x+1][y].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x+1, y);

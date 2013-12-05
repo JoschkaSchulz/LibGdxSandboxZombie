@@ -1,5 +1,6 @@
 package com.zombies.game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
@@ -38,7 +39,8 @@ public class GameHandler extends Group {
 	//groups
 	private CharakterPicker charPicker;
 	private Animation intro;
-	private Map map;
+	private Map currentMap;
+	private ArrayList<Map> mapList;
 	private EventHandler eventHandler;
 	private InventoryActor inventoryActor;
 	
@@ -79,6 +81,32 @@ public class GameHandler extends Group {
 	 * 				Methods
 	 **************************************************************************/
 	
+	/**
+	 * Creates a Array of 16 Maps for the game. 
+	 * 
+	 * @return an array of 16 maps
+	 */
+	private ArrayList<Map> generateMapList() {
+		ArrayList<Map> mapArray = new ArrayList<Map>();
+		
+		Map map;
+		for(int i = 0, n = 16; i < n; i++) {
+			//Create a new Map
+			map = new Map(16,16, debugRenderer);
+			
+			//Set a Character Refernz
+			map.setCharRef(charakter);
+			
+			//Choose a tileset for the map
+			map.generateMap(Map.TYPE_CITY);
+			
+			//Adding the map to the map Array
+			mapArray.add(map);
+		}
+		
+		return mapArray;
+	}
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -89,17 +117,14 @@ public class GameHandler extends Group {
 			this.addActor(this.charPicker);
 		}else if(state == STATE_INTRO && intro != null) {
 			if(intro.getFinished()) {
-				state = STATE_MAP;
-				this.clear();
-				map = new Map(16,16, debugRenderer);
-				this.addActor(map);
-				map.setCharRef(charakter);
-				map.generateMap(Map.TYPE_CITY);
-				map.setEvents(10, 10, 10, 1);
-				map.moveCameraToCharacter();
+				this.startGame();					
 			}
 		}else if(state == STATE_MAP) {
 			if(InputHelper.ACTION) {
+				/*******************************
+				 * Lots of Testing Stuff :D
+				 *******************************/
+				
 //				map.moveCameraToCharacter(); //Test movement of the camera to char
 				//Start Event on the Player pos
 //				if(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID() != 0) {
@@ -107,31 +132,72 @@ public class GameHandler extends Group {
 //				}
 				//map.clear();
 				//map.generateMap(Map.TYPE_CITY);
-				map.debugInfo();
+				currentMap.debugInfo();
 			}
 		}else if(state == STATE_EVENTINIT) {
 //			this.clear();
-			map.hideUI();
+			currentMap.hideUI();
 			this.addActor(greyLayer);
 			this.addActor(eventHandler);
 			state = STATE_EVENT;
 		}else if(state == STATE_EVENTDONE) {
 			this.clear();
-			this.addActor(map);
-			map.showUI();
+			this.addActor(currentMap);
+			currentMap.setCharRef(charakter);
+			currentMap.showUI();
 			state = STATE_MAP;
 		}else if(state == STATE_OPENINVENTORY) {
 //			this.clear();
-			map.hideUI();
+			currentMap.hideUI();
 			this.addActor(greyLayer);
 			this.addActor(inventoryActor);
 			state = STATE_INVENTORY;
 		}else if(state == STATE_CLOSEINVENTORY) {
 			this.clear();
-			this.addActor(map);
-			map.showUI();
+			this.addActor(currentMap);
+			currentMap.setCharRef(charakter);
+			currentMap.showUI();
 			state = STATE_MAP;
 		}
+	}
+	
+	/**
+	 * This method is used to start the game on the first map after the intro
+	 */
+	private void startGame() {
+		state = STATE_MAP;									//Set the next State
+		
+		//Clear all actors in the GameHandler
+		this.clear();	
+		
+		//Generates a List of 16 Maps
+		mapList = generateMapList();								
+		
+		//Get the first Map
+		currentMap = mapList.get(0);						
+		
+		//Set the selected Map as Actor
+		addActor(currentMap);							
+		
+		//Add Charakter reference
+		currentMap.setCharRef(charakter);
+		
+		//Generate a UI for the Map
+		currentMap.generateUI();							
+		
+		//Set the player start position
+		MapTile startTile = currentMap.getStartTile();
+		currentMap.setCharakterOnPosition(startTile.getPosX(), startTile.getPosY());
+		
+		//Put Events on the map
+		int street = 10 + (0 * 10);		//TODO: replace the 0 with the current number of level
+		int lvl1 = 10;
+		int lvl2 = 5;
+		int lvl3 = (int)(Math.random()*2);
+		currentMap.setEvents(street, lvl1, lvl2, lvl3);
+		
+		//Move the camera to the Character Position
+		currentMap.moveCameraToCharacter();
 	}
 	
 	/**
@@ -162,7 +228,7 @@ public class GameHandler extends Group {
 	 * the map.
 	 */
 	public void loadEvent() {
-		MapTile tile = map.getTile(charakter.getMapX(), charakter.getMapY());
+		MapTile tile = currentMap.getTile(charakter.getMapX(), charakter.getMapY());
 		eventHandler.loadEvent(tile.getEventID());
 		tile.removeEvent();
 		state = STATE_EVENTINIT;
@@ -176,7 +242,7 @@ public class GameHandler extends Group {
 	 * @param y the map y coordinate in the maptile matrix
 	 */
 	public void loadEvent(int x, int y) {
-		MapTile tile = map.getTile(x, y);
+		MapTile tile = currentMap.getTile(x, y);
 		eventHandler.loadEvent(tile.getEventID());
 		tile.removeEvent();
 		state = STATE_EVENTINIT;

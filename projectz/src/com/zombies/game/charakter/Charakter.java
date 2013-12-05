@@ -174,6 +174,42 @@ public class Charakter {
 	 ******************************************/
 
 	/**
+	 * Reduce the Stomach of the character but not under zero
+	 * 
+	 * @param reduce the value to reduce
+	 */
+	public void reduceStomach(int reduce) {
+		if(getCurrentStomach() - reduce >= 0) {
+			setCurrentStomach(getCurrentStomach() - reduce);
+		}else{
+			setCurrentStomach(0);
+			reduceLP(reduce - getCurrentStomach());
+		}
+	}
+
+	/**
+	 * Reduce the Thirst of the character but not under zero
+	 * 
+	 * @param reduce the value to reduce
+	 */
+	public void reduceThirst(int reduce) {
+		if(getCurrentThirst() - reduce >= 0) {
+			setCurrentThirst(getCurrentThirst() - reduce);
+		}else{
+			setCurrentThirst(0);
+			reduceLP(reduce - getCurrentThirst());
+		}
+	}
+	
+	public void reduceLP(int reduce) {
+		if(getCurrentLP() - reduce >= 0) {
+			setCurrentLP(getCurrentLP() - reduce);
+		}else{
+			setCurrentLP(0);
+		}
+	}
+	
+	/**
 	 * This method loads a character from the .xml file
 	 */
 	private void loadCharakter() {
