@@ -1,23 +1,37 @@
 package com.zombies.game.inventory;
 
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Consumable extends Item {
-	private int food, drink, health;
+	/*********************************************
+	 * 			fields
+	 *********************************************/
+	
+	private int food;
+	private int drink;
+	private int health;
 
-	public Consumable(int ID, String name, String discription, int food,
-			int drink, int health, Texture texture) {
-		
-		this.setID(ID);
+	/*********************************************
+	 * 			constructor
+	 *********************************************/
+	
+	public Consumable(int id, String name, String description, int food,
+			int drink, int health, TextureRegion texture) {
+		super(id, name, description, texture);
+		this.setId(id); 
 		this.setName(name);
-		this.setDiscription(discription);
+		this.setDiscription(description);
 		this.setTexture(texture);
 		
 		this.food = food;
 		this.drink = drink;
 		this.health = drink;
 	}
-
+	
+	/*********************************************
+	 * 			getter and setter
+	 *********************************************/
+	
 	public int getFood() {
 		return food;
 	}
@@ -30,9 +44,13 @@ public class Consumable extends Item {
 		return health;
 	}
 
+	/*********************************************
+	 * 			methods
+	 *********************************************/
+	
 	@Override
 	public Item clone() {
-		return new Consumable(this.getID(),this.getName(),this.getDiscription(),this.food, this.drink, this.health, this.getTexture());
+		return new Consumable(this.getId(),this.getName(),this.getDiscription(),this.food, this.drink, this.health, this.getTexture());
 	}
 	
 	
