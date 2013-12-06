@@ -21,7 +21,7 @@ import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.SkinHelper;
 
-public class InventoryActor extends Group {
+public class InventoryHandler extends Group {
 	
 	private Charakter charRef;
 	private Cell content;
@@ -30,7 +30,7 @@ public class InventoryActor extends Group {
 	private TextButton skills;
 	private TextButton close;
 	
-	public InventoryActor(Charakter charRef) {
+	public InventoryHandler(Charakter charRef) {
 		this.charRef = charRef;
 		
 		drawInventory();
