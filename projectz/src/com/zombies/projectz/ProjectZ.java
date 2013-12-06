@@ -28,6 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 
 import com.zombies.game.GameHandler;
+import com.zombies.helper.ItemHelper;
 import com.zombies.helper.SkinHelper;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.TextureHelper;
@@ -66,6 +67,9 @@ public class ProjectZ implements ApplicationListener {
 		//Load Textures
 		TextureHelper.initializeTextures();
 		
+		//Load Items
+		ItemHelper.initializeAllItems();
+		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
@@ -89,12 +93,21 @@ public class ProjectZ implements ApplicationListener {
 	}
 
 	/**
+	 * Opens the Main menu
+	 */
+	public void mainMenu() {
+		stage.clear();
+		
+		stage.addActor(mainMenu);
+	}
+	
+	/**
 	 * Clears the stage and creates a new GameHandler
 	 */
 	public void startGame() {
 		stage.clear();
 		
-		this.gameHandler = new GameHandler(this.debugRenderer);
+		this.gameHandler = new GameHandler(this.debugRenderer, this);
 		stage.addActor(gameHandler);
 	}
 	
@@ -112,13 +125,9 @@ public class ProjectZ implements ApplicationListener {
 	 */
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-//		try{
-			stage.act(Gdx.graphics.getDeltaTime());
-			stage.draw();
-			Table.drawDebug(stage);
-//		}catch(Exception e) {
-//			System.err.println("Fehler beim render!");
-//		}
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		Table.drawDebug(stage);
 	}
 
 	/**

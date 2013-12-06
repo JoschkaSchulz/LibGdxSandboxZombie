@@ -33,7 +33,7 @@ public class Inventory {
 
 	public boolean hasItem(int ID) {
 		for (Item item : Inventar) {
-			if (item.getID() == ID)
+			if (item.getId() == ID)
 				return true;
 		}
 		return false;
@@ -45,7 +45,7 @@ public class Inventory {
 
 	public void removeItem(int ID) {
 		for (Item item : Inventar) {
-			if (item.getID() == ID) {
+			if (item.getId() == ID) {
 				Inventar.remove(item);
 				break;
 			}

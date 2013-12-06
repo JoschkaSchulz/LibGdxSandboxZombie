@@ -12,12 +12,13 @@ import com.zombies.animation.Animation;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.game.charakterpicker.CharakterPicker;
 import com.zombies.game.event.EventHandler;
-import com.zombies.game.inventory.InventoryActor;
+import com.zombies.game.inventory.InventoryHandler;
 import com.zombies.game.map.Map;
 import com.zombies.game.map.MapTile;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.helper.InputHelper;
 import com.zombies.helper.SkinHelper;
+import com.zombies.projectz.ProjectZ;
 
 public class GameHandler extends Group {
 
@@ -36,13 +37,16 @@ public class GameHandler extends Group {
 	public static final int STATE_INVENTORY			= 8;
 	public static final int STATE_CLOSEINVENTORY	= 9;
 	
+	//Referenz to the root
+	private ProjectZ projZRef;
+	
 	//groups
 	private CharakterPicker charPicker;
 	private Animation intro;
 	private Map currentMap;
 	private ArrayList<Map> mapList;
 	private EventHandler eventHandler;
-	private InventoryActor inventoryActor;
+	private InventoryHandler inventoryActor;
 	
 	private Charakter charakter;
 	
@@ -56,7 +60,7 @@ public class GameHandler extends Group {
 	/**
 	 * The constructor of the GameHandler
 	 */
-	public GameHandler(ShapeRenderer debugRenderer) {
+	public GameHandler(ShapeRenderer debugRenderer, ProjectZ projZRef) {
 		this.debugRenderer = debugRenderer;
 		charPicker = new CharakterPicker(debugRenderer);
 		eventHandler = new EventHandler(debugRenderer);
@@ -64,6 +68,7 @@ public class GameHandler extends Group {
 		greyLayer = new Image(SkinHelper.GREY_LAYER);
 		greyLayer.size(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		state = 0;
+		this.projZRef = projZRef;
 	}
 	/**************************************************************************
 	 * 				getter & setter
@@ -105,60 +110,6 @@ public class GameHandler extends Group {
 		}
 		
 		return mapArray;
-	}
-	
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-		
-		if(charakter == null && state != STATE_CHARAKTERPICKER) {
-			state = STATE_CHARAKTERPICKER;
-			this.clear();
-			this.addActor(this.charPicker);
-		}else if(state == STATE_INTRO && intro != null) {
-			if(intro.getFinished()) {
-				this.startGame();					
-			}
-		}else if(state == STATE_MAP) {
-			if(InputHelper.ACTION) {
-				/*******************************
-				 * Lots of Testing Stuff :D
-				 *******************************/
-				
-//				map.moveCameraToCharacter(); //Test movement of the camera to char
-				//Start Event on the Player pos
-//				if(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID() != 0) {
-//					loadEvent(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID());
-//				}
-				//map.clear();
-				//map.generateMap(Map.TYPE_CITY);
-				currentMap.debugInfo();
-			}
-		}else if(state == STATE_EVENTINIT) {
-//			this.clear();
-			currentMap.hideUI();
-			this.addActor(greyLayer);
-			this.addActor(eventHandler);
-			state = STATE_EVENT;
-		}else if(state == STATE_EVENTDONE) {
-			this.clear();
-			this.addActor(currentMap);
-			currentMap.setCharRef(charakter);
-			currentMap.showUI();
-			state = STATE_MAP;
-		}else if(state == STATE_OPENINVENTORY) {
-//			this.clear();
-			currentMap.hideUI();
-			this.addActor(greyLayer);
-			this.addActor(inventoryActor);
-			state = STATE_INVENTORY;
-		}else if(state == STATE_CLOSEINVENTORY) {
-			this.clear();
-			this.addActor(currentMap);
-			currentMap.setCharRef(charakter);
-			currentMap.showUI();
-			state = STATE_MAP;
-		}
 	}
 	
 	/**
@@ -260,11 +211,83 @@ public class GameHandler extends Group {
 	public void setCharakterAndStart(Charakter charakter) {
 		this.charakter = charakter;
 		eventHandler.setCharRef(this.charakter);
-		inventoryActor = new InventoryActor(this.charakter);
+		inventoryActor = new InventoryHandler(this.charakter);
 		state = STATE_INTRO;
 		this.clear();
 		intro = new Animation();
 		this.addActor(intro);
 	}
 	
+	/**
+	 * is used for all checks that can let the game ending bad
+	 * 
+	 * @return	true if the player lost, otherwise false
+	 */
+	private boolean isGameOver() {
+		return charakter.getCurrentLP() <= 0;
+	}
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		
+		//Handle the events
+		if(charakter == null && state != STATE_CHARAKTERPICKER) {
+			state = STATE_CHARAKTERPICKER;
+			this.clear();
+			this.addActor(this.charPicker);
+		}else if(state == STATE_INTRO && intro != null) {
+			if(intro.getFinished()) {
+				this.startGame();					
+			}
+		}else if(state == STATE_MAP) {
+			
+			//Checks if the game is over!
+			if(isGameOver()) {
+				this.projZRef.mainMenu();
+			}
+			
+			/*******************************
+			 * start testing stuff :)
+			 *******************************/
+			if(InputHelper.ACTION) {
+				
+//				map.moveCameraToCharacter(); //Test movement of the camera to char
+				//Start Event on the Player pos
+//				if(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID() != 0) {
+//					loadEvent(map.getTile(charakter.getMapX(), charakter.getMapY()).getEventID());
+//				}
+				//map.clear();
+				//map.generateMap(Map.TYPE_CITY);
+				currentMap.debugInfo();
+			}
+			/*******************************
+			 * End of testing stuff :(
+			 *******************************/
+			
+		}else if(state == STATE_EVENTINIT) {
+			currentMap.hideUI();
+			this.addActor(greyLayer);
+			this.addActor(eventHandler);
+			state = STATE_EVENT;
+		}else if(state == STATE_EVENTDONE) {
+			this.clear();
+			this.addActor(currentMap);
+			currentMap.setCharRef(charakter);
+			currentMap.showUI();
+			state = STATE_MAP;
+		}else if(state == STATE_OPENINVENTORY) {
+			currentMap.hideUI();
+			this.addActor(greyLayer);
+			this.addActor(inventoryActor);
+			state = STATE_INVENTORY;
+		}else if(state == STATE_CLOSEINVENTORY) {
+			this.clear();
+			this.addActor(currentMap);
+			currentMap.setCharRef(charakter);
+			currentMap.showUI();
+			state = STATE_MAP;
+		}
+	}
 }
