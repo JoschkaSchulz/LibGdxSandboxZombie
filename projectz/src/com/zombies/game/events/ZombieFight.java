@@ -1,5 +1,7 @@
 package com.zombies.game.events;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
+
 import com.zombies.game.event.Event;
 import com.zombies.game.event.Fight;
 
@@ -28,7 +30,8 @@ public class ZombieFight extends Event {
 
 	@Override
 	protected void dialogAnswer1() {
-		addActor(fight);
+		hideDialog();
+		addActor(fight);		
 	}
 
 	@Override

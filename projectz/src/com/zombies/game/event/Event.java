@@ -16,6 +16,7 @@ import com.zombies.helper.TextureHelper;
 
 public abstract class Event extends Group {
 	protected ShapeRenderer debugRenderer;
+	protected Table dialog;
 	
 	public Event() {
 		
@@ -46,6 +47,12 @@ public abstract class Event extends Group {
 		addActor(fight);
 	}
 	
+	/**
+	 * Hides the dialog
+	 */
+	protected void hideDialog() {
+		removeActor(dialog);
+	}
 	
 	/**
 	 * Shows a Dialog with max. 4 Answers
@@ -54,7 +61,7 @@ public abstract class Event extends Group {
 	 * @param answers a string array with the answers of the dialog
 	 */
 	public void showDialog(String text, String answers[]){
-		Table dialog = new Table();
+		dialog = new Table();
 		dialog.setWidth(1024);
 		dialog.setHeight(512);
 		dialog.top();
