@@ -13,8 +13,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Ein 25g Schokoriegel, Achtung macht schlechte Zähne</description>
 		</consumable>
 		
@@ -28,8 +28,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Eine kleine Packung gummiger Bären. Man kann sie essen oder in Wasser stecken</description>
 		</consumable>
 		
@@ -43,8 +43,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>175g Kartoffelchips mit Zwiebelgeschmack, Vorsicht sehr salzig!</description>
 		</consumable>
 		
@@ -58,8 +58,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Saftiger Apfel, auch wenn daran schon Prinzessinnen erstickt sein sollen ist dieser eher gesund als gefährlich</description>
 		</consumable>
 		
@@ -73,8 +73,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Frühstücks - "Fleisch" aus der Dose. Bestimmt nicht das beste Fleisch aber füllt den Magen! </description>
 		</consumable>
 		
@@ -88,8 +88,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>In Wasser eingelegter Thunfisch, garantiert ohne Delfin!</description>
 		</consumable>
 
@@ -103,8 +103,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Eine Dose mit Annanasscheiben inclusive Annanas Saft zum trinken</description>
 		</consumable>
 		
@@ -118,8 +118,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Vorgekochte Ravioli in Tomatensauce, Studenten vieler Generationen haben hiermit überlebt,</description>
 		</consumable>
 		
@@ -133,8 +133,8 @@
 				<health val= "10"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Fast wie die von Omi, nur aus der Dose. Hilft bei Erkältungen</description>
 		</consumable>
 		
@@ -148,8 +148,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Eine große noch intakte Frucht voller Wasser und Fruchtzucker</description>
 		</consumable>
 		
@@ -163,8 +163,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Vollverpflegung für Soldaten, erhältlich mit Geschnetzeltem oder Hamburgern</description>
 		</consumable>
 		
@@ -178,8 +178,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Nur in die Mikrowelle schieben und man hat eine komplette Mahlzeit mit Fleisch, womit die Frage aufkommt warum man das Paket nicht kühlen muss...</description>
 		</consumable>
 		
@@ -193,8 +193,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Ob geröstet überm Feuer oder roh, diese Zuckenbomben schmecken immer</description>
 		</consumable>
 		
@@ -208,8 +208,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Damals in der Grundschule haben sie sich bereits bewährt</description>
 		</consumable>
 	
@@ -223,8 +223,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Als Kind hat man immer darauf gewartet dass das Eis schmilzt, jetzt hätte man lieber eine Abkühlung</description>
 		</consumable>
 		
@@ -238,8 +238,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Mehr Zucker als Wasser trotzdem erfrischend</description>
 		</consumable>
 		
@@ -253,8 +253,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Wie die Milch immer noch gut sein kann ist ein Mysterium</description>
 		</consumable>
 		
@@ -268,8 +268,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Nichts besonderes trotzdem Lebensrettend</description>
 		</consumable>
 		
@@ -283,8 +283,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Sehr dickflüssiger Saft. Durststillend und Nahrhaft zugleich</description>
 		</consumable>
 		
@@ -298,8 +298,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Zucker und Wasser gemischt mit Zitronensäure, bestimmt nicht gesund aber der Zucker hält einen am Laufen</description>
 		</consumable>
 		
@@ -313,8 +313,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Klares Wasser aus der Plastikflasche. Natriumarm.</description>
 		</consumable>
 		
@@ -328,8 +328,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Mit Fruchtstückchen und dem Versprechen auf ein besseres Leben</description>
 		</consumable>
 		
@@ -343,8 +343,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Eine größere Flasche mit Zitrus Zuckerwasser</description>
 		</consumable>
 		
@@ -358,8 +358,8 @@
 				<health val= "0"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Große Flasche mit klarem Wasser, was kann man sich mehr wünschen?!</description>
 		</consumable>
 		
@@ -373,8 +373,8 @@
 				<health val= "10"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Es hat Elektrolyte!</description>
 		</consumable>
 		
@@ -388,8 +388,8 @@
 				<health val= "10"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Heftpflaster, einige von ihnen haben Dinomotive</description>
 		</consumable>
 		
@@ -403,8 +403,8 @@
 				<health val= "10"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Hilft gut bei kleineren Erkältungen</description>
 		</consumable>
 		
@@ -418,8 +418,8 @@
 				<health val= "20"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Alltägliche Verbände zum Bedecken von Wunden</description>
 		</consumable>
 		
@@ -433,8 +433,8 @@
 				<health val= "30"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Verschreibungspflichtige Schmerztabletten</description>
 		</consumable>
 		
@@ -448,8 +448,8 @@
 				<health val= "40"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Hilft bei Bakteriellen Infektionen und ist auch sonst fiebersenkend</description>
 		</consumable>
 		
@@ -463,8 +463,8 @@
 				<health val= "50"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Ein kompletter Erste-Hilfe Kasten wie ihn jeder in seinem Auto haben sollte</description>
 		</consumable>
 		
@@ -478,8 +478,8 @@
 				<health val= "80"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Arztkoffer mit allem was man braucht um mittlere bis schwere Verletzungen zu behandeln</description>
 		</consumable>
 		
@@ -493,8 +493,8 @@
 				<health val= "200"/>
 			</effects>
 			<img val = "randomimage.png"/>
-			<imgxpos val = "1">
-			<imgypos val = "2">
+			<imgxpos val = "1"/>
+			<imgypos val = "2"/>
 			<description>Die Ausrüstung eines Feldchirourgen. Mit diesem könnte man ALLE Wunden behandeln</description>
 		</consumable>
 	
