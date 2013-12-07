@@ -11,7 +11,7 @@
         bald kommt mehr :D
     </story>
     <inventory>
-        <item id="1" />
+        <item group="consumable" id="1" />
     </inventory>
     <skills>
         <skill id="13" known="true" />

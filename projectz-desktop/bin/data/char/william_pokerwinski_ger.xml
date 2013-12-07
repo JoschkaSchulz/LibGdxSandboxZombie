@@ -13,7 +13,7 @@
 		Dies die Geschichte seiner Reise zur Forschungsstation.
     </story>
     <inventory>
-        <item id="1" />
+        <item group="consumable" id="1" />
     </inventory>
     <skills>
         <skill id="1" known="true" />
