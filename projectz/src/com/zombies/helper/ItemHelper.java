@@ -24,7 +24,7 @@ public class ItemHelper {
 		
 		//Fill the static with all consumables
 		Consumable consumable; // = new Consumable(ID, name, discription, food, drink, health, texture)
-		int id, food, drink, health;
+		int id, food, drink, health, imgX, imgY;
 		String name, description;
 	
 		try {
@@ -40,8 +40,10 @@ public class ItemHelper {
 			     food = consumable_element.getChildByName("effects").getChildByName("hunger").getIntAttribute("val");
 			     drink = consumable_element.getChildByName("effects").getChildByName("thirst").getIntAttribute("val");
 			     health = consumable_element.getChildByName("effects").getChildByName("health").getIntAttribute("val");
+			     imgX = consumable_element.getChildByName("imgxpos").getIntAttribute("val");
+			     imgY = consumable_element.getChildByName("imgypos").getIntAttribute("val");
 			     
-			     consumable = new Consumable(id, name, description, food, drink, health, null);
+			     consumable = new Consumable(id, name, description, food, drink, health, TextureHelper.ITEM_TILE_SET[imgY][imgX]);
 			     
 			     CONSUMABLES.put(id, consumable);
 			 }

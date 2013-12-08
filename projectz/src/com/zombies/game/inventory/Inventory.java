@@ -52,7 +52,7 @@ public class Inventory {
 		}
 	}
 
-	public List<Item> getInventar() {
+	public List<Item> getInventory() {
 		return new ArrayList<Item>(Inventar);
 	}
 

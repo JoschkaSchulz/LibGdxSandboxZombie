@@ -292,7 +292,7 @@ public class Charakter {
 					+ s.getName();
 		}
 		
-		for (Item i : this.inventory.getInventar()) {
+		for (Item i : this.inventory.getInventory()) {
 			inventory = inventory + i.toString() + "\n";
 		}
 

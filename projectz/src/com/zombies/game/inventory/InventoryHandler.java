@@ -2,6 +2,8 @@ package com.zombies.game.inventory;
 
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -76,9 +78,16 @@ public class InventoryHandler extends Group {
 		
 //		ArrayList<Item> inventory = new ArrayList<Item>(charRef.getInventory().getInventar());
 		
+		ArrayList<Item> inventory = new ArrayList<Item>(charRef.getInventory().getInventory());
+		int counter = 0;
 		for(int i1 = 0, m = 5; i1 < m; i1++){
 			for(int i2 = 0, n = 5; i2 < n; i2++) {
-				inv.add(new Image(new Texture(Gdx.files.internal("data/gfx/items/randomimage.png")))).width(128).height(128).pad(8);
+				if(inventory.size() > counter) {
+					inv.add(new Image(inventory.get(0).getTexture())).width(128).height(128).pad(8);
+				}else{
+					inv.add(new Image(new Texture(Gdx.files.internal("data/gfx/items/randomimage.png")))).width(128).height(128).pad(8);
+				}
+				counter++;
 			}
 			inv.row();
 		}

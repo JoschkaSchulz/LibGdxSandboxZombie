@@ -22,6 +22,9 @@ public class TextureHelper {
 	public static TextureRegion FIGHT_SINGLE_ZOMBIE;
 	public static TextureRegion FIGHT_HIT;
 	
+	//Items
+	public static TextureRegion ITEM_TILE_SET[][];
+	
 	/***************************************************************************
 	 * 			Methods
 	 **************************************************************************/
@@ -40,6 +43,10 @@ public class TextureHelper {
 		FIGHT_POINTER = new TextureRegion(fight, 32, 32, 32, 32);
 		FIGHT_SINGLE_ZOMBIE = new TextureRegion(fight, 64, 32, 32, 32);
 		FIGHT_HIT = new TextureRegion(fight, 96, 32, 32, 32);
+		
+		//Loading the item tile set
+		Texture items = new Texture(Gdx.files.internal("data/gfx/items/item_tileset.png"));
+		ITEM_TILE_SET = TextureRegion.split(items, 128, 128);
 	}
 	
 	public static TextureRegion[][] getCityTileSet() {

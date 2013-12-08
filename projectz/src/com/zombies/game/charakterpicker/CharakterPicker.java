@@ -36,10 +36,6 @@ public class CharakterPicker extends Group {
 	private GameHandler gameHanderRef;
 	private ShapeRenderer debugRenderer;
 	
-	private Image imgBackground1;
-	private Image imgBackground2;
-	private Image imgBackground3;
-	private Image imgBackground4;
 	private float time;
 	
 	private Charakter selection;
