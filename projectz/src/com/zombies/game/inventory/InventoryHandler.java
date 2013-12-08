@@ -214,9 +214,19 @@ public class InventoryHandler extends Group {
 			}
 		});
 		
+		TextButton backButton = new TextButton("Zurück", SkinHelper.SKIN);
+		backButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				removeActor(findActor("item_contex_menu"));
+				refreshInventory();
+			}
+		});
 
 		//Build Table
 		dialog.add(dropButton).width(1024);
+		dialog.row();
+		dialog.add(backButton).width(1024);
 		
 		addActor(dialog);
 	}
@@ -257,11 +267,21 @@ public class InventoryHandler extends Group {
 			}
 		});
 		
+		TextButton backButton = new TextButton("Zurück", SkinHelper.SKIN);
+		backButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				removeActor(findActor("item_contex_menu"));
+				refreshInventory();
+			}
+		});
 
 		//Build Table
 		dialog.add(consumButton).width(1024);
 		dialog.row();
 		dialog.add(dropButton).width(1024);
+		dialog.row();
+		dialog.add(backButton).width(1024);
 		
 		addActor(dialog);
 	}
