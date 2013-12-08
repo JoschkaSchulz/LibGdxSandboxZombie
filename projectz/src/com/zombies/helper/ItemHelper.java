@@ -3,6 +3,7 @@ package com.zombies.helper;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.XmlReader;
@@ -11,7 +12,7 @@ import com.zombies.game.skilltree.Skill;
 
 public class ItemHelper {
 	
-	public static HashMap<Integer , Consumable> CONSUMABLES;
+	public static Map<Integer, Consumable> CONSUMABLES;
 	
 	/**
 	 * Reads all the xml files from the items xml file and orders every

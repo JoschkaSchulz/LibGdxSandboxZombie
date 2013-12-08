@@ -2,11 +2,15 @@ package com.zombies.game.charakter;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
+import com.zombies.game.inventory.Consumable;
 import com.zombies.game.inventory.Inventory;
+import com.zombies.game.inventory.Item;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.game.skilltree.Skilltree;
+import com.zombies.helper.ItemHelper;
 
 public class Charakter {
 	/******************************************
@@ -39,9 +43,9 @@ public class Charakter {
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
 
-		this.loadCharakter();
-
 		inventory = new Inventory();
+		
+		this.loadCharakter();
 	}
 
 	/******************************************
@@ -217,12 +221,14 @@ public class Charakter {
 			XmlReader xml = new XmlReader();
 			XmlReader.Element xml_element = xml.parse(this.xmlFile);
 
+			//load story values
 			this.name = xml_element.getChildByName("name").getText();
 			this.age = xml_element.getChildByName("age").getText();
 			this.height = xml_element.getChildByName("height").getText();
 			this.image = xml_element.getChildByName("image").getText();
 			this.story = xml_element.getChildByName("story").getText();
 
+			//load the maximal values
 			this.meal = xml_element.getChildByName("meal")
 					.getIntAttribute("id");
 			this.maxLP = xml_element.getChildByName("Attributes")
@@ -232,23 +238,50 @@ public class Charakter {
 			this.maxThirst = xml_element.getChildByName("Attributes")
 					.getIntAttribute("maxThirst");
 
+			//load the effects
 			this.currentLP = maxLP;
 			this.currentStomach = maxStomach;
 			this.currentThirst = maxThirst;
 
+			//Load the skills
 			XmlReader.Element skills = xml_element.getChildByName("skills");
 			this.skilltree = new Skilltree(skills);
 
+			//Load the Inventory
+			loadInventory(xml_element.getChildByName("inventory"));
+			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			System.err.println("Fehler beim Laden des Charakters!");
 		}
 	}
 
+	private void loadInventory(XmlReader.Element inventory) {
+		try {
+			XmlReader xml = new XmlReader();
+			Iterator iterator_items = inventory.getChildrenByName("item").iterator();
+			while(iterator_items.hasNext()){
+			     XmlReader.Element inventory_element = (XmlReader.Element)iterator_items.next();
+			     
+			     String group = inventory_element.getAttribute("group");
+			     
+			     Item item = null;
+			     if(group.equals("consumable")) {
+			    	 item = ItemHelper.CONSUMABLES.get(inventory_element.getIntAttribute("id"));
+			     }
+			     
+			     this.inventory.addItem(item);
+			 }
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.err.println("Fehler beim Laden der XML Datei!");
+		}
+	}
+	
 	public String toString() {
 		String avaibleSkills = "";
 		String skilltreeSkills = "";
-
+		String inventory = "";
 		for (Skill s : this.skilltree.getAvaibleSkills()) {
 			avaibleSkills = avaibleSkills + "\n(" + s.getId() + ")"
 					+ s.getName();
@@ -258,9 +291,14 @@ public class Charakter {
 			skilltreeSkills = skilltreeSkills + "\n(" + s.getId() + ")"
 					+ s.getName();
 		}
+		
+		for (Item i : this.inventory.getInventar()) {
+			inventory = inventory + i.toString() + "\n";
+		}
 
 		return "~~~Charakter~~~\nName:" + getName() + "\nAge: " + getAge()
 				+ "\nHeight: " + getHeight() + "\nAvaible Skills:"
-				+ avaibleSkills + "\nComplete Skilltree:" + skilltreeSkills;
+				+ avaibleSkills + "\nComplete Skilltree:" + skilltreeSkills
+				+ "Inventory:\n" + inventory;
 	}
 }
