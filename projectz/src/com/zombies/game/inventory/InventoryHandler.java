@@ -191,6 +191,11 @@ public class InventoryHandler extends Group {
 		}
 	}
 	
+	/**
+	 * Creates a Dialog for the Trash items
+	 * 
+	 * @param item the item that shows the dialog on click
+	 */
 	private void undefinedDialog(final Item item) {
 		Table dialog = new Table();
 		dialog.setName("item_contex_menu");
@@ -216,6 +221,11 @@ public class InventoryHandler extends Group {
 		addActor(dialog);
 	}
 	
+	/**
+	 * Shows a Dialog for consumable items
+	 * 
+	 * @param item the item that is clicked in the menu
+	 */
 	private void consumableDialog(final Consumable item) {
 		Table dialog = new Table();
 		dialog.setName("item_contex_menu");
