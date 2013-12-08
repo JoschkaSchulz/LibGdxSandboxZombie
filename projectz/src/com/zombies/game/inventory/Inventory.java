@@ -1,38 +1,39 @@
 package com.zombies.game.inventory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Inventory {
 
-	private List<Item> Inventar;
+	private List<Item> inventory;
 	private int maxsize;
 
 	public Inventory() {
 		maxsize = 8;
-		Inventar = new ArrayList<Item>();
+		inventory = new ArrayList<Item>();
 	}
 
 	public Inventory(int size) {
 		maxsize = size;
-		Inventar = new ArrayList<Item>();
+		inventory = new ArrayList<Item>();
 	}
 	
 	public boolean addItem(Item item) {
-		if (Inventar.size() >= maxsize)
+		if (inventory.size() >= maxsize)
 			return false;
-		Inventar.add(item);
+		inventory.add(item);
 		return true;
 	}
 
 	public boolean hasItem(Item item) {
-		if (Inventar.indexOf(item) >= 0)
+		if (inventory.indexOf(item) >= 0)
 			return true;
 		return false;
 	}
 
 	public boolean hasItem(int ID) {
-		for (Item item : Inventar) {
+		for (Item item : inventory) {
 			if (item.getId() == ID)
 				return true;
 		}
@@ -40,20 +41,20 @@ public class Inventory {
 	}
 
 	public void removeItem(Item item) {
-		Inventar.remove(item);
+		inventory.remove(item);
 	}
 
 	public void removeItem(int ID) {
-		for (Item item : Inventar) {
+		for (Item item : inventory) {
 			if (item.getId() == ID) {
-				Inventar.remove(item);
+				inventory.remove(item);
 				break;
 			}
 		}
 	}
 
 	public List<Item> getInventory() {
-		return new ArrayList<Item>(Inventar);
+		return new ArrayList<Item>(inventory);
 	}
 
 	

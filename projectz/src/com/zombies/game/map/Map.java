@@ -364,6 +364,7 @@ public class Map extends Group {
 	}
 	
 	public void showUI() {
+		refreshUI();
 		getParent().addActor(ui);
 	}
 	

@@ -17,10 +17,10 @@ public class Consumable extends Item {
 	
 	public Consumable(int id, String name, String description, int food,
 			int drink, int health, TextureRegion texture) {
-		super(id, name, description, texture);
+		super(id, Item.GROUP_CONSUMABLE , name, description, texture);
 		this.setId(id); 
 		this.setName(name);
-		this.setDiscription(description);
+		this.setDescription(description);
 		this.setTexture(texture);
 		
 		this.food = food;

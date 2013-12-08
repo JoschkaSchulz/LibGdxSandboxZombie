@@ -3,12 +3,15 @@ package com.zombies.game.inventory;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
@@ -16,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.esotericsoftware.tablelayout.Cell;
 import com.zombies.game.GameHandler;
@@ -31,6 +35,7 @@ public class InventoryHandler extends Group {
 	private TextButton inventory;
 	private TextButton skills;
 	private TextButton close;
+	private Table inv;
 	
 	public InventoryHandler(Charakter charRef) {
 		this.charRef = charRef;
@@ -71,19 +76,34 @@ public class InventoryHandler extends Group {
 		addActor(rightTable);
 	}
 
+	private void refreshInventory() {
+		content.setWidget(showInventoy());
+	}
+	
 	private Table showInventoy() {
-		Table inv = new Table();
+		inv = new Table();
 		inv.top().setPosition(0,0);
+		inv.setName("inventory");
 		inv.debug();
 		
 //		ArrayList<Item> inventory = new ArrayList<Item>(charRef.getInventory().getInventar());
 		
-		ArrayList<Item> inventory = new ArrayList<Item>(charRef.getInventory().getInventory());
+		final ArrayList<Item> inventory = new ArrayList<Item>(charRef.getInventory().getInventory());
 		int counter = 0;
+		Image img;
 		for(int i1 = 0, m = 5; i1 < m; i1++){
 			for(int i2 = 0, n = 5; i2 < n; i2++) {
 				if(inventory.size() > counter) {
-					inv.add(new Image(inventory.get(0).getTexture())).width(128).height(128).pad(8);
+					img = new Image(inventory.get(0).getTexture());
+					img.addListener(new ClickListener(){
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							super.clicked(event, x, y);
+							
+							itemClicked(inventory.get(0));
+						}
+					});
+					inv.add(img).width(128).height(128).pad(8);
 				}else{
 					inv.add(new Image(new Texture(Gdx.files.internal("data/gfx/items/randomimage.png")))).width(128).height(128).pad(8);
 				}
@@ -153,7 +173,62 @@ public class InventoryHandler extends Group {
 		return menu;
 	}
 	
+	/**
+	 * This method is used for Click events on an item in the inventory
+	 * 
+	 * @param item the clicked item
+ 	 */
+	private void itemClicked(Item item) {
+		switch(item.getGroup()) {
+			default:
+			case Item.GROUP_UNDEFINED:
+				break;
+			case Item.GROUP_CONSUMABLE:
+				Consumable consumable = (Consumable) item;
+				consumableDialog(consumable);
+				break;
+		}
+	}
+	
+	private void consumableDialog(final Consumable item) {
+		Table dialog = new Table();
+		dialog.setName("item_contex_menu");
+		dialog.setWidth(1024);
+		dialog.setHeight(512);
+		dialog.top();
+		dialog.setPosition(128, GUIHelper.getNewCoordinates(128, 512));
+		
+		TextButton consumButton = new TextButton("Konsumiere", SkinHelper.SKIN);
+		consumButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				charRef.setCurrentLP(charRef.getCurrentLP() + item.getHealth());
+				charRef.setCurrentStomach(charRef.getCurrentStomach() + item.getFood());
+				charRef.setCurrentThirst(charRef.getCurrentThirst() + item.getDrink());
+				charRef.getInventory().removeItem(item);
+				removeActor(findActor("item_contex_menu"));
+				refreshInventory();
+			}
+		});
 
+		TextButton dropButton = new TextButton("Wegwerfen", SkinHelper.SKIN);
+		dropButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				charRef.getInventory().removeItem(item);
+				removeActor(findActor("item_contex_menu"));
+				refreshInventory();
+			}
+		});
+		
+
+		//Build Table
+		dialog.add(consumButton).width(1024);
+		dialog.row();
+		dialog.add(dropButton).width(1024);
+		
+		addActor(dialog);
+	}
 	
 	
 }

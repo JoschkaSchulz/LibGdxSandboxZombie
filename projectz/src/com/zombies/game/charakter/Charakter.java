@@ -130,7 +130,13 @@ public class Charakter {
 	}
 
 	public void setCurrentLP(int currentLP) {
-		this.currentLP = currentLP;
+		if(currentLP >= 0 && currentLP <= getMaxLP()) {
+			this.currentLP = currentLP;
+		}else if(currentLP < 0){
+			this.currentLP = 0;
+		}else if(currentLP > getMaxLP()) {
+			this.currentLP = getMaxLP();
+		}
 	}
 
 	public int getMaxStomach() {
@@ -146,7 +152,13 @@ public class Charakter {
 	}
 
 	public void setCurrentStomach(int currentStomach) {
-		this.currentStomach = currentStomach;
+		if(currentStomach >= 0 && currentStomach <= getMaxStomach()) {
+			this.currentStomach = currentStomach;
+		}else if(currentStomach < 0){
+			this.currentStomach = 0;
+		}else if(currentStomach > getMaxStomach()) {
+			this.currentStomach = getMaxStomach();
+		}
 	}
 
 	public int getMaxThirst() {
@@ -162,7 +174,13 @@ public class Charakter {
 	}
 
 	public void setCurrentThirst(int currentThirst) {
-		this.currentThirst = currentThirst;
+		if(currentThirst >= 0 && currentThirst <= getMaxThirst()) {
+			this.currentThirst = currentThirst;
+		}else if(currentThirst < 0){
+			this.currentThirst = 0;
+		}else if(currentThirst > getMaxThirst()) {
+			this.currentThirst = getMaxThirst();
+		}
 	}
 
 	public Inventory getInventory() {
