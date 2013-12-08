@@ -182,12 +182,38 @@ public class InventoryHandler extends Group {
 		switch(item.getGroup()) {
 			default:
 			case Item.GROUP_UNDEFINED:
+				undefinedDialog(item);
 				break;
 			case Item.GROUP_CONSUMABLE:
 				Consumable consumable = (Consumable) item;
 				consumableDialog(consumable);
 				break;
 		}
+	}
+	
+	private void undefinedDialog(final Item item) {
+		Table dialog = new Table();
+		dialog.setName("item_contex_menu");
+		dialog.setWidth(1024);
+		dialog.setHeight(512);
+		dialog.top();
+		dialog.setPosition(128, GUIHelper.getNewCoordinates(128, 512));
+		
+		TextButton dropButton = new TextButton("Wegwerfen", SkinHelper.SKIN);
+		dropButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				charRef.getInventory().removeItem(item);
+				removeActor(findActor("item_contex_menu"));
+				refreshInventory();
+			}
+		});
+		
+
+		//Build Table
+		dialog.add(dropButton).width(1024);
+		
+		addActor(dialog);
 	}
 	
 	private void consumableDialog(final Consumable item) {
