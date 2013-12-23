@@ -13,9 +13,9 @@ import com.zombies.helper.TextureHelper;
 
 public class Fight extends Group {
 	
-	private static int HITBAR_WIDTH = 1024;
-	private static int BAR_POSITION_X = 100;
-	private static int BAR_POSITION_Y = 700;
+	public static int HITBAR_WIDTH = 1024;
+	public static int BAR_POSITION_X = 100;
+	public static int BAR_POSITION_Y = 700;
 	
 	private Image hitbar;
 	private ArrayList<Zombie> zombies;

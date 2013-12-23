@@ -7,9 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zombies.helper.TextureHelper;
 
 public class Zombie {
+	
 	/************************************
 	 * 			variables
 	 ************************************/
+	
 	//For the fight on range
 	private int hitpoints;		//the hitpoints of the zombie
 	private float distance;		//the distance in m
@@ -120,7 +122,10 @@ public class Zombie {
 	public boolean hit(float x) {
 		if(this.aimbarImage == null) return false;
 		
-		if(x >= getPercent() && x <= getPercent()+getAimbarImage().getWidth()) {
+		float from = Fight.HITBAR_WIDTH/100*getPercent();
+		float to = Fight.HITBAR_WIDTH/100*(getPercent()+getAimbarImage().getWidth());
+		
+		if(x >= from && x <= to) {
 			return true;
 		}else{
 			return false;
@@ -136,7 +141,7 @@ public class Zombie {
 	 */
 	public Image createAimbarImage(float barX, float barY) {
 		aimbarImage = new Image(getAimbarIcon());
-		aimbarImage.setPosition(barX+getPercent(), barY);
+		aimbarImage.setPosition(barX+(Fight.HITBAR_WIDTH/100*getPercent()), barY);
 		return aimbarImage;
 	}
 
@@ -186,6 +191,5 @@ public class Zombie {
 			return false;
 		return true;
 	}
-	
-	
+		
 }
