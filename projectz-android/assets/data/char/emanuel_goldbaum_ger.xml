@@ -5,7 +5,7 @@
     <height>180</height>
     <meal id="1" />
     <image>prof_dr_emanuel_goldbaum.png</image>
-    <Attributes maxLP = "75" maxStomach = "125" maxThirst = "100"/>
+    <Attributes maxLP = "75" maxStomach = "9125" maxThirst = "9100"/>
 	<story>
         Emanuel war Forscher für Viren und anderes gesocks... blablabla 
         bald kommt mehr :D
