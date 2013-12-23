@@ -204,7 +204,7 @@ public class Map extends Group {
 		int y = charRef.getMapY();
 
 		//Makes all the Fog visible
-		setAllFogVisible();
+//		setAllFogVisible();
 		
 		//Show the Position of the player
 		if(fog[x][y].getType() != MapTile.TYPE_EMPTY) {
