@@ -990,37 +990,42 @@ public class Map extends Group {
 			}else dragX = dragY = 0;
 			
 			//Handle charakter movement
+			float movementCooldown = 0.2f;
 			arrowTimer += delta;
 			boolean moved = false;
 			int x = charRef.getMapX();
 			int y = charRef.getMapY();
-			if(InputHelper.DOWN && y < height && arrowTimer > 0.5) {
-				if(world[x][y+1].getType() == MapTile.TYPE_STREET) {
-					moveCharacter(x, y+1);
-					moved = true;
-				}else if (world[x][y+1].getEventID() != 0) {
-					((GameHandler)getParent()).loadEvent(x, y+1);
+			if(InputHelper.DOWN && y < height && arrowTimer > movementCooldown) {
+				if(world[0].length-1 >= y+1) {
+					if(world[x][y+1].getType() == MapTile.TYPE_STREET) {
+						moveCharacter(x, y+1);
+						moved = true;
+					}else if (world[x][y+1].getEventID() != 0) {
+						((GameHandler)getParent()).loadEvent(x, y+1);
+					}
 				}
-			}else if(InputHelper.UP && y > 0 && arrowTimer > 0.5) {
+			}else if(InputHelper.UP && y > 0 && arrowTimer > movementCooldown) {
 				if(world[x][y-1].getType() == MapTile.TYPE_STREET) {
 					moveCharacter(x, y-1);
 					moved = true;
 				}else if (world[x][y-1].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x, y-1);
 				}
-			}else if(InputHelper.LEFT && x > 0 && arrowTimer > 0.5) {
+			}else if(InputHelper.LEFT && x > 0 && arrowTimer > movementCooldown) {
 				if(world[x-1][y].getType() == MapTile.TYPE_STREET) {
 					moveCharacter(x-1, y);
 					moved = true;
 				}else if (world[x-1][y].getEventID() != 0) {
 					((GameHandler)getParent()).loadEvent(x-1, y);
 				}
-			}else if(InputHelper.RIGHT && x < width && arrowTimer > 0.5) {
-				if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
-					moveCharacter(x+1, y);
-					moved = true;
-				}else if (world[x+1][y].getEventID() != 0) {
-					((GameHandler)getParent()).loadEvent(x+1, y);
+			}else if(InputHelper.RIGHT && x < width && arrowTimer > movementCooldown) {
+				if(world.length-1 >= x+1) {
+					if(world[x+1][y].getType() == MapTile.TYPE_STREET) {
+						moveCharacter(x+1, y);
+						moved = true;
+					}else if (world[x+1][y].getEventID() != 0) {
+						((GameHandler)getParent()).loadEvent(x+1, y);
+					}
 				}
 			}
 			
