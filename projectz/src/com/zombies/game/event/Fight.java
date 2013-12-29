@@ -51,7 +51,7 @@ public class Fight extends Group {
 	public void addSingleZombie(float percent, int hitpoints) {
 		//Add a zombie to the fight
 		zombies.add(new Zombie(hitpoints, 50, 50, percent));
-		zombies.get(zombies.size()-1).createAimbarImage(hitbar.getX(), hitbar.getY());
+		zombies.get(zombies.size()-1).createHitbarImage(hitbar.getX(), hitbar.getY());
 	}
 	
 	
@@ -65,7 +65,7 @@ public class Fight extends Group {
 		
 		//Then add all zombies to the hitbar
 		for(Zombie zed : zombies) {
-			addActor(zed.getAimbarImage());
+			addActor(zed.getHitbarImage());
 		}
 		
 		//And finaly add the pointer/crosshair
@@ -99,7 +99,7 @@ public class Fight extends Group {
 		
 		//Delete all dead Zombies
 		for(Zombie z : zombiesDeletion) {
-			removeActor(z.getAimbarImage());
+			removeActor(z.getHitbarImage());
 			zombies.remove(z);
 		}
 	}
