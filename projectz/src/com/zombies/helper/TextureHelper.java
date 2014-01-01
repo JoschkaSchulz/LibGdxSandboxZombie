@@ -20,6 +20,7 @@ public class TextureHelper {
 	public static TextureRegion FIGHT_POINTER;
 	public static TextureRegion FIGHT_HIT_ZONE;
 	public static TextureRegion FIGHT_SINGLE_ZOMBIE;
+	public static TextureRegion FIGHT_WALKING_ZOMBIE;
 	public static TextureRegion FIGHT_HIT;
 	
 	//Items
@@ -42,6 +43,7 @@ public class TextureHelper {
 		FIGHT_POINTER = new TextureRegion(fight, 0, 64, 64, 64);
 		FIGHT_SINGLE_ZOMBIE = new TextureRegion(fight, 64, 64, 41, 53);
 		FIGHT_HIT = new TextureRegion(fight, 128, 64, 64, 64);
+		FIGHT_WALKING_ZOMBIE = new TextureRegion(fight, 0, 64, 64, 128);
 		
 		//Loading the item tile set
 		Texture items = new Texture(Gdx.files.internal("data/gfx/items/item_tileset.png"));

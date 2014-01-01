@@ -13,6 +13,10 @@ import com.zombies.helper.TextureHelper;
 
 public class Fight extends Group {
 	
+	/******************************************
+	 * 		variables
+	 ******************************************/
+	
 	public static int HITBAR_WIDTH = 1024;
 	public static int BAR_POSITION_X = 100;
 	public static int BAR_POSITION_Y = 700;
@@ -24,6 +28,10 @@ public class Fight extends Group {
 	private boolean moveToRight;
 	private float speed;
 	private boolean inFight;
+	
+	/******************************************
+	 * 		constructor
+	 ******************************************/
 	
 	public Fight() {
 		hitbar = new Image(TextureHelper.FIGHT_HITBAR);
@@ -38,6 +46,14 @@ public class Fight extends Group {
 		speed = 250;
 	}
 
+	/******************************************
+	 * 		getter and setter
+	 ******************************************/
+	
+	/******************************************
+	 * 		methods
+	 ******************************************/
+	
 	public boolean isInFight() {
 		return inFight;
 	}

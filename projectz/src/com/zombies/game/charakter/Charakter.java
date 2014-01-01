@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.zombies.game.inventory.Consumable;
+import com.zombies.game.inventory.Gun;
 import com.zombies.game.inventory.Inventory;
 import com.zombies.game.inventory.Item;
 import com.zombies.game.skilltree.Skill;
@@ -38,8 +39,12 @@ public class Charakter {
 	private int meal; // ???
 	private Skilltree skilltree; // The skilltree of the charakter
 
-	private Inventory inventory; // The charakter inventory
-
+	private Inventory inventory; 	// The charakter inventory
+	private Gun equipGunSlot;		//The Slot for the Gund
+	private Item equipMeleeSlot;	//The Slot for the Melee Weapon
+	private Item equipAmorSlot;		//The Slot for the Armor
+	private Item equipBackpackSlot;	//Slot for the backpack
+	
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
 
@@ -189,6 +194,38 @@ public class Charakter {
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
+	}
+	
+	public Gun getEquipGunSlot() {
+		return equipGunSlot;
+	}
+
+	public void setEquipGunSlot(Gun equipGunSlot) {
+		this.equipGunSlot = equipGunSlot;
+	}
+
+	public Item getEquipMeleeSlot() {
+		return equipMeleeSlot;
+	}
+
+	public void setEquipMeleeSlot(Item equipMeleeSlot) {
+		this.equipMeleeSlot = equipMeleeSlot;
+	}
+
+	public Item getEquipAmorSlot() {
+		return equipAmorSlot;
+	}
+
+	public void setEquipAmorSlot(Item equipAmorSlot) {
+		this.equipAmorSlot = equipAmorSlot;
+	}
+
+	public Item getEquipBackpackSlot() {
+		return equipBackpackSlot;
+	}
+
+	public void setEquipBackpackSlot(Item equipBackpackSlot) {
+		this.equipBackpackSlot = equipBackpackSlot;
 	}
 	
 	/******************************************

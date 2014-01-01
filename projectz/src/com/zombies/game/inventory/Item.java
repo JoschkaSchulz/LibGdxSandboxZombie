@@ -14,6 +14,8 @@ public abstract class Item {
 	//static variables
 	public final static int GROUP_UNDEFINED 	= 0;
 	public final static int GROUP_CONSUMABLE 	= 1;
+	public final static int GROUP_GUN 			= 2;
+	public final static int GROUP_MELEE			= 3;
 	
 	//Varibales
 	private int id;

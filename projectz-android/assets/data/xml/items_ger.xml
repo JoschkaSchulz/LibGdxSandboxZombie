@@ -500,10 +500,13 @@
 	
 	</consumables>
 	
-<!-- Equipment are Cloth or Backpacks. They have a damage reduction(percentage of total damage reduction)  
-a Slot (id of the slot where the equipment fits) and a space value that determinates the ammount of inventory slots that are added -->
-	<equipments>
-	</equipments>
+<!-- Cloth have a value of demage reduction and maybe a value of avaible slots for the inventory -->
+	<cloth>
+	</cloth>
+	
+<!-- Backpacks, backpacks have a value of avaible bonus slots. -->
+	<backpacks>
+	</backpacks>	
 	
 <!-- weapons are Melee weapons, they have a rate of fire (determinating the cooldown) and a damage -->
 	<meleeweapons>
