@@ -1,6 +1,7 @@
 package com.zombies.game.event;
 
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -122,9 +123,11 @@ public class EventHandler extends Group {
 			//Find the Event in all Events
 			EventType eventType = getEventById(eventID);
 			//Generate dynamicly a new Event
-			Event event = (Event)Class.forName("com.zombies.game.events." + eventType.getClassName()).newInstance();
-			//Configure the Event
-			event.configEvent(this.debugRenderer);
+			Class eventClass = Class.forName("com.zombies.game.events." + eventType.getClassName());
+			//Get the right Constructor
+			Constructor eventConstructor = eventClass.getConstructor(ShapeRenderer.class, Charakter.class);
+			
+			Event event = (Event)eventConstructor.newInstance(this.debugRenderer, this.charRef);
 			
 			//Start the Event
 			currentEvent = event;

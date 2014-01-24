@@ -1,30 +1,41 @@
 package com.zombies.game.event;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.sun.org.apache.xml.internal.utils.CharKey;
 import com.zombies.game.GameHandler;
+import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.SkinHelper;
-import com.zombies.helper.TextureHelper;
 
 public abstract class Event extends Group {
+	
+	/*****************************************
+	 *		fields 
+	 *****************************************/
+	
 	protected ShapeRenderer debugRenderer;
 	protected Table dialog;
 	
-	public Event() {
-		
+	protected Charakter charRef;
+	
+	/*****************************************
+	 *		constructor 
+	 *****************************************/
+	
+	public Event(ShapeRenderer debugRenderer, Charakter charRef) {
+		this.debugRenderer = debugRenderer;
+		this.charRef = charRef;
 	}
 	
-	public void configEvent(ShapeRenderer debugRenderer) {
-		this.debugRenderer = debugRenderer;
-	}
+	/*****************************************
+	 *		methods
+	 *****************************************/
 	
 	protected void finishEvent() {
 		try{
@@ -37,14 +48,6 @@ public abstract class Event extends Group {
 		}catch(Exception e) {
 			System.err.println("Fehler beim finden des EventHandler im Event!");
 		}
-	}
-	
-	/**
-	 * Shows the fight against the Zombie
-	 */
-	protected void startFight() {
-		Fight fight = new Fight();
-		addActor(fight);
 	}
 	
 	/**

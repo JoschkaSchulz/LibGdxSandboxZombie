@@ -1,7 +1,7 @@
 package com.zombies.game.events;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.zombies.game.charakter.Charakter;
 import com.zombies.game.event.Event;
 import com.zombies.game.event.Fight;
 
@@ -9,11 +9,11 @@ public class ZombieFight extends Event {
 	
 	private Fight fight;
 	
-	public ZombieFight() {
-		super();
+	public ZombieFight(ShapeRenderer debugRenderer, Charakter charRef) {
+		super(debugRenderer, charRef);
 		
 		//Create a fight
-		fight = new Fight();
+		fight = new Fight(this.charRef);
 		fight.addSingleZombie(50,1);
 		fight.initActors();
 		
@@ -25,8 +25,6 @@ public class ZombieFight extends Event {
 						"Springe über den Zaun und lauf um dein Leben"};
 		showDialog(dialogText, a);
 	}
-	
-	
 
 	@Override
 	protected void dialogAnswer1() {

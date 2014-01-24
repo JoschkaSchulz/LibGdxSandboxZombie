@@ -9,9 +9,11 @@ import com.zombies.game.inventory.Consumable;
 import com.zombies.game.inventory.Gun;
 import com.zombies.game.inventory.Inventory;
 import com.zombies.game.inventory.Item;
+import com.zombies.game.inventory.MeleeWeapon;
 import com.zombies.game.skilltree.Skill;
 import com.zombies.game.skilltree.Skilltree;
 import com.zombies.helper.ItemHelper;
+import com.zombies.helper.TextureHelper;
 
 public class Charakter {
 	/******************************************
@@ -36,14 +38,18 @@ public class Charakter {
 	private int mapX; // The X coordinate of the map matrix
 	private int mapY; // The Y coordinate of the map matrix
 
-	private int meal; // ???
-	private Skilltree skilltree; // The skilltree of the charakter
+	//Attributes
+	private int maxMeleeZombies;	//The number of Zombies the player can handle
+	
+	private int meal; 				// favorite food
+	private Skilltree skilltree; 	// The skilltree of the charakter
 
-	private Inventory inventory; 	// The charakter inventory
-	private Gun equipGunSlot;		//The Slot for the Gund
-	private Item equipMeleeSlot;	//The Slot for the Melee Weapon
-	private Item equipAmorSlot;		//The Slot for the Armor
-	private Item equipBackpackSlot;	//Slot for the backpack
+	private Inventory inventory; 		// The charakter inventory
+	private Gun equipGunSlot;			//The Slot for the Gund
+	private MeleeWeapon equipMeleeSlot;	//The Slot for the Melee Weapon
+	private Item equipAmorSlot;			//The Slot for the Armor
+	private Item equipBackpackSlot;		//Slot for the backpack
+	private static MeleeWeapon WEAPON_FISTS = new MeleeWeapon(-1, "Fists", "No Melee Weapon", 0.1f, 1, TextureHelper.ITEM_FISTS);
 	
 	public Charakter(FileHandle xmlFile) {
 		this.xmlFile = xmlFile;
@@ -51,6 +57,8 @@ public class Charakter {
 		inventory = new Inventory();
 		
 		this.loadCharakter();
+		
+		this.maxMeleeZombies = 5;
 	}
 
 	/******************************************
@@ -201,14 +209,16 @@ public class Charakter {
 	}
 
 	public void setEquipGunSlot(Gun equipGunSlot) {
-		this.equipGunSlot = equipGunSlot;
+		this.equipGunSlot = equipGunSlot; 
 	}
 
-	public Item getEquipMeleeSlot() {
-		return equipMeleeSlot;
+	public MeleeWeapon getEquipMeleeSlot() {
+		if(this.equipMeleeSlot == null) {
+			return WEAPON_FISTS;
+		}else return equipMeleeSlot;
 	}
 
-	public void setEquipMeleeSlot(Item equipMeleeSlot) {
+	public void setEquipMeleeSlot(MeleeWeapon equipMeleeSlot) {
 		this.equipMeleeSlot = equipMeleeSlot;
 	}
 
@@ -226,6 +236,14 @@ public class Charakter {
 
 	public void setEquipBackpackSlot(Item equipBackpackSlot) {
 		this.equipBackpackSlot = equipBackpackSlot;
+	}
+	
+	public int getMaxMeleeZombies() {
+		return maxMeleeZombies;
+	}
+	
+	public void setMaxMeleeZombies(int count) {
+		this.maxMeleeZombies = count;
 	}
 	
 	/******************************************

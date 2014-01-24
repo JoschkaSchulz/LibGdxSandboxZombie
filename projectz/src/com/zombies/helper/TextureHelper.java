@@ -22,9 +22,15 @@ public class TextureHelper {
 	public static TextureRegion FIGHT_SINGLE_ZOMBIE;
 	public static TextureRegion FIGHT_WALKING_ZOMBIE;
 	public static TextureRegion FIGHT_HIT;
+	public static TextureRegion FIGHT_MELEE_BACKGROUND;
+	public static TextureRegion FIGHT_MELEE_LEFT_ARROW;
+	public static TextureRegion FIGHT_MELEE_RIGHT_ARROW;
+	public static TextureRegion FIGHT_MELEE_UP_ARROW;
+	public static TextureRegion FIGHT_MELEE_DOWN_ARROW;
 	
 	//Items
 	public static TextureRegion ITEM_TILE_SET[][];
+	public static TextureRegion ITEM_FISTS;
 	
 	/***************************************************************************
 	 * 			Methods
@@ -38,16 +44,22 @@ public class TextureHelper {
 		MAP_HIGHLIGHT_EVENT = MAP_CITY_TILE_SET[1][0];
 	
 		//Loading Event Textures
-		Texture fight = new Texture(Gdx.files.internal("data/gfx/events/fight.png"));
-		FIGHT_HITBAR = new TextureRegion(fight, 0, 0, 1024, 64);
-		FIGHT_POINTER = new TextureRegion(fight, 0, 64, 64, 64);
-		FIGHT_SINGLE_ZOMBIE = new TextureRegion(fight, 64, 64, 41, 53);
-		FIGHT_HIT = new TextureRegion(fight, 128, 64, 64, 64);
-		FIGHT_WALKING_ZOMBIE = new TextureRegion(fight, 0, 64, 64, 128);
+		Texture fight 				= new Texture(Gdx.files.internal("data/gfx/events/fight.png"));
+		FIGHT_HITBAR 				= new TextureRegion(fight, 0, 0, 1024, 64);
+		FIGHT_POINTER 				= new TextureRegion(fight, 0, 64, 64, 64);
+		FIGHT_SINGLE_ZOMBIE 		= new TextureRegion(fight, 64, 64, 41, 53);
+		FIGHT_HIT 					= new TextureRegion(fight, 128, 64, 64, 64);
+		FIGHT_WALKING_ZOMBIE 		= new TextureRegion(fight, 0, 64, 64, 128);
+		FIGHT_MELEE_BACKGROUND 		= new TextureRegion(fight, 196, 64, 64, 64);
+		FIGHT_MELEE_RIGHT_ARROW 	= new TextureRegion(fight, 260, 64, 32, 32);
+		FIGHT_MELEE_LEFT_ARROW 		= new TextureRegion(fight, 292, 64, 32, 32);
+		FIGHT_MELEE_UP_ARROW 		= new TextureRegion(fight, 260, 96, 32, 32);
+		FIGHT_MELEE_DOWN_ARROW 		= new TextureRegion(fight, 292, 96, 32, 32);
 		
 		//Loading the item tile set
 		Texture items = new Texture(Gdx.files.internal("data/gfx/items/item_tileset.png"));
 		ITEM_TILE_SET = TextureRegion.split(items, 128, 128);
+		ITEM_FISTS = ITEM_TILE_SET[0][1];
 	}
 	
 	public static TextureRegion[][] getCityTileSet() {
