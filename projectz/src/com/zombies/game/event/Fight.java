@@ -3,6 +3,7 @@ package com.zombies.game.event;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -77,7 +78,7 @@ public class Fight extends Group {
 	 * removes the melee fight actor from the tree
 	 */
 	public void endMelee() {
-		removeActor(meleeFight);
+		state = STATE_END_MELEE_FIGHT;
 	}
 	
 	public boolean isInFight() {
@@ -118,6 +119,10 @@ public class Fight extends Group {
 			
 			inFight = true;
 		}else{
+			for(Zombie zed : zombies) {
+				meleeFight.addZombie(zed.getHitpoints());
+			}
+			zombies.clear();
 			inFight = true;
 			state = STATE_START_MELEE_FIGHT;
 		}
@@ -198,6 +203,6 @@ public class Fight extends Group {
 		}
 		
 		//Check if the fight is finished
-		if(zombies.size() <= 0) inFight = false;
+		if(zombies.size() <= 0 && state != STATE_MELEE_FIGHT) inFight = false;
 	}
 }

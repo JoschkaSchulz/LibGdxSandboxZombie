@@ -14,7 +14,7 @@ public class ZombieFight extends Event {
 		
 		//Create a fight
 		fight = new Fight(this.charRef);
-		fight.addSingleZombie(50,1);
+		fight.addSingleZombie(50,5);
 		fight.initActors();
 		
 		//Create a startup Dialog

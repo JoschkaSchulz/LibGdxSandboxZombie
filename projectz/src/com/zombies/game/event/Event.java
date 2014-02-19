@@ -1,5 +1,7 @@
 package com.zombies.game.event;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -12,6 +14,7 @@ import com.zombies.game.GameHandler;
 import com.zombies.game.charakter.Charakter;
 import com.zombies.helper.GUIHelper;
 import com.zombies.helper.SkinHelper;
+import com.zombies.helper.TextureHelper;
 
 public abstract class Event extends Group {
 	

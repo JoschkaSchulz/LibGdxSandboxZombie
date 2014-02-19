@@ -27,6 +27,7 @@ public class TextureHelper {
 	public static TextureRegion FIGHT_MELEE_RIGHT_ARROW;
 	public static TextureRegion FIGHT_MELEE_UP_ARROW;
 	public static TextureRegion FIGHT_MELEE_DOWN_ARROW;
+	public static TextureRegion FIGHT_MELEE_ZOMBIE[];
 	
 	//Items
 	public static TextureRegion ITEM_TILE_SET[][];
@@ -45,6 +46,9 @@ public class TextureHelper {
 	
 		//Loading Event Textures
 		Texture fight 				= new Texture(Gdx.files.internal("data/gfx/events/fight.png"));
+		
+		FIGHT_MELEE_ZOMBIE			= new TextureRegion[8];
+		
 		FIGHT_HITBAR 				= new TextureRegion(fight, 0, 0, 1024, 64);
 		FIGHT_POINTER 				= new TextureRegion(fight, 0, 64, 64, 64);
 		FIGHT_SINGLE_ZOMBIE 		= new TextureRegion(fight, 64, 64, 41, 53);
@@ -55,6 +59,15 @@ public class TextureHelper {
 		FIGHT_MELEE_LEFT_ARROW 		= new TextureRegion(fight, 292, 64, 32, 32);
 		FIGHT_MELEE_UP_ARROW 		= new TextureRegion(fight, 260, 96, 32, 32);
 		FIGHT_MELEE_DOWN_ARROW 		= new TextureRegion(fight, 292, 96, 32, 32);
+		FIGHT_MELEE_ZOMBIE[0]		= new TextureRegion(fight, 0, 256, 196, 256);
+		FIGHT_MELEE_ZOMBIE[1]		= new TextureRegion(fight, 196, 256, 196, 256);
+		FIGHT_MELEE_ZOMBIE[2]		= new TextureRegion(fight, 392, 256, 196, 256);
+		FIGHT_MELEE_ZOMBIE[3]		= new TextureRegion(fight, 588, 256, 196, 256);
+		FIGHT_MELEE_ZOMBIE[4]		= new TextureRegion(fight, 0, 512, 196, 256);
+		FIGHT_MELEE_ZOMBIE[5]		= new TextureRegion(fight, 196, 512, 196, 256);
+		FIGHT_MELEE_ZOMBIE[6]		= new TextureRegion(fight, 392, 512, 196, 256);
+		FIGHT_MELEE_ZOMBIE[7]		= new TextureRegion(fight, 588, 512, 196, 256);
+		
 		
 		//Loading the item tile set
 		Texture items = new Texture(Gdx.files.internal("data/gfx/items/item_tileset.png"));

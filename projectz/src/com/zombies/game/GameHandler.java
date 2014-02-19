@@ -36,6 +36,9 @@ public class GameHandler extends Group {
 	public static final int STATE_OPENINVENTORY		= 7;
 	public static final int STATE_INVENTORY			= 8;
 	public static final int STATE_CLOSEINVENTORY	= 9;
+	public static final int STATE_GAMEOVER_INIT		= 10;
+	public static final int STATE_GAMEOVER			= 11;
+	public static final int STATE_GAMEOVER_CLOSE	= 12;
 	
 	//Referenz to the root
 	private ProjectZ projZRef;
@@ -231,7 +234,6 @@ public class GameHandler extends Group {
 	public void act(float delta) {
 		super.act(delta);
 		
-		
 		//Handle the events
 		if(charakter == null && state != STATE_CHARAKTERPICKER) {
 			state = STATE_CHARAKTERPICKER;
@@ -242,11 +244,7 @@ public class GameHandler extends Group {
 				this.startGame();					
 			}
 		}else if(state == STATE_MAP) {
-			
-			//Checks if the game is over!
-			if(isGameOver()) {
-				this.projZRef.mainMenu();
-			}
+			if(isGameOver()) this.projZRef.mainMenu();
 			
 			/*******************************
 			 * start testing stuff :)
@@ -271,6 +269,11 @@ public class GameHandler extends Group {
 			this.addActor(greyLayer);
 			this.addActor(eventHandler);
 			state = STATE_EVENT;
+		}else if(state == STATE_EVENT) {
+			if(isGameOver()) {
+				this.clear();
+				this.projZRef.mainMenu();
+			}
 		}else if(state == STATE_EVENTDONE) {
 			this.clear();
 			this.addActor(currentMap);
